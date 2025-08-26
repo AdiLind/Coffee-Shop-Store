@@ -1,5 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
+const { v4: uuidv4 } = require('uuid');
 const { createError } = require('./error-handler');
 
 class PersistenceManager {
@@ -164,7 +165,13 @@ class PersistenceManager {
     }
 
     async createProduct(productData) {
-        return await this.appendData(this.files.products, productData);
+        const newProduct = {
+            id: uuidv4(),
+            ...productData,
+            createdAt: new Date().toISOString(),
+            inStock: productData.inStock !== undefined ? productData.inStock : true
+        };
+        return await this.appendData(this.files.products, newProduct);
     }
 
     async updateProduct(productId, updateData) {
@@ -241,7 +248,13 @@ class PersistenceManager {
     }
 
     async createOrder(orderData) {
-        return await this.appendData(this.files.orders, orderData);
+        const newOrder = {
+            id: uuidv4(),
+            ...orderData,
+            status: orderData.status || 'completed',
+            createdAt: new Date().toISOString()
+        };
+        return await this.appendData(this.files.orders, newOrder);
     }
 
     async getOrderById(orderId) {
@@ -267,6 +280,92 @@ class PersistenceManager {
 
     async getAllActivity() {
         return await this.readData(this.files.activity);
+    }
+
+    async initializeData() {
+        await this.initializeDataFiles();
+    }
+
+    async createSampleData() {
+        console.log('🔧 Creating comprehensive coffee shop sample data...');
+        
+        const sampleProducts = [
+            {
+                title: 'Professional Espresso Machine',
+                description: 'Italian-made espresso machine with dual boiler system for perfect coffee extraction',
+                price: 299.99,
+                category: 'machines',
+                image: '/images/products/espresso-machine-pro.jpg'
+            },
+            {
+                title: 'Premium Drip Coffee Maker',
+                description: 'Programmable coffee maker with thermal carafe, perfect for office or home',
+                price: 89.99,
+                category: 'machines',
+                image: '/images/products/drip-coffee-maker.jpg'
+            },
+            {
+                title: 'French Press Deluxe',
+                description: 'Borosilicate glass French press with steel frame for rich, full-bodied coffee',
+                price: 34.99,
+                category: 'machines',
+                image: '/images/products/french-press.jpg'
+            },
+            {
+                title: 'Colombian Arabica Coffee Beans',
+                description: 'Single-origin Colombian coffee beans, medium roast with chocolate notes',
+                price: 24.99,
+                category: 'beans',
+                image: '/images/products/colombian-beans.jpg'
+            },
+            {
+                title: 'Ethiopian Yirgacheffe',
+                description: 'Light roast Ethiopian beans with bright acidity and floral aroma',
+                price: 28.99,
+                category: 'beans',
+                image: '/images/products/ethiopian-beans.jpg'
+            },
+            {
+                title: 'House Espresso Blend',
+                description: 'Dark roast espresso blend perfect for lattes and cappuccinos',
+                price: 22.99,
+                category: 'beans',
+                image: '/images/products/espresso-blend.jpg'
+            },
+            {
+                title: 'Artisan Ceramic Coffee Cup',
+                description: 'Handcrafted ceramic cup with ergonomic handle, perfect for morning coffee',
+                price: 15.99,
+                category: 'accessories',
+                image: '/images/products/ceramic-cup.jpg'
+            },
+            {
+                title: 'Electric Milk Frother',
+                description: 'Stainless steel milk frother for perfect cappuccino and latte foam',
+                price: 45.99,
+                category: 'accessories',
+                image: '/images/products/milk-frother.jpg'
+            },
+            {
+                title: 'Burr Coffee Grinder',
+                description: 'Conical burr grinder with 15 grind settings for consistent results',
+                price: 79.99,
+                category: 'accessories',
+                image: '/images/products/coffee-grinder.jpg'
+            }
+        ];
+
+        const products = await this.getAllProducts();
+        if (products.length === 0) {
+            for (const productData of sampleProducts) {
+                await this.createProduct(productData);
+            }
+            console.log(`✅ Created ${sampleProducts.length} coffee products`);
+        } else {
+            console.log(`✅ Found existing ${products.length} products, skipping sample data creation`);
+        }
+
+        console.log('✅ Sample data initialization complete!');
     }
 }
 
