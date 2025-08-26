@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "c266ea86-fe8c-4568-85d6-785d7c88c581",
+    "userId": "test-user-1",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Test Product"
+      }
+    ],
+    "totalAmount": 309.98,
+    "shippingAddress": "123 Test St, Test City, TC 12345",
+    "status": "completed",
+    "createdAt": "2025-08-26T20:58:41.214Z"
+  }
+]

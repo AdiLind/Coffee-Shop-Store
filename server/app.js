@@ -1,12 +1,13 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 
-const { handleError, handleNotFound, asyncWrapper, createError } = require('./modules/error-handler');
+const { handleError, handleNotFound } = require('./modules/error-handler');
 const { persistenceManager } = require('./modules/persist_module');
+const apiRoutes = require('./routes/api');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,222 +20,88 @@ const limiter = rateLimit({
         error: 'RATE_LIMIT_EXCEEDED',
         message: 'Too many requests from this IP, please try again later.',
         statusCode: 429
-    },
-    standardHeaders: true,
-    legacyHeaders: false
+    }
 });
 
+// Security middleware
 app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            styleSrc: ["'self'", "'unsafe-inline'"],
-            scriptSrc: ["'self'"],
-            imgSrc: ["'self'", "data:", "https:"],
-        },
-    },
-    crossOriginEmbedderPolicy: false
+    contentSecurityPolicy: false // Allow inline scripts for development
 }));
-
+app.use(cors());
 app.use(limiter);
 
-app.use(cors({
-    origin: process.env.NODE_ENV === 'production' ? 
-        ['https://yourdomain.com'] : 
-        ['http://localhost:3000', 'http://127.0.0.1:3000'],
-    credentials: true
-}));
-
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// Basic middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// Static file serving
 app.use(express.static(path.join(__dirname, '../public')));
 
+// Logging middleware
 app.use((req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} - IP: ${req.ip}`);
     next();
 });
 
+// API routes
+app.use('/api', apiRoutes);
+
+// Serve HTML pages
 app.get('/', (req, res) => {
-    res.json({
-        success: true,
-        message: 'Coffee Shop Store API - Phase 1',
-        version: '1.0.0',
-        endpoints: {
-            products: '/api/products',
-            health: '/api/health'
-        },
-        timestamp: new Date().toISOString()
-    });
+    res.redirect('/pages/store.html');
 });
 
-app.get('/api/health', (req, res) => {
-    res.json({
-        success: true,
-        message: 'Server is healthy',
-        uptime: process.uptime(),
-        timestamp: new Date().toISOString(),
-        version: '1.0.0'
-    });
-});
-
-app.get('/api/products', asyncWrapper(async (req, res) => {
+// Initialize data on startup
+async function initializeServer() {
     try {
-        const { search, category } = req.query;
-        let products;
-
-        if (search) {
-            products = await persistenceManager.searchProducts(search);
-        } else if (category) {
-            products = await persistenceManager.getProductsByCategory(category);
-        } else {
-            products = await persistenceManager.getAllProducts();
-        }
-
-        const inStockProducts = products.filter(product => product.inStock);
-
-        res.json({
-            success: true,
-            data: {
-                products: inStockProducts,
-                total: inStockProducts.length,
-                categories: ['machines', 'beans', 'accessories']
-            },
-            message: 'Products retrieved successfully'
-        });
+        await persistenceManager.initializeData();
+        await persistenceManager.createSampleData();
+        console.log('✅ Coffee shop data initialized');
     } catch (error) {
-        throw error;
+        console.error('❌ Failed to initialize data:', error);
     }
-}));
+}
 
-app.get('/api/products/:id', asyncWrapper(async (req, res) => {
-    try {
-        const { id } = req.params;
-        const product = await persistenceManager.getProductById(id);
+// Error handling middleware
+app.use(handleError);
 
-        if (!product.inStock) {
-            throw createError('Product is currently out of stock', 404, 'PRODUCT_OUT_OF_STOCK');
-        }
-
-        res.json({
-            success: true,
-            data: { product },
-            message: 'Product retrieved successfully'
-        });
-    } catch (error) {
-        throw error;
-    }
-}));
-
-app.get('/api/categories', (req, res) => {
-    res.json({
-        success: true,
-        data: {
-            categories: [
-                { id: 'machines', name: 'Coffee Machines', description: 'Professional and home coffee machines' },
-                { id: 'beans', name: 'Coffee Beans', description: 'Premium coffee beans from around the world' },
-                { id: 'accessories', name: 'Accessories', description: 'Coffee brewing accessories and tools' }
-            ]
-        },
-        message: 'Categories retrieved successfully'
-    });
-});
-
-app.post('/api/test-persistence', asyncWrapper(async (req, res) => {
-    try {
-        const products = await persistenceManager.getAllProducts();
-        const users = await persistenceManager.getAllUsers();
-
-        res.json({
-            success: true,
-            data: {
-                productCount: products.length,
-                userCount: users.length,
-                sampleProduct: products[0] || null,
-                sampleUser: users[0] ? { id: users[0].id, username: users[0].username, role: users[0].role } : null
-            },
-            message: 'Persistence layer test completed successfully'
-        });
-    } catch (error) {
-        throw error;
-    }
-}));
-
-app.get('/api/*', (req, res) => {
+// 404 handler
+app.use((req, res) => {
     res.status(404).json({
         success: false,
-        error: 'ENDPOINT_NOT_FOUND',
-        message: `API endpoint ${req.originalUrl} not found`,
+        error: 'Not Found',
+        message: `Route ${req.path} not found`,
         availableEndpoints: [
+            'GET /',
             'GET /api/health',
             'GET /api/products',
             'GET /api/products/:id',
-            'GET /api/categories',
-            'POST /api/test-persistence'
-        ],
-        statusCode: 404
+            'POST /api/products'
+        ]
     });
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+// Start server
+app.listen(PORT, async () => {
+    console.log(`☕ Coffee Shop Server running on http://localhost:${PORT}`);
+    console.log(`📁 Serving static files from: ${path.join(__dirname, '../public')}`);
+    console.log(`🌐 API available at: http://localhost:${PORT}/api`);
+    console.log(`🏪 Visit the store: http://localhost:${PORT}/pages/store.html`);
+    
+    // Initialize data
+    await initializeServer();
+    
+    console.log('\n🚀 Server ready! Available endpoints:');
+    console.log('   GET  /api/health');
+    console.log('   GET  /api/products');
+    console.log('   GET  /api/products/:id');
+    console.log('   POST /api/products');
+    console.log('   GET  /api/cart/:userId');
+    console.log('   POST /api/cart/:userId');
+    console.log('   GET  /api/orders/:userId');
+    console.log('   POST /api/orders');
+    console.log('   GET  /api/admin/stats');
 });
 
-app.use(handleNotFound);
-app.use(handleError);
-
-async function startServer() {
-    try {
-        await persistenceManager.initializeDataFiles();
-        console.log('✅ Data files initialized successfully');
-
-        app.listen(PORT, () => {
-            console.log('\n🚀 Coffee Shop Store Server Started!');
-            console.log(`📍 Server running on: http://localhost:${PORT}`);
-            console.log(`📁 Serving static files from: ${path.join(__dirname, '../public')}`);
-            console.log(`📊 API endpoints available at: http://localhost:${PORT}/api`);
-            console.log(`🛡️  Security middleware active (Helmet, CORS, Rate Limiting)`);
-            console.log(`⏰ Started at: ${new Date().toISOString()}\n`);
-            
-            console.log('Available API Endpoints:');
-            console.log('  GET  /                     - API Info');
-            console.log('  GET  /api/health           - Health Check');
-            console.log('  GET  /api/products         - Get all products');
-            console.log('  GET  /api/products/:id     - Get product by ID');
-            console.log('  GET  /api/categories       - Get all categories');
-            console.log('  POST /api/test-persistence - Test data layer');
-            console.log('');
-        });
-    } catch (error) {
-        console.error('❌ Failed to start server:', error.message);
-        console.error(error.stack);
-        process.exit(1);
-    }
-}
-
-process.on('SIGTERM', () => {
-    console.log('\n📴 Received SIGTERM, shutting down gracefully...');
-    process.exit(0);
-});
-
-process.on('SIGINT', () => {
-    console.log('\n📴 Received SIGINT, shutting down gracefully...');
-    process.exit(0);
-});
-
-process.on('uncaughtException', (error) => {
-    console.error('❌ Uncaught Exception:', error);
-    process.exit(1);
-});
-
-process.on('unhandledRejection', (reason, promise) => {
-    console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
-    process.exit(1);
-});
-
-if (require.main === module) {
-    startServer();
-}
-
-module.exports = { app, startServer };
+module.exports = app;

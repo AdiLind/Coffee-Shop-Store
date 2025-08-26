@@ -98,5 +98,15 @@
     "image": "/images/products/coffee-scale.jpg",
     "inStock": true,
     "createdAt": "2025-01-15T10:45:00.000Z"
+  },
+  {
+    "id": "547d7fa6-1b5a-4d2f-a673-eda7e94660e1",
+    "title": "Test Coffee Mug",
+    "description": "A test mug for automated testing",
+    "price": 9.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-08-26T20:58:41.087Z",
+    "inStock": true
   }
 ]
