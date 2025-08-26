@@ -1,0 +1,102 @@
+[
+  {
+    "id": "prod-1",
+    "title": "Professional Espresso Machine",
+    "description": "Italian-made espresso machine for perfect coffee brewing with 15-bar pressure pump and stainless steel construction",
+    "price": 299.99,
+    "category": "machines",
+    "image": "/images/products/espresso-machine.jpg",
+    "inStock": true,
+    "createdAt": "2025-01-15T10:00:00.000Z"
+  },
+  {
+    "id": "prod-2",
+    "title": "Premium Arabica Coffee Beans",
+    "description": "Single-origin Arabica beans from Colombian highlands, medium roast with notes of chocolate and caramel",
+    "price": 24.99,
+    "category": "beans",
+    "image": "/images/products/arabica-beans.jpg",
+    "inStock": true,
+    "createdAt": "2025-01-15T10:05:00.000Z"
+  },
+  {
+    "id": "prod-3",
+    "title": "Manual Coffee Grinder",
+    "description": "Burr coffee grinder with adjustable grind settings for consistent particle size and optimal extraction",
+    "price": 79.99,
+    "category": "accessories",
+    "image": "/images/products/coffee-grinder.jpg",
+    "inStock": true,
+    "createdAt": "2025-01-15T10:10:00.000Z"
+  },
+  {
+    "id": "prod-4",
+    "title": "French Press Coffee Maker",
+    "description": "Classic glass French press with stainless steel filter, perfect for brewing rich and full-bodied coffee",
+    "price": 34.99,
+    "category": "accessories",
+    "image": "/images/products/french-press.jpg",
+    "inStock": true,
+    "createdAt": "2025-01-15T10:15:00.000Z"
+  },
+  {
+    "id": "prod-5",
+    "title": "Dark Roast Brazilian Beans",
+    "description": "Bold Brazilian coffee beans with intense flavor, perfect for espresso and strong coffee preparations",
+    "price": 22.99,
+    "category": "beans",
+    "image": "/images/products/dark-roast-beans.jpg",
+    "inStock": true,
+    "createdAt": "2025-01-15T10:20:00.000Z"
+  },
+  {
+    "id": "prod-6",
+    "title": "Automatic Drip Coffee Maker",
+    "description": "Programmable drip coffee maker with 12-cup capacity, auto shut-off, and keep-warm plate",
+    "price": 89.99,
+    "category": "machines",
+    "image": "/images/products/drip-coffee-maker.jpg",
+    "inStock": true,
+    "createdAt": "2025-01-15T10:25:00.000Z"
+  },
+  {
+    "id": "prod-7",
+    "title": "Ceramic Coffee Mug Set",
+    "description": "Set of 4 elegant ceramic mugs with double-wall insulation to keep coffee hot longer",
+    "price": 39.99,
+    "category": "accessories",
+    "image": "/images/products/ceramic-mugs.jpg",
+    "inStock": true,
+    "createdAt": "2025-01-15T10:30:00.000Z"
+  },
+  {
+    "id": "prod-8",
+    "title": "Ethiopian Light Roast Beans",
+    "description": "Floral and fruity light roast Ethiopian coffee beans with bright acidity and wine-like characteristics",
+    "price": 26.99,
+    "category": "beans",
+    "image": "/images/products/ethiopian-beans.jpg",
+    "inStock": false,
+    "createdAt": "2025-01-15T10:35:00.000Z"
+  },
+  {
+    "id": "prod-9",
+    "title": "Milk Frother Wand",
+    "description": "Electric milk frother for creating creamy foam for lattes, cappuccinos, and other specialty drinks",
+    "price": 19.99,
+    "category": "accessories",
+    "image": "/images/products/milk-frother.jpg",
+    "inStock": true,
+    "createdAt": "2025-01-15T10:40:00.000Z"
+  },
+  {
+    "id": "prod-10",
+    "title": "Coffee Scale with Timer",
+    "description": "Digital coffee scale with built-in timer for precise brewing measurements and consistent results",
+    "price": 49.99,
+    "category": "accessories",
+    "image": "/images/products/coffee-scale.jpg",
+    "inStock": true,
+    "createdAt": "2025-01-15T10:45:00.000Z"
+  }
+]
