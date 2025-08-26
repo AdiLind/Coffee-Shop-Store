@@ -1,0 +1,29 @@
+{
+  "name": "coffee-shop-store",
+  "version": "1.0.0",
+  "description": "Full-stack coffee shop online store with Node.js backend and vanilla frontend",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "nodemon server/app.js",
+    "test": "node tests/test.js"
+  },
+  "keywords": ["coffee", "shop", "ecommerce", "nodejs", "express"],
+  "author": "RUNI 2025 Project",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.0.1",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.1",
+    "multer": "^2.0.2",
+    "node-fetch": "^3.3.2",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
