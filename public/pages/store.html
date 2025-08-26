@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☕ Coffee Shop - Store</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>☕ Coffee Shop Store</h1>
+            <p>Premium coffee equipment and beans</p>
+            
+            <nav class="navbar">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="/pages/store.html">Store</a></li>
+                    <li class="nav-item"><a href="/pages/login.html">Login</a></li>
+                    <li class="nav-item"><a href="/pages/cart.html">Cart</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main class="main">
+            <div class="store-section">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search products..." id="searchInput" class="search-input">
+                    <button class="btn btn-primary" id="searchBtn">Search</button>
+                </div>
+                
+                <div class="categories">
+                    <button class="btn btn-secondary category-btn" data-category="all">All Products</button>
+                    <button class="btn btn-secondary category-btn" data-category="machines">Machines</button>
+                    <button class="btn btn-secondary category-btn" data-category="beans">Coffee Beans</button>
+                    <button class="btn btn-secondary category-btn" data-category="accessories">Accessories</button>
+                </div>
+                
+                <div class="products-grid" id="productsGrid">
+                    <div class="loading">Loading products...</div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>&copy; 2025 Coffee Shop. Premium coffee experience.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Placeholder for Phase 3 - JavaScript functionality will be added later
+        document.addEventListener('DOMContentLoaded', function() {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '<p class="placeholder">JavaScript functionality will be implemented in Phase 3</p>';
+        });
+    </script>
+</body>
+</html>
