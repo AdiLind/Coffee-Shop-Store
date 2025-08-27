@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Coffee Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>☕ My Orders</h1>
+            <p>View your order history and track purchases</p>
+        </header>
+
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/pages/store.html">Store</a></li>
+                <li class="nav-item"><a href="/pages/cart.html">Cart</a></li>
+                <li class="nav-item nav-user-section"></li>
+            </ul>
+        </nav>
+        
+        <main class="main">
+            <div class="orders-container">
+                <div class="orders-header">
+                    <h2>Order History</h2>
+                    <div class="orders-summary" id="ordersSummary">
+                        <!-- Order count will be displayed here -->
+                    </div>
+                </div>
+                
+                <div class="orders-list" id="ordersList">
+                    <div class="loading">Loading your orders...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal-overlay" id="orderModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Order Details</h3>
+                <button class="modal-close" id="modalCloseBtn">&times;</button>
+            </div>
+            <div class="modal-body" id="orderDetailsContent">
+                <!-- Order details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modalCloseFooterBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-required" id="loginRequired" style="display: none;">
+        <div class="auth-required-content">
+            <h3>Login Required</h3>
+            <p>Please login to view your orders.</p>
+            <div style="margin-top: 1rem;">
+                <a href="/pages/login.html" class="btn btn-primary">Login</a>
+                <a href="/pages/register.html" class="btn btn-secondary">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/utils.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/orders.js"></script>
+</body>
+</html>

@@ -3,14 +3,14 @@
     "id": "user-1",
     "username": "admin",
     "email": "admin@coffeeshop.com",
-    "password": "$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+    "password": "$2b$12$kjfp1D7oJNPy6OFCXf4vkOE.3zEc79AjWyAstDhN2kyJN6icZfYJa",
     "role": "admin",
     "preferences": {
       "theme": "light",
       "language": "en"
     },
     "createdAt": "2025-01-15T09:00:00.000Z",
-    "lastLogin": "2025-01-20T10:30:00.000Z"
+    "lastLogin": "2025-08-27T20:11:49.451Z"
   },
   {
     "id": "user-2",
@@ -50,5 +50,96 @@
     },
     "createdAt": "2025-01-18T09:30:00.000Z",
     "lastLogin": "2025-01-18T18:45:00.000Z"
+  },
+  {
+    "id": "1713b351-4c33-4285-ad7b-e76369055087",
+    "username": "testuser1756274338470",
+    "email": "test1756274338470@example.com",
+    "password": "$2b$12$fC0jOXHJSRwj3aQyqUeMxOi9rb3gwEQ2lKB.PdMOJeZraFTaCoEai",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-27T05:58:59.072Z",
+    "lastLogin": "2025-08-27T05:58:59.710Z"
+  },
+  {
+    "id": "1902db70-2e67-4b87-9780-34c6897afea7",
+    "username": "testuser1756274371184",
+    "email": "test1756274371184@example.com",
+    "password": "$2b$12$.V9zjh56dtxUOJT4FUz3c.iNKgWKqT2IsAk1qbLkORIoIyixQ/wQu",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-27T05:59:31.785Z",
+    "lastLogin": "2025-08-27T05:59:32.397Z"
+  },
+  {
+    "id": "430bb1a6-e08c-4b03-9bca-98675c4b1488",
+    "username": "testuser1756274598406",
+    "email": "test1756274598406@example.com",
+    "password": "$2b$12$FFCxZ3telALqOpSq96Ph5uiVkb1CDTGXGJqaKVe6fJcWvOgS0AQYq",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-27T06:03:19.021Z",
+    "lastLogin": "2025-08-27T06:03:19.623Z"
+  },
+  {
+    "id": "5dea0de2-1f2f-4ae0-b0a2-30bdab32bd7f",
+    "username": "testuser1756274645534",
+    "email": "test1756274645534@example.com",
+    "password": "$2b$12$.1Ensmea6HOell01NUu3t.MJ46HcY9DIrwVuJoqdvHw0K07tKQBFa",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-27T06:04:06.149Z",
+    "lastLogin": "2025-08-27T06:04:06.758Z"
+  },
+  {
+    "id": "2912572d-5da5-436f-8ba3-bd0404ce6842",
+    "username": "Adi",
+    "email": "Adi@adi.com",
+    "password": "$2b$12$FXDwc2zgW8ryKjxScFpRcO0Dfqgn2tGcX9iafwDpUWjlr/Cu4SJN6",
+    "role": "admin",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-27T18:54:30.933Z",
+    "lastLogin": "2025-08-27T20:37:27.421Z"
+  },
+  {
+    "id": "9f1fd2b0-8d42-4d9a-b8bd-6d7aba603b4d",
+    "username": "testuser1756325507498",
+    "email": "test1756325507498@example.com",
+    "password": "$2b$12$HKq2e2wSO.gfkfGRQojCou3zfJMuVrhA88mvukCaUEuIwTKoqIJxq",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-27T20:11:48.087Z",
+    "lastLogin": "2025-08-27T20:11:48.684Z"
+  },
+  {
+    "id": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
+    "username": "lolo",
+    "email": "lolo@lolo.com",
+    "password": "$2b$12$ak8IJJR4vhMozQwXjfD85uap3OZv.3PBE2f70dSkHKpBIgjeS0gOy",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-27T20:36:05.864Z",
+    "lastLogin": "2025-08-27T20:39:32.904Z"
   }
 ]

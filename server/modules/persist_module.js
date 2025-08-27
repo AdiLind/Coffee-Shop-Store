@@ -11,7 +11,8 @@ class PersistenceManager {
             products: 'products.json',
             carts: 'carts.json',
             orders: 'orders.json',
-            activity: 'activity.json'
+            activity: 'activity.json',
+            sessions: 'sessions.json'
         };
     }
 
@@ -126,6 +127,10 @@ class PersistenceManager {
         }
     }
 
+    async getUsers() {
+        return await this.readData(this.files.users);
+    }
+
     async getAllUsers() {
         return await this.readData(this.files.users);
     }
@@ -148,8 +153,16 @@ class PersistenceManager {
         }
     }
 
+    async addUser(userData) {
+        return await this.appendData(this.files.users, userData);
+    }
+
     async createUser(userData) {
         return await this.appendData(this.files.users, userData);
+    }
+
+    async saveUsers(usersData) {
+        return await this.writeData(this.files.users, usersData);
     }
 
     async updateUser(userId, updateData) {
@@ -261,9 +274,12 @@ class PersistenceManager {
         return await this.findById(this.files.orders, orderId);
     }
 
-    async logActivity(activityData) {
+    async logActivity(username, action, details = null) {
         const activity = {
-            ...activityData,
+            id: uuidv4(),
+            username,
+            action,
+            details,
             timestamp: new Date().toISOString()
         };
         return await this.appendData(this.files.activity, activity);

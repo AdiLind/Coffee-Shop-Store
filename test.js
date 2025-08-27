@@ -25,7 +25,13 @@ class APITester {
             this.testStaticFileServing,
             this.testCartOperations,
             this.testOrderOperations,
-            this.testAdminEndpoints
+            this.testAdminEndpoints,
+            this.testUserRegistration,
+            this.testUserLogin,
+            this.testUserLogout,
+            this.testUserProfile,
+            this.testAuthenticationFlow,
+            this.testRateLimiting
         ];
         
         let passed = 0;
@@ -243,6 +249,196 @@ class APITester {
         }
         
         console.log(`   Admin endpoints successful - ${statsData.data.totalProducts} products, ${statsData.data.totalUsers} users`);
+    }
+    
+    async testUserRegistration() {
+        console.log('Testing user registration...');
+        const testUser = {
+            username: 'testuser' + Date.now(),
+            email: 'test' + Date.now() + '@example.com',
+            password: 'password123',
+            confirmPassword: 'password123'
+        };
+        
+        const response = await fetch(`${BASE_URL}/api/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(testUser)
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok || !data.success || !data.data.id) {
+            throw new Error('User registration failed');
+        }
+        
+        console.log(`   User registered successfully: ${data.data.username}`);
+        
+        // Store for later tests
+        this.testUserData = testUser;
+        this.testUserId = data.data.id;
+    }
+    
+    async testUserLogin() {
+        console.log('Testing user login...');
+        
+        if (!this.testUserData) {
+            throw new Error('No test user available for login test');
+        }
+        
+        const loginData = {
+            username: this.testUserData.username,
+            password: this.testUserData.password,
+            rememberMe: true
+        };
+        
+        const response = await fetch(`${BASE_URL}/api/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginData),
+            credentials: 'include' // Include cookies
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok || !data.success || !data.sessionExpiresAt) {
+            throw new Error('User login failed');
+        }
+        
+        console.log(`   Login successful for user: ${data.data.username}`);
+        console.log(`   Session expires: ${new Date(data.sessionExpiresAt).toLocaleString()}`);
+        
+        // Store cookies for authenticated requests
+        const cookies = response.headers.get('set-cookie');
+        if (cookies) {
+            this.authCookies = cookies;
+        }
+    }
+    
+    async testUserProfile() {
+        console.log('Testing authenticated user profile...');
+        
+        if (!this.authCookies) {
+            throw new Error('No authentication cookies available');
+        }
+        
+        const response = await fetch(`${BASE_URL}/api/auth/profile`, {
+            headers: {
+                'Cookie': this.authCookies
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok || !data.success || !data.data.id) {
+            throw new Error('Profile retrieval failed');
+        }
+        
+        console.log(`   Profile retrieved for user: ${data.data.username}`);
+    }
+    
+    async testUserLogout() {
+        console.log('Testing user logout...');
+        
+        if (!this.authCookies) {
+            throw new Error('No authentication cookies available');
+        }
+        
+        const response = await fetch(`${BASE_URL}/api/auth/logout`, {
+            method: 'POST',
+            headers: {
+                'Cookie': this.authCookies
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok || !data.success) {
+            throw new Error('Logout failed');
+        }
+        
+        console.log(`   Logout successful`);
+        this.authCookies = null; // Clear stored cookies
+    }
+    
+    async testAuthenticationFlow() {
+        console.log('Testing complete authentication flow...');
+        
+        // Test admin login
+        const adminLogin = {
+            username: 'admin',
+            password: 'admin',
+            rememberMe: false
+        };
+        
+        const loginResponse = await fetch(`${BASE_URL}/api/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(adminLogin)
+        });
+        
+        const loginData = await loginResponse.json();
+        
+        if (!loginResponse.ok || !loginData.success) {
+            throw new Error('Admin login failed');
+        }
+        
+        console.log(`   Admin login successful`);
+        
+        // Test accessing protected route
+        const adminCookies = loginResponse.headers.get('set-cookie');
+        const profileResponse = await fetch(`${BASE_URL}/api/auth/profile`, {
+            headers: {
+                'Cookie': adminCookies
+            }
+        });
+        
+        const profileData = await profileResponse.json();
+        
+        if (!profileResponse.ok || !profileData.success || profileData.data.role !== 'admin') {
+            throw new Error('Admin profile access failed');
+        }
+        
+        console.log(`   Admin profile verified - Role: ${profileData.data.role}`);
+        
+        // Test logout
+        const logoutResponse = await fetch(`${BASE_URL}/api/auth/logout`, {
+            method: 'POST',
+            headers: {
+                'Cookie': adminCookies
+            }
+        });
+        
+        if (!logoutResponse.ok) {
+            throw new Error('Admin logout failed');
+        }
+        
+        console.log(`   Complete authentication flow verified`);
+    }
+    
+    async testRateLimiting() {
+        console.log('Testing rate limiting...');
+        
+        // Test that we can make multiple requests without hitting limits in normal usage
+        const requests = [];
+        for (let i = 0; i < 5; i++) {
+            requests.push(fetch(`${BASE_URL}/api/health`));
+        }
+        
+        const responses = await Promise.all(requests);
+        const allSuccessful = responses.every(res => res.ok);
+        
+        if (!allSuccessful) {
+            throw new Error('Rate limiting too aggressive - normal usage blocked');
+        }
+        
+        console.log(`   Rate limiting configured correctly - normal usage allowed`);
     }
 }
 

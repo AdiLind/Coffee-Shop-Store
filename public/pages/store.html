@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>☕ Coffee Shop - Store</title>
+    <title>Coffee Shop - Premium Coffee & Equipment</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/components.css">
 </head>
@@ -11,48 +11,51 @@
     <div class="container">
         <header class="header">
             <h1>☕ Coffee Shop Store</h1>
-            <p>Premium coffee equipment and beans</p>
-            
-            <nav class="navbar">
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="/pages/store.html">Store</a></li>
-                    <li class="nav-item"><a href="/pages/login.html">Login</a></li>
-                    <li class="nav-item"><a href="/pages/cart.html">Cart</a></li>
-                </ul>
-            </nav>
+            <p>Premium coffee machines, beans, and accessories</p>
         </header>
-        
+
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/pages/store.html">Store</a></li>
+                <li class="nav-item nav-user-section"></li>
+            </ul>
+        </nav>
+
         <main class="main">
-            <div class="store-section">
-                <div class="search-bar">
-                    <input type="text" placeholder="Search products..." id="searchInput" class="search-input">
-                    <button class="btn btn-primary" id="searchBtn">Search</button>
+            <!-- Search and Filter Section -->
+            <div class="store-controls">
+                <div class="search-section">
+                    <input type="text" id="searchInput" placeholder="Search for coffee products..." 
+                           class="search-input">
+                    <button onclick="storeManager.searchProducts()" class="btn btn-primary">Search</button>
                 </div>
                 
-                <div class="categories">
-                    <button class="btn btn-secondary category-btn" data-category="all">All Products</button>
-                    <button class="btn btn-secondary category-btn" data-category="machines">Machines</button>
-                    <button class="btn btn-secondary category-btn" data-category="beans">Coffee Beans</button>
-                    <button class="btn btn-secondary category-btn" data-category="accessories">Accessories</button>
-                </div>
-                
-                <div class="products-grid" id="productsGrid">
-                    <div class="loading">Loading products...</div>
+                <div class="filter-section">
+                    <select id="categoryFilter" onchange="storeManager.filterByCategory(this.value)">
+                        <option value="">All Categories</option>
+                        <option value="machines">Coffee Machines</option>
+                        <option value="beans">Coffee Beans</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
                 </div>
             </div>
+
+            <!-- Products Grid -->
+            <div id="productsGrid" class="products-grid">
+                <!-- Products will be loaded here -->
+            </div>
+
+            <!-- Guest Warning -->
+            <div id="guestWarning" class="message message-warning" data-no-auth style="display: none;">
+                <p>You're browsing as a guest. <a href="/pages/login.html">Login</a> to add items to your cart!</p>
+            </div>
         </main>
-        
-        <footer class="footer">
-            <p>&copy; 2025 Coffee Shop. Premium coffee experience.</p>
-        </footer>
     </div>
-    
-    <script>
-        // Placeholder for Phase 3 - JavaScript functionality will be added later
-        document.addEventListener('DOMContentLoaded', function() {
-            const productsGrid = document.getElementById('productsGrid');
-            productsGrid.innerHTML = '<p class="placeholder">JavaScript functionality will be implemented in Phase 3</p>';
-        });
-    </script>
+
+    <!-- Scripts -->
+    <script src="/js/utils.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/store.js"></script>
 </body>
 </html>

@@ -14,5 +14,340 @@
     "shippingAddress": "123 Test St, Test City, TC 12345",
     "status": "completed",
     "createdAt": "2025-08-26T20:58:41.214Z"
+  },
+  {
+    "id": "9867aa8e-d478-4f75-9f2e-b4046dd96e21",
+    "userId": "test-user-1",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Test Product"
+      }
+    ],
+    "totalAmount": 309.98,
+    "shippingAddress": "123 Test St, Test City, TC 12345",
+    "status": "completed",
+    "createdAt": "2025-08-27T05:58:58.403Z"
+  },
+  {
+    "id": "913c1daa-48f0-48cb-9f44-3363da42f149",
+    "userId": "test-user-1",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Test Product"
+      }
+    ],
+    "totalAmount": 309.98,
+    "shippingAddress": "123 Test St, Test City, TC 12345",
+    "status": "completed",
+    "createdAt": "2025-08-27T05:59:31.139Z"
+  },
+  {
+    "id": "67434d50-2f25-4186-a19d-0e6f39baa20f",
+    "userId": "test-user-1",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Test Product"
+      }
+    ],
+    "totalAmount": 309.98,
+    "shippingAddress": "123 Test St, Test City, TC 12345",
+    "status": "completed",
+    "createdAt": "2025-08-27T06:03:18.357Z"
+  },
+  {
+    "id": "7c221e01-7a38-4074-b9ff-5b1306eedb7d",
+    "userId": "test-user-1",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Test Product"
+      }
+    ],
+    "totalAmount": 309.98,
+    "shippingAddress": "123 Test St, Test City, TC 12345",
+    "status": "completed",
+    "createdAt": "2025-08-27T06:04:05.487Z"
+  },
+  {
+    "id": "c4bb415a-31a1-461d-9d08-ee520415e125",
+    "userId": "2912572d-5da5-436f-8ba3-bd0404ce6842",
+    "items": [
+      {
+        "productId": "prod-2",
+        "title": "Premium Arabica Coffee Beans",
+        "price": 24.99,
+        "quantity": 3
+      },
+      {
+        "productId": "prod-6",
+        "title": "Automatic Drip Coffee Maker",
+        "price": 89.99,
+        "quantity": 1
+      },
+      {
+        "productId": "prod-4",
+        "title": "French Press Coffee Maker",
+        "price": 34.99,
+        "quantity": 2
+      },
+      {
+        "productId": "prod-5",
+        "title": "Dark Roast Brazilian Beans",
+        "price": 22.99,
+        "quantity": 1
+      }
+    ],
+    "totalAmount": 267.92,
+    "shippingAddress": "Default Address",
+    "status": "completed",
+    "createdAt": "2025-08-27T19:10:18.811Z"
+  },
+  {
+    "id": "d1dfc307-3766-433d-a1f3-d653427d187d",
+    "userId": "2912572d-5da5-436f-8ba3-bd0404ce6842",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "quantity": 3,
+        "price": 299.99,
+        "subtotal": 899.97
+      },
+      {
+        "productId": "prod-3",
+        "title": "Manual Coffee Grinder",
+        "quantity": 1,
+        "price": 79.99,
+        "subtotal": 79.99
+      },
+      {
+        "productId": "prod-5",
+        "title": "Dark Roast Brazilian Beans",
+        "quantity": 1,
+        "price": 22.99,
+        "subtotal": 22.99
+      },
+      {
+        "productId": "prod-6",
+        "title": "Automatic Drip Coffee Maker",
+        "quantity": 1,
+        "price": 89.99,
+        "subtotal": 89.99
+      },
+      {
+        "productId": "prod-9",
+        "title": "Milk Frother Wand",
+        "quantity": 2,
+        "price": 19.99,
+        "subtotal": 39.98
+      },
+      {
+        "productId": "prod-8",
+        "title": "Ethiopian Light Roast Beans",
+        "quantity": 1,
+        "price": 26.99,
+        "subtotal": 26.99
+      },
+      {
+        "productId": "prod-7",
+        "title": "Ceramic Coffee Mug Set",
+        "quantity": 1,
+        "price": 39.99,
+        "subtotal": 39.99
+      }
+    ],
+    "subtotal": 1199.9,
+    "tax": 95.992,
+    "shipping": 0,
+    "totalAmount": 1295.892,
+    "status": "pending",
+    "customerInfo": {
+      "name": "Adi Lind",
+      "email": "adi.lind24@gmail.com",
+      "address": "2 בר אילן",
+      "phone": "0542240058"
+    },
+    "shippingAddress": "2 בר אילן",
+    "createdAt": "2025-08-27T20:20:20.206Z"
+  },
+  {
+    "id": "405a1abc-8314-4302-875e-6aba57a45488",
+    "userId": "2912572d-5da5-436f-8ba3-bd0404ce6842",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "quantity": 4,
+        "price": 299.99,
+        "subtotal": 1199.96
+      },
+      {
+        "productId": "prod-3",
+        "title": "Manual Coffee Grinder",
+        "quantity": 2,
+        "price": 79.99,
+        "subtotal": 159.98
+      },
+      {
+        "productId": "prod-5",
+        "title": "Dark Roast Brazilian Beans",
+        "quantity": 1,
+        "price": 22.99,
+        "subtotal": 22.99
+      },
+      {
+        "productId": "prod-6",
+        "title": "Automatic Drip Coffee Maker",
+        "quantity": 1,
+        "price": 89.99,
+        "subtotal": 89.99
+      },
+      {
+        "productId": "prod-7",
+        "title": "Ceramic Coffee Mug Set",
+        "quantity": 3,
+        "price": 39.99,
+        "subtotal": 119.97
+      },
+      {
+        "productId": "prod-2",
+        "title": "Premium Arabica Coffee Beans",
+        "quantity": 1,
+        "price": 24.99,
+        "subtotal": 24.99
+      }
+    ],
+    "subtotal": 1617.88,
+    "tax": 129.43040000000002,
+    "shipping": 0,
+    "totalAmount": 1747.3104,
+    "status": "completed",
+    "customerInfo": {
+      "name": "Adi Lind",
+      "email": "adi.lind24@gmail.com",
+      "address": "Nir Akiva",
+      "phone": "00000000000"
+    },
+    "shippingAddress": "Nir Akiva",
+    "createdAt": "2025-08-27T20:34:21.976Z",
+    "completedAt": "2025-08-27T20:35:06.693Z",
+    "paymentDetails": {
+      "method": "credit-card",
+      "last4": "3456",
+      "transactionId": "tx_f19cdf77",
+      "processedAt": "2025-08-27T20:35:06.693Z"
+    }
+  },
+  {
+    "id": "80137662-17aa-400d-8974-6f40407e51c0",
+    "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "quantity": 1,
+        "price": 299.99,
+        "subtotal": 299.99
+      },
+      {
+        "productId": "prod-3",
+        "title": "Manual Coffee Grinder",
+        "quantity": 2,
+        "price": 79.99,
+        "subtotal": 159.98
+      },
+      {
+        "productId": "prod-5",
+        "title": "Dark Roast Brazilian Beans",
+        "quantity": 1,
+        "price": 22.99,
+        "subtotal": 22.99
+      },
+      {
+        "productId": "prod-6",
+        "title": "Automatic Drip Coffee Maker",
+        "quantity": 1,
+        "price": 89.99,
+        "subtotal": 89.99
+      }
+    ],
+    "subtotal": 572.95,
+    "tax": 45.836000000000006,
+    "shipping": 0,
+    "totalAmount": 618.7860000000001,
+    "status": "completed",
+    "customerInfo": {
+      "name": "lolo",
+      "email": "lolo@lolo.com",
+      "address": "efefefe",
+      "phone": "02355555"
+    },
+    "shippingAddress": "efefefe",
+    "createdAt": "2025-08-27T20:36:43.598Z",
+    "completedAt": "2025-08-27T20:37:08.545Z",
+    "paymentDetails": {
+      "method": "credit-card",
+      "last4": "0555",
+      "transactionId": "tx_932cc8ba",
+      "processedAt": "2025-08-27T20:37:08.545Z"
+    }
+  },
+  {
+    "id": "d915221f-219e-4200-9c1e-5414816a69a6",
+    "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
+    "items": [
+      {
+        "productId": "prod-2",
+        "title": "Premium Arabica Coffee Beans",
+        "quantity": 2,
+        "price": 24.99,
+        "subtotal": 49.98
+      },
+      {
+        "productId": "prod-3",
+        "title": "Manual Coffee Grinder",
+        "quantity": 2,
+        "price": 79.99,
+        "subtotal": 159.98
+      },
+      {
+        "productId": "prod-6",
+        "title": "Automatic Drip Coffee Maker",
+        "quantity": 2,
+        "price": 89.99,
+        "subtotal": 179.98
+      }
+    ],
+    "subtotal": 389.93999999999994,
+    "tax": 31.195199999999996,
+    "shipping": 0,
+    "totalAmount": 421.13519999999994,
+    "status": "completed",
+    "customerInfo": {
+      "name": "Adi Lind",
+      "email": "adi.lind24@gmail.com",
+      "address": "Gvaram",
+      "phone": "0542240058"
+    },
+    "shippingAddress": "Gvaram",
+    "createdAt": "2025-08-27T20:39:45.142Z",
+    "completedAt": "2025-08-27T20:40:02.017Z",
+    "paymentDetails": {
+      "method": "credit-card",
+      "last4": "5555",
+      "transactionId": "tx_66df3d81",
+      "processedAt": "2025-08-27T20:40:02.017Z"
+    }
   }
 ]

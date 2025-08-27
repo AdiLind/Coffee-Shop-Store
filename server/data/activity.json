@@ -1,1 +1,240 @@
-[]
+[
+  {
+    "id": "0f3892d0-5743-46f2-8971-acf0c38420ef",
+    "username": "testuser1756274338470",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-27T05:58:59.077Z"
+  },
+  {
+    "id": "1fcc610f-7a63-4947-beea-8617d552e8a3",
+    "username": "testuser1756274371184",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-27T05:59:31.788Z"
+  },
+  {
+    "id": "baaff28f-ab36-4b5e-8ea2-4390c4a9efb5",
+    "username": "testuser1756274598406",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-27T06:03:19.025Z"
+  },
+  {
+    "id": "e34d52ba-8f44-4142-85c8-a16d06be0c05",
+    "username": "testuser1756274645534",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-27T06:04:06.153Z"
+  },
+  {
+    "id": "e5af9922-e828-4d42-a46a-62062f83d4ec",
+    "username": "testuser1756274645534",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T06:04:06.767Z"
+  },
+  {
+    "id": "18be6715-b357-4597-b195-71832e481308",
+    "username": "testuser1756274645534",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T06:04:06.923Z"
+  },
+  {
+    "id": "41a7eef7-94f3-4213-9163-8a0d644ee30d",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T06:04:07.559Z"
+  },
+  {
+    "id": "ced57e6f-46b3-4962-9b17-95e56c510e05",
+    "username": "admin",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T06:04:07.595Z"
+  },
+  {
+    "id": "4198d1f3-01e0-400b-a0ce-6871c39fa174",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T06:04:23.774Z"
+  },
+  {
+    "id": "ec0f62c1-bbe1-474c-b336-7c4d3f6ccaee",
+    "username": "admin",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T06:04:35.667Z"
+  },
+  {
+    "id": "f7f58a92-b189-4725-9619-75f104306cd3",
+    "username": "Adi",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-27T18:54:30.943Z"
+  },
+  {
+    "id": "222c2e6d-485e-435b-888e-20cf49596fac",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T18:59:43.671Z"
+  },
+  {
+    "id": "3dfe8d8a-0e05-46a4-9d8a-88693f0701f1",
+    "username": "Adi",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T19:00:47.893Z"
+  },
+  {
+    "id": "154fd807-fe26-4553-823e-0baf67fc4e4c",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T19:01:20.723Z"
+  },
+  {
+    "id": "fb048e29-0232-408a-8106-8f1d37dbca68",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T19:05:47.303Z"
+  },
+  {
+    "id": "636c7377-896e-42ff-a5ae-0409be903b81",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T19:05:57.531Z"
+  },
+  {
+    "id": "a00649aa-1805-4237-a7c4-f25353687607",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T19:10:05.651Z"
+  },
+  {
+    "id": "da811bce-1396-4415-a617-671022ac13d4",
+    "username": "testuser1756325507498",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-27T20:11:48.091Z"
+  },
+  {
+    "id": "e3a0a56c-32dc-4d34-949f-92bcefab8209",
+    "username": "testuser1756325507498",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T20:11:48.695Z"
+  },
+  {
+    "id": "58678eb2-310d-4b42-90f7-553cab5908c4",
+    "username": "testuser1756325507498",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T20:11:48.860Z"
+  },
+  {
+    "id": "10b2075b-8be8-4a5a-904e-7cc9e2076083",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T20:11:49.456Z"
+  },
+  {
+    "id": "7a027178-de83-49a4-8761-56d4caba0e87",
+    "username": "admin",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T20:11:49.489Z"
+  },
+  {
+    "id": "cb658401-0850-4cde-9214-7c56f07c8d66",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T20:13:07.122Z"
+  },
+  {
+    "id": "fe45f9f7-8eb3-46cf-aafc-8e3e7d677885",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T20:13:07.151Z"
+  },
+  {
+    "id": "c5e829c6-6c3f-4c94-83fe-66d233d5b394",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T20:13:59.872Z"
+  },
+  {
+    "id": "38fb21d6-6778-4184-bf63-c6ef119760c8",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T20:19:41.576Z"
+  },
+  {
+    "id": "e8e3db04-f195-4429-b518-5e90e8424ca0",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T20:27:29.910Z"
+  },
+  {
+    "id": "a660e625-c434-4720-8521-c9472c1681ba",
+    "username": "Adi",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T20:35:37.921Z"
+  },
+  {
+    "id": "a0567838-18f1-40f0-a826-1242fc4b42ba",
+    "username": "lolo",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-27T20:36:05.868Z"
+  },
+  {
+    "id": "5bc68d3f-7532-439f-a80b-dd6f7893df89",
+    "username": "lolo",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T20:36:17.126Z"
+  },
+  {
+    "id": "7633467a-b9cb-425f-8358-717fa60e7c69",
+    "username": "lolo",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T20:37:22.541Z"
+  },
+  {
+    "id": "7bc71c47-0d77-4184-9d3e-7e4eb1043523",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T20:37:27.427Z"
+  },
+  {
+    "id": "681c69d2-9afe-44c5-9833-c65113d9747f",
+    "username": "Adi",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T20:38:31.039Z"
+  },
+  {
+    "id": "b89a2999-2ce4-4630-8cd2-02f18a8a1839",
+    "username": "lolo",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T20:39:32.914Z"
+  }
+]

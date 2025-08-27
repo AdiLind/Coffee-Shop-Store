@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Coffee Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>☕ Checkout</h1>
+            <p>Complete your order</p>
+        </header>
+
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/pages/store.html">Store</a></li>
+                <li class="nav-item"><a href="/pages/cart.html">Cart</a></li>
+                <li class="nav-item nav-user-section"></li>
+            </ul>
+        </nav>
+        
+        <main class="main">
+            <div class="checkout-container">
+                <!-- Order Summary Section -->
+                <div class="checkout-section">
+                    <h2>Order Summary</h2>
+                    <div class="order-items" id="orderItems">
+                        <div class="loading">Loading order summary...</div>
+                    </div>
+                    
+                    <div class="order-totals">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span id="orderSubtotal">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax (8%):</span>
+                            <span id="orderTax">$0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Shipping:</span>
+                            <span id="orderShipping">$0.00</span>
+                        </div>
+                        <div class="total-row total">
+                            <span><strong>Total:</strong></span>
+                            <span id="orderTotal"><strong>$0.00</strong></span>
+                        </div>
+                        <small class="shipping-note">Free shipping on orders over $50</small>
+                    </div>
+                </div>
+
+                <!-- Customer Information Section -->
+                <div class="checkout-section">
+                    <h2>Customer Information</h2>
+                    <form id="checkoutForm" class="checkout-form">
+                        <div class="form-group">
+                            <label for="customerName">Full Name *</label>
+                            <input type="text" id="customerName" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerEmail">Email *</label>
+                            <input type="email" id="customerEmail" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerPhone">Phone Number</label>
+                            <input type="tel" id="customerPhone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customerAddress">Shipping Address *</label>
+                            <textarea id="customerAddress" name="address" rows="3" required placeholder="Street address, city, state, ZIP code"></textarea>
+                        </div>
+                        
+                        <div class="checkout-actions">
+                            <a href="/pages/cart.html" class="btn btn-secondary">Back to Cart</a>
+                            <button type="submit" class="btn btn-primary" id="proceedPaymentBtn">Proceed to Payment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="auth-required" id="loginRequired" style="display: none;">
+        <div class="auth-required-content">
+            <h3>Login Required</h3>
+            <p>Please login to complete your checkout.</p>
+            <div style="margin-top: 1rem;">
+                <a href="/pages/login.html" class="btn btn-primary">Login</a>
+                <a href="/pages/register.html" class="btn btn-secondary">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/utils.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/checkout.js"></script>
+</body>
+</html>

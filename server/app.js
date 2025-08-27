@@ -7,14 +7,16 @@ const rateLimit = require('express-rate-limit');
 
 const { handleError, handleNotFound } = require('./modules/error-handler');
 const { persistenceManager } = require('./modules/persist_module');
+const { apiLimiter, authLimiter } = require('./middleware/rate-limiter');
+const AuthMiddleware = require('./middleware/auth-middleware');
 const apiRoutes = require('./routes/api');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 2000, // Very generous limit for development/testing
     message: {
         success: false,
         error: 'RATE_LIMIT_EXCEEDED',
@@ -44,6 +46,10 @@ app.use((req, res, next) => {
     next();
 });
 
+// Add API and Auth rate limiting
+app.use('/api', apiLimiter);
+app.use('/api/auth', authLimiter);
+
 // API routes
 app.use('/api', apiRoutes);
 
@@ -58,6 +64,13 @@ async function initializeServer() {
         await persistenceManager.initializeData();
         await persistenceManager.createSampleData();
         console.log('✅ Coffee shop data initialized');
+        
+        // Start session cleanup interval
+        setInterval(async () => {
+            await AuthMiddleware.cleanupSessions();
+        }, 60 * 60 * 1000); // Cleanup expired sessions every hour
+        
+        console.log('✅ Session cleanup scheduled');
     } catch (error) {
         console.error('❌ Failed to initialize data:', error);
     }
@@ -93,15 +106,26 @@ app.listen(PORT, async () => {
     await initializeServer();
     
     console.log('\n🚀 Server ready! Available endpoints:');
-    console.log('   GET  /api/health');
-    console.log('   GET  /api/products');
-    console.log('   GET  /api/products/:id');
-    console.log('   POST /api/products');
-    console.log('   GET  /api/cart/:userId');
-    console.log('   POST /api/cart/:userId');
-    console.log('   GET  /api/orders/:userId');
-    console.log('   POST /api/orders');
-    console.log('   GET  /api/admin/stats');
+    console.log('   🔐 Authentication:');
+    console.log('     POST /api/auth/register');
+    console.log('     POST /api/auth/login');
+    console.log('     POST /api/auth/logout');
+    console.log('     GET  /api/auth/profile');
+    console.log('   📦 Products:');
+    console.log('     GET  /api/products');
+    console.log('     GET  /api/products/:id');
+    console.log('     POST /api/products');
+    console.log('   🛒 Cart & Orders:');
+    console.log('     GET  /api/cart/:userId');
+    console.log('     POST /api/cart/:userId');
+    console.log('     GET  /api/orders/:userId');
+    console.log('     POST /api/orders');
+    console.log('   👨‍💼 Admin:');
+    console.log('     GET  /api/admin/stats');
+    console.log('     GET  /api/admin/users');
+    console.log('     GET  /api/admin/activity');
+    console.log('   💚 System:');
+    console.log('     GET  /api/health');
 });
 
 module.exports = app;

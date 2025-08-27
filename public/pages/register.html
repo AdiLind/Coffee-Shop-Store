@@ -3,85 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>☕ Coffee Shop - Register</title>
+    <title>Register - Coffee Shop</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/components.css">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>☕ Coffee Shop Registration</h1>
-            <p>Create your new account</p>
-            
-            <nav class="navbar">
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="/pages/store.html">Store</a></li>
-                    <li class="nav-item"><a href="/pages/login.html">Login</a></li>
-                    <li class="nav-item"><a href="/pages/register.html">Register</a></li>
-                </ul>
-            </nav>
+            <h1>☕ Join Our Coffee Community</h1>
+            <p>Create your account to start shopping</p>
         </header>
-        
+
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/pages/store.html">Store</a></li>
+                <li class="nav-item"><a href="/pages/login.html">Login</a></li>
+                <li class="nav-item nav-user-section"></li>
+            </ul>
+        </nav>
+
         <main class="main">
             <div class="form-container">
-                <h2>Create New Account</h2>
+                <h2>Create Account</h2>
                 
                 <form id="registerForm" class="auth-form">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required minlength="3">
+                        <input type="text" id="username" name="username" required 
+                               placeholder="Choose a username" minlength="3">
+                        <small>At least 3 characters</small>
                     </div>
                     
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required 
+                               placeholder="Enter your email address">
                     </div>
                     
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required minlength="6">
+                        <input type="password" id="password" name="password" required 
+                               placeholder="Create a secure password" minlength="6">
+                        <small>At least 6 characters</small>
                     </div>
                     
                     <div class="form-group">
                         <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required 
+                               placeholder="Confirm your password" minlength="6">
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Register</button>
-                    
-                    <p class="form-footer">
-                        Already have an account? <a href="/pages/login.html">Login here</a>
-                    </p>
+                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
                 </form>
                 
-                <div id="registerMessage" class="message hidden"></div>
+                <div class="auth-links">
+                    <p>Already have an account? <a href="/pages/login.html">Login here</a></p>
+                </div>
             </div>
         </main>
-        
-        <footer class="footer">
-            <p>&copy; 2025 Coffee Shop. Premium coffee experience.</p>
-        </footer>
     </div>
-    
-    <script>
-        // Placeholder for Phase 3 - Registration functionality will be added later
-        document.addEventListener('DOMContentLoaded', function() {
-            const registerForm = document.getElementById('registerForm');
-            const messageDiv = document.getElementById('registerMessage');
-            
-            registerForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const password = document.getElementById('password').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-                
-                if (password !== confirmPassword) {
-                    messageDiv.innerHTML = '<p class="error">Passwords do not match</p>';
-                } else {
-                    messageDiv.innerHTML = '<p class="info">Registration functionality will be implemented in Phase 3</p>';
-                }
-                messageDiv.classList.remove('hidden');
-            });
-        });
-    </script>
+
+    <!-- Scripts -->
+    <script src="/js/utils.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
 </body>
 </html>

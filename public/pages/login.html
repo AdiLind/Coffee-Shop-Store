@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>☕ Coffee Shop - Login</title>
+    <title>Login - Coffee Shop</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/components.css">
 </head>
@@ -12,59 +12,59 @@
         <header class="header">
             <h1>☕ Coffee Shop Login</h1>
             <p>Sign in to your account</p>
-            
-            <nav class="navbar">
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="/pages/store.html">Store</a></li>
-                    <li class="nav-item"><a href="/pages/login.html">Login</a></li>
-                    <li class="nav-item"><a href="/pages/register.html">Register</a></li>
-                </ul>
-            </nav>
         </header>
-        
+
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/pages/store.html">Store</a></li>
+                <li class="nav-item"><a href="/pages/register.html">Register</a></li>
+                <li class="nav-item nav-user-section"></li>
+            </ul>
+        </nav>
+
         <main class="main">
             <div class="form-container">
-                <h2>Login to Your Account</h2>
+                <h2>Welcome Back!</h2>
                 
                 <form id="loginForm" class="auth-form">
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>
+                        <label for="username">Username or Email</label>
+                        <input type="text" id="username" name="username" required 
+                               placeholder="Enter your username or email">
                     </div>
                     
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" required>
+                        <input type="password" id="password" name="password" required 
+                               placeholder="Enter your password" minlength="6">
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <label for="rememberMe">Remember me (12 days)</label>
+                        <small>Unchecked sessions expire in 30 minutes</small>
+                    </div>
                     
-                    <p class="form-footer">
-                        Don't have an account? <a href="/pages/register.html">Register here</a>
-                    </p>
+                    <button type="submit" class="btn btn-primary btn-full">Login</button>
                 </form>
                 
-                <div id="loginMessage" class="message hidden"></div>
+                <div class="auth-links">
+                    <p>Don't have an account? <a href="/pages/register.html">Register here</a></p>
+                    <p><a href="/pages/store.html">Continue as guest</a></p>
+                </div>
+
+                <div class="admin-info">
+                    <h4>Demo Admin Account:</h4>
+                    <p>Username: <strong>admin</strong></p>
+                    <p>Password: <strong>admin</strong></p>
+                </div>
             </div>
         </main>
-        
-        <footer class="footer">
-            <p>&copy; 2025 Coffee Shop. Premium coffee experience.</p>
-        </footer>
     </div>
-    
-    <script>
-        // Placeholder for Phase 3 - Authentication functionality will be added later
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('loginForm');
-            const messageDiv = document.getElementById('loginMessage');
-            
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                messageDiv.innerHTML = '<p class="info">Authentication functionality will be implemented in Phase 3</p>';
-                messageDiv.classList.remove('hidden');
-            });
-        });
-    </script>
+
+    <!-- Scripts -->
+    <script src="/js/utils.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
 </body>
 </html>
