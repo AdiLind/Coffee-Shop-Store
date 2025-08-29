@@ -1,0 +1,322 @@
+# Claude Code Prompt: Coffee Shop Phase 5 Implementation
+
+## Current Project State
+The coffee shop application has completed Phases 1-4 with:
+- ✅ Complete authentication and session management
+- ✅ Full product catalog with admin management
+- ✅ Complete shopping cart and checkout flow
+- ✅ Order management and payment processing
+- ✅ Admin panel with activity logging and product CRUD
+- ✅ Comprehensive testing and security features
+
+## Implementation Task: Advanced Features & Project Completion
+
+**Implement the remaining PDF requirements and advanced features to create a professional-grade e-commerce platform.**
+
+### Priority 1: 4+ Additional Custom Pages (PDF Requirement)
+
+**File: `public/pages/reviews.html`** - Product Reviews System:
+- Individual product review pages with star ratings
+- Review submission form (authenticated users only)
+- Review display with helpful voting
+- Filter reviews by rating/date
+
+**File: `server/routes/reviews.js`** - New route file:
+```javascript
+GET    /api/reviews/product/:productId  // Get product reviews
+POST   /api/reviews                     // Submit review
+PUT    /api/reviews/:reviewId           // Update review (owner only)
+DELETE /api/reviews/:reviewId           // Delete review (owner/admin)
+POST   /api/reviews/:reviewId/helpful   // Mark review as helpful
+```
+
+**File: `public/pages/loyalty.html`** - Loyalty Program:
+- User points balance and tier status
+- Available rewards catalog
+- Points redemption interface
+- Purchase history with points earned
+
+**File: `server/routes/loyalty.js`** - New route file:
+```javascript
+GET    /api/loyalty/points/:userId      // Get user points balance
+GET    /api/loyalty/rewards            // Get available rewards
+POST   /api/loyalty/redeem             // Redeem points for rewards
+POST   /api/loyalty/earn               // Add points (triggered by orders)
+```
+
+**File: `public/pages/support.html`** - Customer Support:
+- Support ticket creation form
+- FAQ section with search
+- Ticket tracking for users
+- Live chat interface (fake implementation)
+
+**File: `server/routes/support.js`** - New route file:
+```javascript
+POST   /api/support/tickets            // Create support ticket
+GET    /api/support/tickets/:userId    // Get user tickets
+PUT    /api/support/tickets/:ticketId  // Update ticket status
+GET    /api/support/faq               // Get FAQ entries
+```
+
+**File: `public/pages/wishlist.html`** - Product Wishlist:
+- Saved products for later
+- Move wishlist items to cart
+- Share wishlist functionality
+- Wishlist management (add/remove)
+
+**File: `server/routes/wishlist.js`** - New route file:
+```javascript
+GET    /api/wishlist/:userId           // Get user wishlist
+POST   /api/wishlist/add              // Add item to wishlist
+DELETE /api/wishlist/remove/:productId // Remove from wishlist
+POST   /api/wishlist/to-cart          // Move wishlist to cart
+```
+
+**File: `public/pages/coffee-guide.html`** - Coffee Education Hub:
+- Coffee brewing guides and tutorials
+- Interactive brewing calculator
+- User progress tracking
+- Coffee knowledge articles
+
+### Priority 2: Theme System with localStorage (PDF Requirement)
+
+**File: `public/js/theme.js`** - Create new theme manager:
+- Dark/Light mode toggle
+- Custom color scheme options
+- Font size preferences
+- localStorage persistence for all preferences
+
+**File: `public/css/themes.css`** - Create theme stylesheet:
+- CSS custom properties for theming
+- Dark mode color scheme
+- Alternative color themes (coffee-inspired)
+- Smooth transitions between themes
+
+**Update all existing HTML pages** to include:
+- Theme toggle button in navigation
+- Theme preference persistence
+- Proper CSS custom property usage
+
+### Priority 3: Enhanced Admin Features
+
+**File: `public/pages/admin-analytics.html`** - Analytics Dashboard:
+- Sales analytics with charts
+- User registration and activity trends
+- Product performance metrics
+- System health monitoring
+
+**File: `server/routes/analytics.js`** - New route file:
+```javascript
+GET    /api/analytics/sales           // Sales data and trends
+GET    /api/analytics/users           // User statistics
+GET    /api/analytics/products        // Product performance
+GET    /api/analytics/system          // System health metrics
+```
+
+**Update `public/pages/admin.html`** to include:
+- Enhanced user management table
+- Bulk product operations
+- Advanced activity filtering
+- System monitoring dashboard
+
+### Priority 4: Advanced JavaScript Modules
+
+**File: `public/js/reviews.js`** - Review management:
+```javascript
+class ReviewManager {
+    async getProductReviews(productId) { /* Fetch and display reviews */ }
+    async submitReview(productId, rating, comment) { /* Submit review */ }
+    async markHelpful(reviewId) { /* Mark review helpful */ }
+    renderReviewStars(rating) { /* Render star rating display */ }
+    calculateAverageRating(reviews) { /* Calculate average rating */ }
+}
+```
+
+**File: `public/js/loyalty.js`** - Loyalty program management:
+```javascript
+class LoyaltyManager {
+    async getPointsBalance() { /* Get user points */ }
+    async getRewards() { /* Get available rewards */ }
+    async redeemReward(rewardId) { /* Redeem reward with points */ }
+    displayPointsProgress(points, tier) { /* Show tier progress */ }
+    updatePointsDisplay(points) { /* Update points in UI */ }
+}
+```
+
+**File: `public/js/wishlist.js`** - Wishlist functionality:
+```javascript
+class WishlistManager {
+    async addToWishlist(productId) { /* Add product to wishlist */ }
+    async removeFromWishlist(productId) { /* Remove from wishlist */ }
+    async moveToCart(productId) { /* Move wishlist item to cart */ }
+    updateWishlistCounter() { /* Update wishlist count in navigation */ }
+    displayWishlist(items) { /* Render wishlist page */ }
+}
+```
+
+**File: `public/js/support.js`** - Support system:
+```javascript
+class SupportManager {
+    async createTicket(subject, description, category) { /* Create support ticket */ }
+    async getTickets() { /* Get user tickets */ }
+    async searchFAQ(query) { /* Search FAQ entries */ }
+    displayTickets(tickets) { /* Render ticket list */ }
+    renderFAQ(faqItems) { /* Render FAQ section */ }
+}
+```
+
+### Data Models Required
+
+**File: `server/data/reviews.json`** - Review storage:
+```javascript
+[
+    {
+        "id": "review-uuid",
+        "productId": "product-uuid", 
+        "userId": "user-uuid",
+        "username": "reviewer_name",
+        "rating": 5,
+        "title": "Great coffee machine!",
+        "comment": "Love this espresso machine...",
+        "verified": true,
+        "helpful": 8,
+        "createdAt": "2025-08-27T10:30:00Z"
+    }
+]
+```
+
+**File: `server/data/loyalty.json`** - Loyalty points:
+```javascript
+[
+    {
+        "userId": "user-uuid",
+        "totalPoints": 1250,
+        "availablePoints": 850,
+        "tier": "gold",
+        "pointsHistory": [
+            {
+                "type": "earned",
+                "amount": 50,
+                "description": "Purchase Order #12345",
+                "timestamp": "2025-08-27T10:30:00Z"
+            }
+        ]
+    }
+]
+```
+
+**File: `server/data/support.json`** - Support tickets:
+```javascript
+[
+    {
+        "id": "ticket-uuid",
+        "userId": "user-uuid",
+        "subject": "Order delivery question",
+        "description": "My order hasn't arrived yet...",
+        "status": "open",
+        "priority": "medium",
+        "createdAt": "2025-08-27T10:30:00Z"
+    }
+]
+```
+
+**File: `server/data/wishlists.json`** - User wishlists:
+```javascript
+[
+    {
+        "userId": "user-uuid",
+        "items": [
+            {
+                "productId": "product-uuid",
+                "addedAt": "2025-08-27T10:30:00Z",
+                "notes": "Birthday gift idea"
+            }
+        ]
+    }
+]
+```
+
+### Priority 5: UI/UX Enhancements
+
+**Create reusable UI components:**
+- Modal system for reviews, support, confirmations
+- Toast notification system for feedback
+- Loading skeleton components
+- Star rating component
+- Progress bar components
+
+**Update navigation system:**
+- Add new page links (Reviews, Loyalty, Support, Wishlist)
+- Theme toggle button
+- Wishlist counter badge
+- Points balance display
+
+**Responsive design improvements:**
+- Mobile-first approach for new pages
+- Touch-friendly interactions
+- Improved mobile navigation
+- Better form layouts on mobile
+
+### Priority 6: Enhanced Testing
+
+**Update `test.js`** with comprehensive tests:
+```javascript
+// Test new features
+async function testReviewSystem() { /* Test review CRUD operations */ }
+async function testLoyaltyProgram() { /* Test points and rewards */ }
+async function testSupportSystem() { /* Test ticket management */ }
+async function testWishlistFeatures() { /* Test wishlist CRUD */ }
+async function testThemeSystem() { /* Test theme persistence */ }
+
+// Test data integrity
+async function testDataPersistence() { /* Test all JSON file operations */ }
+async function testConcurrentOperations() { /* Test concurrent access */ }
+
+// Test security
+async function testInputValidation() { /* Test XSS protection */ }
+async function testAuthenticationEdgeCases() { /* Test auth boundaries */ }
+```
+
+### Technical Requirements
+
+1. **Theme System:**
+   - Use CSS custom properties for theming
+   - localStorage for persistence
+   - Smooth transitions between themes
+   - Accessibility compliance (WCAG 2.1 AA)
+
+2. **Performance:**
+   - Implement lazy loading for images
+   - Add basic caching for API responses
+   - Optimize JSON file operations
+   - Minimize bundle sizes
+
+3. **Security:**
+   - Input sanitization for user-generated content
+   - XSS protection for reviews and support
+   - Enhanced rate limiting for new endpoints
+   - Data validation for all new features
+
+4. **API Design:**
+   - RESTful endpoints with proper HTTP methods
+   - Consistent response format across all new routes
+   - Error handling for all edge cases
+   - Authentication middleware for protected routes
+
+### Implementation Order
+
+1. **Week 1:** Reviews system and wishlist functionality
+2. **Week 2:** Loyalty program and support system
+3. **Week 3:** Theme system and coffee education hub
+4. **Week 4:** Admin analytics, testing, and final polish
+
+### Success Criteria
+
+- All 5 additional pages functional with server communication
+- Theme system fully working with localStorage persistence
+- Enhanced admin panel with analytics and management tools
+- Comprehensive test coverage for all new features
+- Professional UI/UX with smooth interactions
+- All PDF requirements satisfied
+
+**Focus on implementing working features first, then enhance with polish and optimization.** Each new page must communicate with the server and provide genuine value to users.

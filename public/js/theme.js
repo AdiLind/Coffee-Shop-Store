@@ -439,19 +439,32 @@ class ThemeManager {
     }
 
     setupEventListeners() {
-        // Theme toggle button
-        const toggleBtn = document.getElementById('theme-toggle');
+        // Theme toggle button - try both navbar button and self-created button
+        const navbarToggleBtn = document.getElementById('theme-toggle');
+        const selfToggleBtn = document.getElementById('theme-toggle-btn');
         const panel = document.getElementById('theme-panel');
         
-        if (toggleBtn && panel) {
-            toggleBtn.addEventListener('click', (e) => {
+        // Set up navbar button click handler
+        if (navbarToggleBtn && panel) {
+            navbarToggleBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 panel.classList.toggle('active');
             });
+        }
+        
+        // Set up self-created button click handler
+        if (selfToggleBtn && panel) {
+            selfToggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                panel.classList.toggle('active');
+            });
+        }
 
-            // Close panel when clicking outside
+        // Close panel when clicking outside
+        if (panel) {
             document.addEventListener('click', (e) => {
-                if (!panel.contains(e.target) && !toggleBtn.contains(e.target)) {
+                const isToggleBtn = e.target === navbarToggleBtn || e.target === selfToggleBtn;
+                if (!panel.contains(e.target) && !isToggleBtn) {
                     panel.classList.remove('active');
                 }
             });

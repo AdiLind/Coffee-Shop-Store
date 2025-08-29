@@ -8,7 +8,7 @@
         "price": 299.99
       }
     ],
-    "updatedAt": "2025-08-27T20:11:47.432Z"
+    "updatedAt": "2025-08-29T10:18:24.736Z"
   },
   {
     "userId": "2912572d-5da5-436f-8ba3-bd0404ce6842",
@@ -35,14 +35,26 @@
         "productId": "prod-3",
         "title": "Manual Coffee Grinder",
         "price": 79.99,
-        "quantity": 4
+        "quantity": 5
+      },
+      {
+        "productId": "prod-2",
+        "title": "Premium Arabica Coffee Beans",
+        "price": 24.99,
+        "quantity": 3
+      },
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "price": 299.99,
+        "quantity": 1
       }
     ],
-    "updatedAt": "2025-08-27T20:38:25.817Z"
+    "updatedAt": "2025-08-29T10:40:10.866Z"
   },
   {
     "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
     "items": [],
-    "updatedAt": "2025-08-27T20:40:02.024Z"
+    "updatedAt": "2025-08-29T11:07:41.925Z"
   }
 ]

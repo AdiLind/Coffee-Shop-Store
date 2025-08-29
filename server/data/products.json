@@ -158,5 +158,45 @@
     "image": "/images/products/default.jpg",
     "createdAt": "2025-08-27T20:11:47.364Z",
     "inStock": true
+  },
+  {
+    "id": "9ffb5f84-7545-45c6-90b4-89a51892b147",
+    "title": "Test Coffee Mug",
+    "description": "A test mug for automated testing",
+    "price": 9.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-08-27T21:49:39.448Z",
+    "inStock": true
+  },
+  {
+    "id": "ef3abed9-7e1b-4c07-9d24-f1ae528677f8",
+    "title": "Test Coffee Mug",
+    "description": "A test mug for automated testing",
+    "price": 9.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-08-27T21:55:13.531Z",
+    "inStock": true
+  },
+  {
+    "id": "e0ebc2b6-b835-4b27-9035-89ac15a32e68",
+    "title": "Test Coffee Mug",
+    "description": "A test mug for automated testing",
+    "price": 9.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-08-27T22:16:07.867Z",
+    "inStock": true
+  },
+  {
+    "id": "38f9eac6-ecfe-4e75-9249-d245b29b68dd",
+    "title": "Test Coffee Mug",
+    "description": "A test mug for automated testing",
+    "price": 9.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-08-29T10:18:24.673Z",
+    "inStock": true
   }
 ]

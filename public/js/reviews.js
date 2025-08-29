@@ -99,9 +99,7 @@ class ReviewManager {
     async showAllReviews() {
         // Show all reviews across all products
         document.getElementById('reviews-title').textContent = 'All Product Reviews';
-        // Hide loading and show a message for now since server needs restart
-        this.showLoading(false);
-        this.showNoReviews('Server restart required to load Phase 5 features. Please restart the server to access reviews, wishlist, and other new features.');
+        await this.loadAllReviews();
     }
 
     async loadAllReviews() {
@@ -139,6 +137,19 @@ class ReviewManager {
             this.showError('Failed to load reviews');
         } finally {
             this.showLoading(false);
+        }
+    }
+
+    displayReviews() {
+        const reviewsList = document.getElementById('reviews-list');
+        const noReviews = document.getElementById('no-reviews');
+        
+        if (this.reviews.length === 0) {
+            reviewsList.innerHTML = '';
+            noReviews.style.display = 'block';
+        } else {
+            noReviews.style.display = 'none';
+            reviewsList.innerHTML = this.reviews.map(review => this.createReviewCard(review)).join('');
         }
     }
 

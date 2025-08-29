@@ -1,10 +1,18 @@
 [
   {
-    "id": "d00ee42c-686f-435e-8fa9-5f960c63224d",
-    "token": "12c1e8da-d9bf-4c3c-b6c5-880d65cc23cb",
+    "id": "bedfa6a5-4b01-46ad-b2f1-24728ab767b8",
+    "token": "b437d043-e9fb-426f-a2fa-f4e5514128cd",
     "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
-    "createdAt": "2025-08-27T20:39:32.909Z",
-    "expiresAt": "2025-08-27T21:09:32.909Z",
+    "createdAt": "2025-08-29T11:06:57.293Z",
+    "expiresAt": "2025-08-29T11:36:57.293Z",
+    "rememberMe": false
+  },
+  {
+    "id": "7e7d6b89-427b-4ecf-bb00-4cd81a5f6dba",
+    "token": "217c8fc3-bb86-4c03-960a-ed43dd100329",
+    "userId": "user-1",
+    "createdAt": "2025-08-29T11:11:33.397Z",
+    "expiresAt": "2025-08-29T11:41:33.397Z",
     "rememberMe": false
   }
 ]

@@ -110,26 +110,139 @@
     </div>
     
     <script src="/js/theme.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
     <script>
-        // Placeholder for Phase 3 - Admin functionality will be added later
-        document.addEventListener('DOMContentLoaded', function() {
-            const adminBtns = document.querySelectorAll('.admin-btn');
-            const addProductForm = document.getElementById('addProductForm');
-            const messageDiv = document.getElementById('adminMessage');
-            
-            adminBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const action = this.getAttribute('data-action');
-                    messageDiv.innerHTML = `<p class="info">Admin ${action} functionality will be implemented in Phase 3</p>`;
-                    messageDiv.classList.remove('hidden');
+        class AdminManager {
+            constructor() {
+                this.currentUser = null;
+            }
+
+            async init() {
+                this.currentUser = AuthManager.currentUser;
+                
+                if (!this.currentUser || this.currentUser.role !== 'admin') {
+                    window.location.href = '/pages/login.html';
+                    return;
+                }
+
+                this.setupEventListeners();
+                await this.loadAdminStats();
+            }
+
+            setupEventListeners() {
+                // Admin action buttons
+                document.querySelectorAll('.admin-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const action = e.target.getAttribute('data-action');
+                        this.handleAdminAction(action);
+                    });
                 });
-            });
-            
-            addProductForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                messageDiv.innerHTML = '<p class="info">Add product functionality will be implemented in Phase 3</p>';
-                messageDiv.classList.remove('hidden');
-            });
+
+                // Add product form
+                const addProductForm = document.getElementById('addProductForm');
+                if (addProductForm) {
+                    addProductForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        this.handleAddProduct(e.target);
+                    });
+                }
+            }
+
+            async loadAdminStats() {
+                try {
+                    const [productsRes, usersRes, ordersRes] = await Promise.all([
+                        AuthManager.apiClient.get('/products'),
+                        AuthManager.apiClient.get('/admin/users'),
+                        AuthManager.apiClient.get('/admin/orders')
+                    ]);
+
+                    if (productsRes.success) {
+                        document.getElementById('totalProducts').textContent = productsRes.data.length;
+                    }
+                    
+                    if (usersRes.success) {
+                        document.getElementById('totalUsers').textContent = usersRes.data.length;
+                    }
+                    
+                    if (ordersRes.success) {
+                        const orders = ordersRes.data;
+                        document.getElementById('totalOrders').textContent = orders.length;
+                        const revenue = orders.reduce((sum, order) => sum + (order.total || 0), 0);
+                        document.getElementById('totalRevenue').textContent = formatCurrency(revenue);
+                    }
+                } catch (error) {
+                    console.error('Failed to load admin stats:', error);
+                }
+            }
+
+            handleAdminAction(action) {
+                const messageDiv = document.getElementById('adminMessage');
+                
+                switch (action) {
+                    case 'products':
+                        window.location.href = '/pages/store.html';
+                        break;
+                    case 'users':
+                        this.showMessage('Users management coming soon. Use Analytics for user insights.', 'info');
+                        break;
+                    case 'orders':
+                        window.location.href = '/pages/my-orders.html';
+                        break;
+                    case 'activity':
+                        window.location.href = '/pages/admin-analytics.html';
+                        break;
+                    default:
+                        this.showMessage('Unknown action', 'error');
+                }
+            }
+
+            async handleAddProduct(form) {
+                const messageDiv = document.getElementById('adminMessage');
+                const formData = new FormData(form);
+                
+                const product = {
+                    title: formData.get('title'),
+                    description: formData.get('description'),
+                    price: parseFloat(formData.get('price')),
+                    category: formData.get('category')
+                };
+
+                try {
+                    const response = await AuthManager.apiClient.post('/products', product);
+                    
+                    if (response.success) {
+                        this.showMessage('Product added successfully!', 'success');
+                        form.reset();
+                        await this.loadAdminStats();
+                    } else {
+                        this.showMessage(response.message || 'Failed to add product', 'error');
+                    }
+                } catch (error) {
+                    console.error('Add product error:', error);
+                    this.showMessage('Failed to add product', 'error');
+                }
+            }
+
+            showMessage(message, type) {
+                const messageDiv = document.getElementById('adminMessage');
+                if (messageDiv) {
+                    messageDiv.innerHTML = `<p class="${type}">${message}</p>`;
+                    messageDiv.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Initialize admin manager
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await AuthManager.init();
+                const adminManager = new AdminManager();
+                await adminManager.init();
+            } catch (error) {
+                console.error('Failed to initialize admin panel:', error);
+            }
         });
     </script>
 </body>

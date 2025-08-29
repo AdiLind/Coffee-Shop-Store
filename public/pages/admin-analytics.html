@@ -514,10 +514,10 @@
                 try {
                     // Load all analytics data in parallel
                     const [salesData, userData, productData, systemData] = await Promise.all([
-                        ApiClient.get(`/analytics/sales?period=${this.currentPeriod}`),
-                        ApiClient.get('/analytics/users'),
-                        ApiClient.get('/analytics/products'),
-                        ApiClient.get('/analytics/system')
+                        AuthManager.apiClient.get(`/analytics/sales?period=${this.currentPeriod}`),
+                        AuthManager.apiClient.get('/analytics/users'),
+                        AuthManager.apiClient.get('/analytics/products'),
+                        AuthManager.apiClient.get('/analytics/system')
                     ]);
 
                     if (salesData.success) this.data.sales = salesData.data;

@@ -187,7 +187,7 @@ class StoreManager {
                 throw new Error('Product not found');
             }
 
-            const response = await this.apiClient.post('/wishlist/add', {
+            const response = await window.authManager.apiClient.post('/wishlist/add', {
                 userId: user.id,
                 productId: productId
             });
@@ -292,11 +292,15 @@ class StoreManager {
                     ${window.authManager && window.authManager.isAuthenticated() ? 
                         `<button class="btn btn-primary" onclick="storeManager.addToCart('${product.id}'); this.closest('.product-modal').remove();">
                             Add to Cart
+                        </button>
+                        <button class="btn btn-outline" onclick="window.location.href='/pages/reviews.html?productId=${product.id}'">
+                            Write Review
                         </button>` :
                         `<button class="btn btn-secondary" onclick="authManager.showMessage('Please login to add items to cart', 'warning')">
                             Login to Buy
                         </button>`
                     }
+                    <a href="/pages/reviews.html?productId=${product.id}" class="btn btn-outline">View Reviews</a>
                     <button class="btn btn-outline" onclick="this.closest('.product-modal').remove()">Close</button>
                 </div>
             </div>

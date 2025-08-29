@@ -10,7 +10,7 @@
       "language": "en"
     },
     "createdAt": "2025-01-15T09:00:00.000Z",
-    "lastLogin": "2025-08-27T20:11:49.451Z"
+    "lastLogin": "2025-08-29T11:11:33.394Z"
   },
   {
     "id": "user-2",
@@ -114,7 +114,7 @@
       "language": "en"
     },
     "createdAt": "2025-08-27T18:54:30.933Z",
-    "lastLogin": "2025-08-27T20:37:27.421Z"
+    "lastLogin": "2025-08-29T10:45:55.985Z"
   },
   {
     "id": "9f1fd2b0-8d42-4d9a-b8bd-6d7aba603b4d",
@@ -140,6 +140,58 @@
       "language": "en"
     },
     "createdAt": "2025-08-27T20:36:05.864Z",
-    "lastLogin": "2025-08-27T20:39:32.904Z"
+    "lastLogin": "2025-08-29T11:06:57.288Z"
+  },
+  {
+    "id": "bd230754-036d-47c5-90c3-8916c2329252",
+    "username": "testuser1756331379561",
+    "email": "test1756331379561@example.com",
+    "password": "$2b$12$O9fc5VTRL4g9V6tzKEDVBu.LfdH0QuvKksNRo5m//P0tWUzz6UuIK",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-27T21:49:40.142Z",
+    "lastLogin": "2025-08-27T21:49:40.721Z"
+  },
+  {
+    "id": "89b08fbd-9e60-4dce-bf76-dc719577816e",
+    "username": "testuser1756331713651",
+    "email": "test1756331713651@example.com",
+    "password": "$2b$12$2Ock/LmbIuoikr4oAGNH7Ox1EWQSqIeYG.Auu.DVSdT4dExOCEjpC",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-27T21:55:14.234Z",
+    "lastLogin": "2025-08-27T21:55:14.821Z"
+  },
+  {
+    "id": "20562dd8-1eb0-42ca-b7d0-960e76790cf5",
+    "username": "testuser1756332967980",
+    "email": "test1756332967980@example.com",
+    "password": "$2b$12$4oHpMih3oGlwpNJIAZCfiOg2VN9gmv2TLwgazXd2Rfm7eG6TpAK7K",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-27T22:16:08.559Z",
+    "lastLogin": "2025-08-27T22:16:09.144Z"
+  },
+  {
+    "id": "da2ddda0-2cc2-41bc-a6fc-fa7dd875fd9f",
+    "username": "testuser1756462704815",
+    "email": "test1756462704815@example.com",
+    "password": "$2b$12$RwvwZmL01081WsKdZ2ihD.76vcDmlrPJfmqAwATZABcAwKrTlGBGi",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-29T10:18:25.431Z",
+    "lastLogin": "2025-08-29T10:18:26.037Z"
   }
 ]

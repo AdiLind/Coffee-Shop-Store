@@ -236,5 +236,278 @@
     "action": "login",
     "details": null,
     "timestamp": "2025-08-27T20:39:32.914Z"
+  },
+  {
+    "id": "16056178-08d0-46da-9f0f-43096c8351af",
+    "username": "testuser1756331379561",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-27T21:49:40.146Z"
+  },
+  {
+    "id": "656aa5f2-4c75-4b10-8449-0a4e5bac33f6",
+    "username": "testuser1756331379561",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T21:49:40.731Z"
+  },
+  {
+    "id": "fb0fa207-78a8-4ca7-9313-78dcd3f4ed4a",
+    "username": "testuser1756331379561",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T21:49:40.784Z"
+  },
+  {
+    "id": "041060f2-fc76-4a0a-97b2-ba2925073b02",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T21:49:41.393Z"
+  },
+  {
+    "id": "7369f414-42a8-4c98-9dfb-2f9a5ded5057",
+    "username": "admin",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T21:49:41.423Z"
+  },
+  {
+    "id": "97a41479-2240-49bb-af8a-e0eae1208850",
+    "username": "lolo",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T21:50:12.606Z"
+  },
+  {
+    "id": "5625a344-809f-4f8e-92de-49930ab2071b",
+    "username": "lolo",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T21:50:53.304Z"
+  },
+  {
+    "id": "f15ad5ce-f6f7-44eb-b58d-ea06654f3684",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T21:51:00.684Z"
+  },
+  {
+    "id": "693bdba6-6b18-4a0a-b0ae-3aa0c778163f",
+    "username": "testuser1756331713651",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-27T21:55:14.239Z"
+  },
+  {
+    "id": "6217dd73-34d6-48f5-af54-b1ceacbfc406",
+    "username": "testuser1756331713651",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T21:55:14.829Z"
+  },
+  {
+    "id": "525332d2-339f-46f1-8811-3f26b9d8f60c",
+    "username": "testuser1756331713651",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T21:55:14.883Z"
+  },
+  {
+    "id": "b482ab3a-cf29-415b-924a-23759faa95fc",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T21:55:15.476Z"
+  },
+  {
+    "id": "2edd7969-faa1-4b39-a248-622992f45087",
+    "username": "admin",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T21:55:15.503Z"
+  },
+  {
+    "id": "ba73da84-49e9-48ed-a99d-ab9bde6bfc97",
+    "username": "Adi",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T21:57:07.179Z"
+  },
+  {
+    "id": "948e9af2-b3f5-44d7-9ee9-f14d38af521b",
+    "username": "lolo",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T21:57:15.716Z"
+  },
+  {
+    "id": "34f97955-a323-4e04-9e01-c6e20450711a",
+    "username": "testuser1756332967980",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-27T22:16:08.564Z"
+  },
+  {
+    "id": "e0b950b3-1f09-489e-8d39-1c3b634bf876",
+    "username": "testuser1756332967980",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T22:16:09.153Z"
+  },
+  {
+    "id": "522f5bf5-06ff-4762-b120-5dbdf2075e90",
+    "username": "testuser1756332967980",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T22:16:09.203Z"
+  },
+  {
+    "id": "74fd8393-4523-4e38-afce-56d5bb2241e0",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-27T22:16:09.792Z"
+  },
+  {
+    "id": "a1421a63-2b0b-44e4-93b5-48e34e228216",
+    "username": "admin",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-27T22:16:09.822Z"
+  },
+  {
+    "id": "abd41b06-44ce-4b00-bfd3-2580bbf96f96",
+    "username": "lolo",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-28T05:46:59.192Z"
+  },
+  {
+    "id": "58c5719b-daa7-44d1-8758-bf2b23360916",
+    "username": "testuser1756462704815",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-08-29T10:18:25.435Z"
+  },
+  {
+    "id": "633d7785-fa75-4619-b209-b7da0913d119",
+    "username": "testuser1756462704815",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:18:26.048Z"
+  },
+  {
+    "id": "002a5700-a070-4a4f-b688-7be0554a6076",
+    "username": "testuser1756462704815",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-29T10:18:26.155Z"
+  },
+  {
+    "id": "6e640c6c-19a0-41b2-96e0-0b9ed9b2b424",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:18:26.769Z"
+  },
+  {
+    "id": "36980dab-5e68-4513-8966-1736a60daee9",
+    "username": "admin",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-29T10:18:26.799Z"
+  },
+  {
+    "id": "f2b98b76-3cb8-4220-90c7-4e898605b9fe",
+    "username": "lolo",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:19:12.290Z"
+  },
+  {
+    "id": "a842ca96-8d48-4992-a98f-62fdb461254e",
+    "username": "lolo",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-29T10:20:25.644Z"
+  },
+  {
+    "id": "8b0ad70f-b23f-4852-8335-9432dcc7cb18",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:20:31.824Z"
+  },
+  {
+    "id": "bf851f86-3320-45e3-a105-f91c370ce397",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:36:04.920Z"
+  },
+  {
+    "id": "8a91745d-4ab5-4524-8321-2c314a3dc9e7",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:36:46.619Z"
+  },
+  {
+    "id": "e038bfaf-1cbf-4b3b-9721-d3e9a8a39809",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:40:01.620Z"
+  },
+  {
+    "id": "5f9833b6-5e53-46cd-b380-95ac57fba295",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:44:36.598Z"
+  },
+  {
+    "id": "93a31b41-bbfc-4a38-b980-6d4290b57792",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:44:54.485Z"
+  },
+  {
+    "id": "69bb6120-8d29-491f-8194-7e1f766042c8",
+    "username": "lolo",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:45:49.819Z"
+  },
+  {
+    "id": "379cde46-a67d-475a-8b91-7aa880843a7f",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T10:45:55.991Z"
+  },
+  {
+    "id": "b7c84117-0ee7-440c-b692-4a1b5c799bc4",
+    "username": "Adi",
+    "action": "logout",
+    "details": null,
+    "timestamp": "2025-08-29T11:06:48.997Z"
+  },
+  {
+    "id": "df8f1043-12ba-4c5f-a157-180d47f86893",
+    "username": "lolo",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T11:06:57.298Z"
+  },
+  {
+    "id": "963726c3-cf27-4b9a-a8bc-cbed5a6fa196",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-08-29T11:11:33.402Z"
   }
 ]
