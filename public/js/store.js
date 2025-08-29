@@ -154,6 +154,9 @@ class StoreManager {
                     ${isAuthenticated ? 
                         `<button class="btn btn-primary" onclick="storeManager.addToCart('${product.id}')">
                             Add to Cart
+                        </button>
+                        <button class="btn btn-outline" onclick="storeManager.addToWishlist('${product.id}')" title="Add to Wishlist">
+                            ♥
                         </button>` :
                         `<button class="btn btn-secondary" onclick="authManager.showMessage('Please login to add items to cart', 'warning')">
                             Login to Buy
@@ -167,6 +170,38 @@ class StoreManager {
                 ${product.inStock === false ? '<div class="out-of-stock">Out of Stock</div>' : ''}
             </div>
         `;
+    }
+
+    // Add product to wishlist
+    async addToWishlist(productId) {
+        if (!window.authManager || !window.authManager.isAuthenticated()) {
+            window.authManager.showMessage('Please login to add items to wishlist', 'warning');
+            return;
+        }
+
+        try {
+            const user = window.authManager.currentUser;
+            const product = this.products.find(p => p.id === productId);
+            
+            if (!product) {
+                throw new Error('Product not found');
+            }
+
+            const response = await this.apiClient.post('/wishlist/add', {
+                userId: user.id,
+                productId: productId
+            });
+            
+            if (response.success) {
+                window.authManager.showMessage(`${product.title} added to wishlist!`, 'success');
+            } else {
+                throw new Error(response.message || 'Failed to add to wishlist');
+            }
+            
+        } catch (error) {
+            console.error('Failed to add to wishlist:', error);
+            window.authManager.showMessage('Failed to add item to wishlist', 'error');
+        }
     }
 
     // Add product to cart
@@ -206,6 +241,11 @@ class StoreManager {
             
             // Update cart on server
             await this.apiClient.updateCart(user.id, currentCart);
+            
+            // Update cart count in navigation
+            if (window.authManager && window.authManager.updateCartCount) {
+                await window.authManager.updateCartCount();
+            }
             
             window.authManager.showMessage(`${product.title} added to cart!`, 'success');
             

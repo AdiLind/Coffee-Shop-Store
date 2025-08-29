@@ -46,7 +46,7 @@ class WishlistManager {
     async loadWishlist() {
         try {
             this.showLoading(true);
-            const response = await ApiClient.get(`/wishlist/${this.currentUser.id}`);
+            const response = await AuthManager.apiClient.get(`/wishlist/${this.currentUser.id}`);
             
             if (response.success) {
                 this.wishlist = response.data.items || [];
@@ -175,7 +175,7 @@ class WishlistManager {
             const product = wishlistItem.product;
             
             // Add to cart
-            const cartResponse = await ApiClient.post(`/cart/${this.currentUser.id}`, {
+            const cartResponse = await AuthManager.apiClient.post(`/cart/${this.currentUser.id}`, {
                 productId: product.id,
                 quantity: 1
             });
@@ -200,7 +200,7 @@ class WishlistManager {
 
     async removeFromWishlist(productId, itemId) {
         try {
-            const response = await ApiClient.delete(`/wishlist/remove/${productId}`);
+            const response = await AuthManager.apiClient.delete(`/wishlist/remove/${productId}`);
             
             if (response.success) {
                 // Remove from local state
@@ -252,7 +252,7 @@ class WishlistManager {
 
         try {
             // Move items to cart
-            const response = await ApiClient.post('/wishlist/to-cart', {
+            const response = await AuthManager.apiClient.post('/wishlist/to-cart', {
                 productIds: selectedProducts
             });
 
@@ -292,7 +292,7 @@ class WishlistManager {
         try {
             // Remove each selected item
             for (const productId of selectedProducts) {
-                await ApiClient.delete(`/wishlist/remove/${productId}`);
+                await AuthManager.apiClient.delete(`/wishlist/remove/${productId}`);
             }
 
             // Update local state
@@ -324,7 +324,7 @@ class WishlistManager {
         }
 
         try {
-            const response = await ApiClient.delete('/wishlist/clear');
+            const response = await AuthManager.apiClient.delete('/wishlist/clear');
             
             if (response.success) {
                 this.wishlist = [];
@@ -408,7 +408,7 @@ class WishlistManager {
     // Static method to add item to wishlist from other pages
     static async addToWishlist(productId, notes = '') {
         try {
-            const response = await ApiClient.post('/wishlist/add', {
+            const response = await AuthManager.apiClient.post('/wishlist/add', {
                 productId,
                 notes
             });

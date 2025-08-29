@@ -162,22 +162,45 @@ class AuthManager {
 
     // Update navigation menu
     updateNavigation() {
-        const navContainer = document.querySelector('.nav-user-section');
-        if (!navContainer) return;
+        const authSection = document.getElementById('auth-section');
+        if (!authSection) return;
 
         if (this.currentUser) {
-            navContainer.innerHTML = `
-                <span class="nav-welcome">Welcome, ${this.currentUser.username}!</span>
-                <a href="/pages/cart.html" class="nav-link">Cart</a>
-                <a href="/pages/my-orders.html" class="nav-link">My Orders</a>
-                ${this.currentUser.role === 'admin' ? '<a href="/pages/admin.html" class="nav-link">Admin</a>' : ''}
-                <button class="btn btn-secondary btn-sm" onclick="authManager.logout()">Logout</button>
+            authSection.innerHTML = `
+                <span style="margin-right: 10px; color: var(--text-color, #333);">Welcome, ${this.currentUser.username}!</span>
+                ${this.currentUser.role === 'admin' ? '<a href="/pages/admin.html">Admin Panel</a>' : ''}
+                <a href="#" onclick="authManager.logout()">Logout</a>
             `;
         } else {
-            navContainer.innerHTML = `
-                <a href="/pages/login.html" class="btn btn-primary btn-sm">Login</a>
-                <a href="/pages/register.html" class="btn btn-secondary btn-sm">Register</a>
+            authSection.innerHTML = `
+                <a href="/pages/login.html">Login</a>
             `;
+        }
+        
+        // Update cart count
+        this.updateCartCount();
+    }
+
+    // Update cart count in navigation
+    async updateCartCount() {
+        const cartCountElement = document.getElementById('cart-count');
+        if (!cartCountElement) return;
+
+        if (this.currentUser) {
+            try {
+                const response = await this.apiClient.getCart(this.currentUser.id);
+                if (response.success && response.data && response.data.items) {
+                    const totalItems = response.data.items.reduce((sum, item) => sum + item.quantity, 0);
+                    cartCountElement.textContent = totalItems;
+                } else {
+                    cartCountElement.textContent = '0';
+                }
+            } catch (error) {
+                console.error('Failed to load cart count:', error);
+                cartCountElement.textContent = '0';
+            }
+        } else {
+            cartCountElement.textContent = '0';
         }
     }
 

@@ -99,14 +99,16 @@ class ReviewManager {
     async showAllReviews() {
         // Show all reviews across all products
         document.getElementById('reviews-title').textContent = 'All Product Reviews';
-        await this.loadAllReviews();
+        // Hide loading and show a message for now since server needs restart
+        this.showLoading(false);
+        this.showNoReviews('Server restart required to load Phase 5 features. Please restart the server to access reviews, wishlist, and other new features.');
     }
 
     async loadAllReviews() {
         try {
             this.showLoading(true);
             // Since we don't have an all reviews endpoint, we'll load all products and their reviews
-            const productsResponse = await ApiClient.get('/products');
+            const productsResponse = await AuthManager.apiClient.get('/products');
             if (!productsResponse.success) return;
 
             const products = productsResponse.data;
@@ -114,7 +116,7 @@ class ReviewManager {
 
             for (const product of products) {
                 try {
-                    const reviewsResponse = await ApiClient.get(`/reviews/product/${product.id}`);
+                    const reviewsResponse = await AuthManager.apiClient.get(`/reviews/product/${product.id}`);
                     if (reviewsResponse.success && reviewsResponse.data.reviews.length > 0) {
                         const reviews = reviewsResponse.data.reviews.map(review => ({
                             ...review,

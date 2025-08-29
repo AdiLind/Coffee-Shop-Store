@@ -440,7 +440,7 @@ class ThemeManager {
 
     setupEventListeners() {
         // Theme toggle button
-        const toggleBtn = document.getElementById('theme-toggle-btn');
+        const toggleBtn = document.getElementById('theme-toggle');
         const panel = document.getElementById('theme-panel');
         
         if (toggleBtn && panel) {

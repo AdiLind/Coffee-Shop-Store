@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>☕ Coffee Shop - Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/themes.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/components.css">
 </head>
@@ -14,11 +15,22 @@
             <p>Manage your coffee shop</p>
             
             <nav class="navbar">
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="/pages/store.html">Store</a></li>
-                    <li class="nav-item"><a href="/pages/admin.html">Admin</a></li>
-                    <li class="nav-item"><a href="/pages/login.html">Logout</a></li>
-                </ul>
+                <div class="container">
+                    <div class="nav-brand">
+                        <a href="/pages/store.html">☕ Coffee Shop</a>
+                    </div>
+                    <div class="nav-menu">
+                        <a href="/pages/admin.html" class="active">Admin Panel</a>
+                        <a href="/pages/admin-analytics.html">Analytics</a>
+                        <a href="/pages/store.html">Store</a>
+                        <div id="auth-section">
+                            <a href="#" onclick="AuthManager.logout()">Logout</a>
+                        </div>
+                    </div>
+                    <div class="theme-toggle-container">
+                        <button id="theme-toggle" class="theme-toggle" title="Change Theme">🎨</button>
+                    </div>
+                </div>
             </nav>
         </header>
         
@@ -97,6 +109,7 @@
         </footer>
     </div>
     
+    <script src="/js/theme.js"></script>
     <script>
         // Placeholder for Phase 3 - Admin functionality will be added later
         document.addEventListener('DOMContentLoaded', function() {

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders - Coffee Shop</title>
+    <link rel="stylesheet" href="/css/themes.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/components.css">
 </head>
@@ -15,11 +16,24 @@
         </header>
 
         <nav class="navbar">
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="/pages/store.html">Store</a></li>
-                <li class="nav-item"><a href="/pages/cart.html">Cart</a></li>
-                <li class="nav-item nav-user-section"></li>
-            </ul>
+            <div class="container">
+                <div class="nav-brand">
+                    <a href="/pages/store.html">☕ Coffee Shop</a>
+                </div>
+                <div class="nav-menu">
+                    <a href="/pages/store.html">Store</a>
+                    <a href="/pages/cart.html">Cart <span id="cart-count">0</span></a>
+                    <a href="/pages/my-orders.html" class="active">Orders</a>
+                    <a href="/pages/wishlist.html">Wishlist <span id="wishlist-count">0</span></a>
+                    <a href="/pages/reviews.html">Reviews</a>
+                    <div id="auth-section">
+                        <a href="/pages/login.html">Login</a>
+                    </div>
+                </div>
+                <div class="theme-toggle-container">
+                    <button id="theme-toggle" class="theme-toggle" title="Change Theme">🎨</button>
+                </div>
+            </div>
         </nav>
         
         <main class="main">
@@ -66,6 +80,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="/js/theme.js"></script>
     <script src="/js/utils.js"></script>
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>

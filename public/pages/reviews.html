@@ -277,16 +277,22 @@
 <body>
     <div class="container">
         <nav class="navbar">
-            <div class="nav-brand">
-                <a href="/pages/store.html">☕ Coffee Shop</a>
-            </div>
-            <div class="nav-menu">
-                <a href="/pages/store.html">Store</a>
-                <a href="/pages/cart.html">Cart <span id="cart-count">0</span></a>
-                <a href="/pages/my-orders.html">Orders</a>
-                <a href="/pages/reviews.html" class="active">Reviews</a>
-                <div id="auth-section">
-                    <a href="/pages/login.html">Login</a>
+            <div class="container">
+                <div class="nav-brand">
+                    <a href="/pages/store.html">☕ Coffee Shop</a>
+                </div>
+                <div class="nav-menu">
+                    <a href="/pages/store.html">Store</a>
+                    <a href="/pages/cart.html">Cart <span id="cart-count">0</span></a>
+                    <a href="/pages/my-orders.html">Orders</a>
+                    <a href="/pages/wishlist.html">Wishlist <span id="wishlist-count">0</span></a>
+                    <a href="/pages/reviews.html" class="active">Reviews</a>
+                    <div id="auth-section">
+                        <a href="/pages/login.html">Login</a>
+                    </div>
+                </div>
+                <div class="theme-toggle-container">
+                    <button id="theme-toggle" class="theme-toggle" title="Change Theme">🎨</button>
                 </div>
             </div>
         </nav>
@@ -359,6 +365,7 @@
         </main>
     </div>
 
+    <script src="/js/theme.js"></script>
     <script src="/js/api.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/reviews.js"></script>
