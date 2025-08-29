@@ -1,0 +1,74 @@
+[
+    {
+        "id": "support-1",
+        "ticketNumber": "TICKET-1706088000000",
+        "userId": "user-admin",
+        "username": "admin",
+        "subject": "Question about espresso machine maintenance",
+        "description": "I need help understanding how often I should descale my espresso machine. I use it about 5 times per day.",
+        "category": "product",
+        "priority": "medium",
+        "status": "resolved",
+        "messages": [
+            {
+                "id": "msg-1",
+                "sender": "user",
+                "senderName": "admin",
+                "message": "I need help understanding how often I should descale my espresso machine. I use it about 5 times per day.",
+                "timestamp": "2025-01-24T10:00:00.000Z"
+            },
+            {
+                "id": "msg-2",
+                "sender": "support",
+                "senderName": "Support Team",
+                "message": "Hi! For your usage level (5 times per day), we recommend descaling every 2-3 weeks. You should also clean the portafilter and steam wand after each use. Would you like specific instructions for the descaling process?",
+                "timestamp": "2025-01-24T14:30:00.000Z"
+            },
+            {
+                "id": "msg-3",
+                "sender": "user",
+                "senderName": "admin",
+                "message": "Yes, please send me the descaling instructions. Thank you!",
+                "timestamp": "2025-01-24T15:15:00.000Z"
+            },
+            {
+                "id": "msg-4",
+                "sender": "support",
+                "senderName": "Support Team",
+                "message": "I've sent you a detailed descaling guide via email. The process takes about 30 minutes and should be done with our recommended descaling solution. Let me know if you have any other questions!",
+                "timestamp": "2025-01-24T16:45:00.000Z"
+            }
+        ],
+        "createdAt": "2025-01-24T10:00:00.000Z",
+        "updatedAt": "2025-01-24T16:45:00.000Z"
+    },
+    {
+        "id": "support-2",
+        "ticketNumber": "TICKET-1706174400000",
+        "userId": "user-admin",
+        "username": "admin",
+        "subject": "Order delivery delay",
+        "description": "My order was supposed to arrive yesterday but I haven't received it yet. Order number is ORD-123.",
+        "category": "order",
+        "priority": "high",
+        "status": "in_progress",
+        "messages": [
+            {
+                "id": "msg-5",
+                "sender": "user",
+                "senderName": "admin",
+                "message": "My order was supposed to arrive yesterday but I haven't received it yet. Order number is ORD-123.",
+                "timestamp": "2025-01-25T09:30:00.000Z"
+            },
+            {
+                "id": "msg-6",
+                "sender": "support",
+                "senderName": "Support Team",
+                "message": "I'm sorry to hear about the delay. Let me check with our shipping partner and get back to you with an update within 2 hours.",
+                "timestamp": "2025-01-25T10:45:00.000Z"
+            }
+        ],
+        "createdAt": "2025-01-25T09:30:00.000Z",
+        "updatedAt": "2025-01-25T10:45:00.000Z"
+    }
+]

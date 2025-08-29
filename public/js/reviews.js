@@ -1,0 +1,415 @@
+class ReviewManager {
+    constructor() {
+        this.currentProductId = null;
+        this.userRating = 0;
+        this.reviews = [];
+        this.currentUser = null;
+    }
+
+    async init() {
+        // Get product ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        this.currentProductId = urlParams.get('productId');
+
+        // Get current user
+        this.currentUser = AuthManager.currentUser;
+
+        // Set up event listeners
+        this.setupEventListeners();
+
+        if (this.currentProductId) {
+            await this.loadProductInfo();
+            await this.loadReviews();
+        } else {
+            this.showAllReviews();
+        }
+
+        this.updateUI();
+    }
+
+    setupEventListeners() {
+        // Rating input
+        const ratingStars = document.querySelectorAll('#rating-input .star');
+        ratingStars.forEach(star => {
+            star.addEventListener('click', (e) => {
+                this.userRating = parseInt(e.target.dataset.rating);
+                document.getElementById('rating').value = this.userRating;
+                this.updateRatingDisplay();
+            });
+
+            star.addEventListener('mouseover', (e) => {
+                const rating = parseInt(e.target.dataset.rating);
+                this.highlightStars('#rating-input', rating, true);
+            });
+
+            star.addEventListener('mouseout', () => {
+                this.updateRatingDisplay();
+            });
+        });
+
+        // Review form submission
+        const reviewForm = document.getElementById('review-form');
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.submitReview();
+            });
+        }
+    }
+
+    async loadProductInfo() {
+        try {
+            const response = await ApiClient.get(`/products/${this.currentProductId}`);
+            if (response.success) {
+                const product = response.data;
+                document.getElementById('product-title').textContent = `${product.title} - Reviews`;
+                document.getElementById('product-description').textContent = product.description;
+                document.getElementById('product-image').src = product.image || '/images/products/placeholder.jpg';
+                document.getElementById('product-header').style.display = 'flex';
+            }
+        } catch (error) {
+            console.error('Failed to load product info:', error);
+        }
+    }
+
+    async loadReviews() {
+        try {
+            this.showLoading(true);
+            const endpoint = this.currentProductId 
+                ? `/reviews/product/${this.currentProductId}` 
+                : '/reviews/all';
+            
+            const response = await ApiClient.get(endpoint);
+            
+            if (response.success) {
+                this.reviews = response.data.reviews || [];
+                this.updateReviewStats(response.data);
+                this.displayReviews();
+            } else {
+                this.showError('Failed to load reviews');
+            }
+        } catch (error) {
+            console.error('Failed to load reviews:', error);
+            this.showError('Failed to load reviews');
+        } finally {
+            this.showLoading(false);
+        }
+    }
+
+    async showAllReviews() {
+        // Show all reviews across all products
+        document.getElementById('reviews-title').textContent = 'All Product Reviews';
+        await this.loadAllReviews();
+    }
+
+    async loadAllReviews() {
+        try {
+            this.showLoading(true);
+            // Since we don't have an all reviews endpoint, we'll load all products and their reviews
+            const productsResponse = await ApiClient.get('/products');
+            if (!productsResponse.success) return;
+
+            const products = productsResponse.data;
+            let allReviews = [];
+
+            for (const product of products) {
+                try {
+                    const reviewsResponse = await ApiClient.get(`/reviews/product/${product.id}`);
+                    if (reviewsResponse.success && reviewsResponse.data.reviews.length > 0) {
+                        const reviews = reviewsResponse.data.reviews.map(review => ({
+                            ...review,
+                            productTitle: product.title,
+                            productImage: product.image
+                        }));
+                        allReviews = allReviews.concat(reviews);
+                    }
+                } catch (error) {
+                    console.error(`Failed to load reviews for product ${product.id}:`, error);
+                }
+            }
+
+            // Sort by date (newest first)
+            allReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            this.reviews = allReviews;
+            this.displayReviews();
+        } catch (error) {
+            console.error('Failed to load all reviews:', error);
+            this.showError('Failed to load reviews');
+        } finally {
+            this.showLoading(false);
+        }
+    }
+
+    updateReviewStats(data) {
+        if (data.totalReviews > 0) {
+            this.displayStars('#average-stars', data.averageRating);
+            document.getElementById('average-rating').textContent = data.averageRating.toFixed(1);
+            document.getElementById('review-stats').textContent = `(${data.totalReviews} review${data.totalReviews !== 1 ? 's' : ''})`;
+        } else {
+            document.getElementById('average-rating').textContent = '0.0';
+            document.getElementById('review-stats').textContent = '(No reviews yet)';
+        }
+    }
+
+    displayReviews() {
+        const reviewsList = document.getElementById('reviews-list');
+        const noReviews = document.getElementById('no-reviews');
+
+        if (this.reviews.length === 0) {
+            reviewsList.style.display = 'none';
+            noReviews.style.display = 'block';
+            return;
+        }
+
+        reviewsList.style.display = 'block';
+        noReviews.style.display = 'none';
+
+        reviewsList.innerHTML = this.reviews.map(review => this.renderReview(review)).join('');
+        this.attachReviewEventListeners();
+    }
+
+    renderReview(review) {
+        const reviewDate = new Date(review.createdAt).toLocaleDateString();
+        const isOwner = this.currentUser && this.currentUser.id === review.userId;
+        const isAdmin = this.currentUser && this.currentUser.role === 'admin';
+        const canEdit = isOwner || isAdmin;
+
+        const productInfo = review.productTitle ? 
+            `<div class="review-product">
+                <img src="${review.productImage || '/images/products/placeholder.jpg'}" 
+                     alt="${review.productTitle}" style="width: 40px; height: 40px; border-radius: 5px; margin-right: 10px;">
+                <a href="/pages/reviews.html?productId=${review.productId}" style="text-decoration: none; color: var(--primary-color);">
+                    ${review.productTitle}
+                </a>
+            </div>` : '';
+
+        return `
+            <div class="review-card" data-review-id="${review.id}">
+                ${productInfo}
+                <div class="review-header">
+                    <div class="review-user">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <strong>${review.username}</strong>
+                                ${review.verified ? '<span class="verified-badge">Verified Purchase</span>' : ''}
+                            </div>
+                            <div class="stars" style="margin-top: 5px;">
+                                ${this.renderStars(review.rating)}
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="review-date">${reviewDate}</div>
+                        ${canEdit ? `
+                            <div class="review-controls" style="margin-top: 10px;">
+                                ${isOwner ? `<button class="edit-btn" data-review-id="${review.id}">Edit</button>` : ''}
+                                <button class="delete-btn" data-review-id="${review.id}">Delete</button>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+                
+                <div class="review-title">${review.title}</div>
+                <div class="review-comment">${review.comment}</div>
+                
+                <div class="review-actions">
+                    <button class="helpful-button" data-review-id="${review.id}">
+                        <span>👍</span>
+                        <span>Helpful (${review.helpful || 0})</span>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    renderStars(rating) {
+        let starsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+            starsHtml += `<span class="star ${i <= rating ? 'filled' : ''}">★</span>`;
+        }
+        return starsHtml;
+    }
+
+    displayStars(selector, rating) {
+        const container = document.querySelector(selector);
+        if (container) {
+            container.innerHTML = this.renderStars(Math.round(rating));
+        }
+    }
+
+    highlightStars(selector, rating, hover = false) {
+        const stars = document.querySelectorAll(`${selector} .star`);
+        stars.forEach((star, index) => {
+            star.classList.remove('filled', 'hover');
+            if (index < rating) {
+                star.classList.add(hover ? 'hover' : 'filled');
+            }
+        });
+    }
+
+    updateRatingDisplay() {
+        this.highlightStars('#rating-input', this.userRating);
+    }
+
+    attachReviewEventListeners() {
+        // Helpful buttons
+        document.querySelectorAll('.helpful-button').forEach(button => {
+            button.addEventListener('click', async (e) => {
+                if (!this.currentUser) {
+                    alert('Please login to vote on reviews');
+                    return;
+                }
+                
+                const reviewId = e.currentTarget.dataset.reviewId;
+                await this.markHelpful(reviewId);
+            });
+        });
+
+        // Delete buttons
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', async (e) => {
+                const reviewId = e.currentTarget.dataset.reviewId;
+                if (confirm('Are you sure you want to delete this review?')) {
+                    await this.deleteReview(reviewId);
+                }
+            });
+        });
+
+        // Edit buttons
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const reviewId = e.currentTarget.dataset.reviewId;
+                this.editReview(reviewId);
+            });
+        });
+    }
+
+    async submitReview() {
+        if (!this.currentUser) {
+            alert('Please login to submit a review');
+            return;
+        }
+
+        if (!this.currentProductId) {
+            alert('Product ID is required');
+            return;
+        }
+
+        const formData = new FormData(document.getElementById('review-form'));
+        const reviewData = {
+            productId: this.currentProductId,
+            rating: this.userRating,
+            title: formData.get('title').trim(),
+            comment: formData.get('comment').trim()
+        };
+
+        if (!reviewData.rating || reviewData.rating < 1 || reviewData.rating > 5) {
+            alert('Please select a rating');
+            return;
+        }
+
+        if (!reviewData.title || reviewData.title.length < 1) {
+            alert('Please enter a review title');
+            return;
+        }
+
+        if (!reviewData.comment || reviewData.comment.length < 1) {
+            alert('Please enter a review comment');
+            return;
+        }
+
+        try {
+            const response = await ApiClient.post('/reviews', reviewData);
+            
+            if (response.success) {
+                document.getElementById('review-form').reset();
+                this.userRating = 0;
+                this.updateRatingDisplay();
+                await this.loadReviews();
+                alert('Review submitted successfully!');
+            } else {
+                alert(response.message || 'Failed to submit review');
+            }
+        } catch (error) {
+            console.error('Failed to submit review:', error);
+            alert('Failed to submit review. Please try again.');
+        }
+    }
+
+    async markHelpful(reviewId) {
+        try {
+            const response = await ApiClient.post(`/reviews/${reviewId}/helpful`);
+            
+            if (response.success) {
+                // Update the helpful count in the UI
+                const button = document.querySelector(`[data-review-id="${reviewId}"].helpful-button`);
+                if (button) {
+                    const span = button.querySelector('span:last-child');
+                    span.textContent = `Helpful (${response.data.helpful})`;
+                    
+                    if (response.data.userVoted) {
+                        button.classList.add('voted');
+                    } else {
+                        button.classList.remove('voted');
+                    }
+                }
+            } else {
+                alert(response.message || 'Failed to vote on review');
+            }
+        } catch (error) {
+            console.error('Failed to mark review as helpful:', error);
+            alert('Failed to vote on review');
+        }
+    }
+
+    async deleteReview(reviewId) {
+        try {
+            const response = await ApiClient.delete(`/reviews/${reviewId}`);
+            
+            if (response.success) {
+                await this.loadReviews();
+                alert('Review deleted successfully');
+            } else {
+                alert(response.message || 'Failed to delete review');
+            }
+        } catch (error) {
+            console.error('Failed to delete review:', error);
+            alert('Failed to delete review');
+        }
+    }
+
+    editReview(reviewId) {
+        // For now, just show an alert. In a full implementation, 
+        // you'd show an edit form or modal
+        alert('Edit functionality would be implemented here');
+    }
+
+    updateUI() {
+        const formContainer = document.getElementById('review-form-container');
+        const loginPrompt = document.getElementById('login-prompt');
+
+        if (this.currentUser && this.currentProductId) {
+            formContainer.style.display = 'block';
+            loginPrompt.style.display = 'none';
+        } else if (!this.currentUser && this.currentProductId) {
+            formContainer.style.display = 'none';
+            loginPrompt.style.display = 'block';
+        } else {
+            formContainer.style.display = 'none';
+            loginPrompt.style.display = 'none';
+        }
+    }
+
+    showLoading(show) {
+        document.getElementById('loading').style.display = show ? 'block' : 'none';
+    }
+
+    showError(message) {
+        const errorElement = document.getElementById('error-message');
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+}
+
+// Global instance
+const ReviewManager = new ReviewManager();

@@ -1,0 +1,346 @@
+/* Theme System CSS Variables and Styles */
+
+:root {
+    /* Default Light Theme Colors */
+    --primary-color: #8B4513;
+    --primary-dark: #654321;
+    --primary-light: #A0522D;
+    --secondary-color: #D2691E;
+    --background-color: #FFFFFF;
+    --surface-color: #F8F9FA;
+    --card-bg: #FFFFFF;
+    --text-color: #212529;
+    --text-secondary: #6C757D;
+    --border-color: #DEE2E6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --success-color: #28A745;
+    --warning-color: #FFC107;
+    --error-color: #DC3545;
+    --info-color: #17A2B8;
+    
+    /* Font scaling */
+    --font-scale: 1.0;
+    
+    /* Transition duration (can be overridden to disable animations) */
+    --transition-duration: 0.3s;
+}
+
+/* Base theme transitions */
+* {
+    transition: 
+        background-color var(--transition-duration, 0.3s) ease,
+        color var(--transition-duration, 0.3s) ease,
+        border-color var(--transition-duration, 0.3s) ease,
+        box-shadow var(--transition-duration, 0.3s) ease;
+}
+
+/* Body and background theming */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Theme-specific styles */
+.theme-light {
+    color-scheme: light;
+}
+
+.theme-dark {
+    color-scheme: dark;
+}
+
+.theme-coffee {
+    color-scheme: light;
+}
+
+.theme-sepia {
+    color-scheme: light;
+}
+
+/* Dark theme specific adjustments */
+.theme-dark img {
+    opacity: 0.9;
+}
+
+.theme-dark .navbar {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.theme-dark input,
+.theme-dark textarea,
+.theme-dark select {
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.theme-dark input:focus,
+.theme-dark textarea:focus,
+.theme-dark select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(210, 105, 30, 0.25);
+}
+
+/* Coffee theme specific adjustments */
+.theme-coffee {
+    font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+.theme-coffee .navbar {
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.theme-coffee .btn-primary {
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.theme-coffee .product-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Sepia theme specific adjustments */
+.theme-sepia {
+    font-family: 'Book Antiqua', 'Palatino', serif;
+}
+
+.theme-sepia img {
+    filter: sepia(20%) saturate(0.8);
+}
+
+.theme-sepia .product-card {
+    border: 1px solid var(--border-color);
+}
+
+/* High contrast improvements for accessibility */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: #000000;
+        --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .theme-dark {
+        --border-color: #FFFFFF;
+    }
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    :root {
+        --transition-duration: 0s;
+    }
+}
+
+/* Font size scaling system */
+html {
+    font-size: calc(16px * var(--font-scale, 1.0));
+}
+
+/* Responsive font scaling adjustments */
+@media (max-width: 768px) {
+    html {
+        font-size: calc(14px * var(--font-scale, 1.0));
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: calc(13px * var(--font-scale, 1.0));
+    }
+}
+
+/* Theme-aware scrollbar styling */
+.theme-dark ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.theme-dark ::-webkit-scrollbar-track {
+    background: var(--surface-color);
+}
+
+.theme-dark ::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.theme-dark ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Print styles - always use light theme */
+@media print {
+    * {
+        background-color: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    .theme-controls {
+        display: none !important;
+    }
+}
+
+/* Focus styles for better keyboard navigation */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus,
+a:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Theme-specific button styles */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--surface-color);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--border-color);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    color: white;
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    border-color: var(--warning-color);
+    color: white;
+}
+
+.btn-danger {
+    background-color: var(--error-color);
+    border-color: var(--error-color);
+    color: white;
+}
+
+/* Card and surface theming */
+.card,
+.product-card,
+.order-card,
+.review-card,
+.wishlist-item {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+/* Navigation theming */
+.navbar {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-menu a {
+    color: var(--text-color);
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--primary-color);
+}
+
+/* Form theming */
+input,
+textarea,
+select {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(139, 69, 19, 0.25);
+}
+
+.theme-dark input:focus,
+.theme-dark textarea:focus,
+.theme-dark select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(210, 105, 30, 0.25);
+}
+
+/* Alert and notification theming */
+.alert-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.alert-warning {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.alert-danger {
+    background-color: var(--error-color);
+    color: white;
+}
+
+.alert-info {
+    background-color: var(--info-color);
+    color: white;
+}
+
+/* Loading and skeleton theming */
+.loading {
+    color: var(--text-secondary);
+}
+
+.skeleton {
+    background: linear-gradient(90deg, 
+        var(--surface-color) 25%, 
+        var(--border-color) 50%, 
+        var(--surface-color) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Custom theme preview colors for theme selector */
+.light-preview {
+    background: linear-gradient(45deg, #FFFFFF 50%, #F8F9FA 50%);
+    border: 1px solid #DEE2E6;
+}
+
+.dark-preview {
+    background: linear-gradient(45deg, #121212 50%, #2D2D2D 50%);
+    border: 1px solid #404040;
+}
+
+.coffee-preview {
+    background: linear-gradient(45deg, #6F4E37 50%, #A0522D 50%);
+    border: 1px solid #8D6E63;
+}
+
+.sepia-preview {
+    background: linear-gradient(45deg, #F4F1E8 50%, #8B4513 50%);
+    border: 1px solid #D4C4B0;
+}

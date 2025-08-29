@@ -1,0 +1,19 @@
+[
+    {
+        "userId": "user-admin",
+        "items": [
+            {
+                "id": "wishlist-1",
+                "productId": "prod-3",
+                "notes": "For the office kitchen",
+                "addedAt": "2025-01-25T14:30:00.000Z"
+            },
+            {
+                "id": "wishlist-2", 
+                "productId": "prod-5",
+                "notes": "Birthday gift idea",
+                "addedAt": "2025-01-26T09:15:00.000Z"
+            }
+        ]
+    }
+]

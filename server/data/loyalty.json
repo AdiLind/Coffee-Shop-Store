@@ -1,0 +1,57 @@
+[
+    {
+        "userId": "user-admin",
+        "totalPoints": 1850,
+        "availablePoints": 1350,
+        "tier": "gold",
+        "pointsHistory": [
+            {
+                "id": "history-1",
+                "type": "earned",
+                "amount": 500,
+                "description": "Order #ORD-001",
+                "orderId": "ORD-001",
+                "orderTotal": 45.99,
+                "multiplier": 1.0,
+                "timestamp": "2025-01-20T10:30:00.000Z"
+            },
+            {
+                "id": "history-2",
+                "type": "earned", 
+                "amount": 750,
+                "description": "Order #ORD-002",
+                "orderId": "ORD-002",
+                "orderTotal": 62.50,
+                "multiplier": 1.2,
+                "timestamp": "2025-01-22T14:15:00.000Z"
+            },
+            {
+                "id": "history-3",
+                "type": "earned",
+                "amount": 900,
+                "description": "Order #ORD-003", 
+                "orderId": "ORD-003",
+                "orderTotal": 78.99,
+                "multiplier": 1.5,
+                "timestamp": "2025-01-25T09:45:00.000Z"
+            },
+            {
+                "id": "history-4",
+                "type": "redeemed",
+                "amount": -500,
+                "description": "Redeemed: Free Coffee",
+                "rewardId": "reward-1",
+                "timestamp": "2025-01-26T16:20:00.000Z"
+            },
+            {
+                "id": "history-5",
+                "type": "redeemed",
+                "amount": -300,
+                "description": "Redeemed: Free Pastry",
+                "rewardId": "reward-3", 
+                "timestamp": "2025-01-27T11:10:00.000Z"
+            }
+        ],
+        "createdAt": "2025-01-15T08:00:00.000Z"
+    }
+]

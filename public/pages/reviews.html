@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☕ Product Reviews - Coffee Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <style>
+        .reviews-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .product-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--card-bg, #fff);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #f5f5f5;
+        }
+
+        .product-info h2 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color, #8B4513);
+        }
+
+        .rating-summary {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            font-size: 20px;
+            color: #ddd;
+        }
+
+        .star.filled {
+            color: #ffa500;
+        }
+
+        .review-stats {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .review-form {
+            background: var(--card-bg, #fff);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--text-color, #333);
+        }
+
+        .rating-input {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .rating-input .star {
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .rating-input .star:hover,
+        .rating-input .star.hover {
+            color: #ffa500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .reviews-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .review-card {
+            background: var(--card-bg, #fff);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .review-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .verified-badge {
+            background: #28a745;
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .review-date {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .review-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--text-color, #333);
+        }
+
+        .review-comment {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: var(--text-color, #555);
+        }
+
+        .review-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .helpful-button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: none;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .helpful-button:hover {
+            border-color: var(--primary-color, #8B4513);
+            color: var(--primary-color, #8B4513);
+        }
+
+        .helpful-button.voted {
+            background: var(--primary-color, #8B4513);
+            color: white;
+            border-color: var(--primary-color, #8B4513);
+        }
+
+        .review-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn, .delete-btn {
+            font-size: 12px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .edit-btn {
+            background: #007bff;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .no-reviews {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            background: var(--card-bg, #fff);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .login-prompt {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .product-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .review-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .review-actions {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <a href="/pages/store.html">☕ Coffee Shop</a>
+            </div>
+            <div class="nav-menu">
+                <a href="/pages/store.html">Store</a>
+                <a href="/pages/cart.html">Cart <span id="cart-count">0</span></a>
+                <a href="/pages/my-orders.html">Orders</a>
+                <a href="/pages/reviews.html" class="active">Reviews</a>
+                <div id="auth-section">
+                    <a href="/pages/login.html">Login</a>
+                </div>
+            </div>
+        </nav>
+
+        <main class="reviews-container">
+            <div id="product-header" class="product-header" style="display: none;">
+                <img id="product-image" class="product-image" alt="Product">
+                <div class="product-info">
+                    <h2 id="product-title">Product Reviews</h2>
+                    <p id="product-description"></p>
+                    <div class="rating-summary">
+                        <div id="average-stars" class="stars"></div>
+                        <span id="average-rating">0.0</span>
+                        <span id="review-stats" class="review-stats">(0 reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="review-form-container" class="review-form" style="display: none;">
+                <h3>Write a Review</h3>
+                <form id="review-form">
+                    <div class="form-group">
+                        <label>Rating *</label>
+                        <div id="rating-input" class="rating-input">
+                            <span class="star" data-rating="1">★</span>
+                            <span class="star" data-rating="2">★</span>
+                            <span class="star" data-rating="3">★</span>
+                            <span class="star" data-rating="4">★</span>
+                            <span class="star" data-rating="5">★</span>
+                        </div>
+                        <input type="hidden" id="rating" name="rating" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="title">Review Title *</label>
+                        <input type="text" id="title" name="title" required maxlength="100" 
+                               placeholder="Summarize your experience">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="comment">Your Review *</label>
+                        <textarea id="comment" name="comment" required maxlength="1000"
+                                placeholder="Share your thoughts about this product..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
+            </div>
+
+            <div id="login-prompt" class="login-prompt" style="display: none;">
+                <h3>Login to Write Reviews</h3>
+                <p>You need to be logged in to write product reviews.</p>
+                <a href="/pages/login.html" class="btn btn-primary">Login Now</a>
+            </div>
+
+            <div id="loading" class="loading">
+                Loading reviews...
+            </div>
+
+            <div id="error-message" class="error-message" style="display: none;"></div>
+
+            <div id="reviews-section">
+                <h3 id="reviews-title">Customer Reviews</h3>
+                <div id="reviews-list" class="reviews-list"></div>
+                <div id="no-reviews" class="no-reviews" style="display: none;">
+                    <h3>No Reviews Yet</h3>
+                    <p>Be the first to review this product!</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/reviews.js"></script>
+    <script>
+        // Initialize reviews page
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await AuthManager.init();
+                await ReviewManager.init();
+            } catch (error) {
+                console.error('Failed to initialize reviews page:', error);
+            }
+        });
+    </script>
+</body>
+</html>
