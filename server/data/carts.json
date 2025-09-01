@@ -54,7 +54,48 @@
   },
   {
     "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
-    "items": [],
-    "updatedAt": "2025-08-29T11:07:41.925Z"
+    "items": [
+      {
+        "productId": "prod-2",
+        "title": "Premium Arabica Coffee Beans",
+        "price": 24.99,
+        "quantity": 1
+      },
+      {
+        "productId": "prod-4",
+        "title": "French Press Coffee Maker",
+        "price": 34.99,
+        "quantity": 3
+      },
+      {
+        "productId": "prod-6",
+        "title": "Automatic Drip Coffee Maker",
+        "price": 89.99,
+        "quantity": 1
+      },
+      {
+        "productId": "prod-10",
+        "title": "Coffee Scale with Timer",
+        "price": 49.99,
+        "quantity": 1
+      },
+      {
+        "id": "3e6dad73-272f-408d-8805-51831fa85c6e",
+        "productId": "prod-5",
+        "title": "Dark Roast Brazilian Beans",
+        "price": 22.99,
+        "quantity": 1,
+        "addedAt": "2025-09-01T08:42:53.702Z"
+      },
+      {
+        "id": "7d67af35-6799-455f-ad33-5d62df1c191e",
+        "productId": "prod-9",
+        "title": "Milk Frother Wand",
+        "price": 19.99,
+        "quantity": 1,
+        "addedAt": "2025-09-01T08:42:53.702Z"
+      }
+    ],
+    "updatedAt": "2025-09-01T08:42:53.702Z"
   }
 ]

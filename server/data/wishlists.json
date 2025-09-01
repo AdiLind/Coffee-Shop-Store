@@ -1,19 +1,30 @@
 [
-    {
-        "userId": "user-admin",
-        "items": [
-            {
-                "id": "wishlist-1",
-                "productId": "prod-3",
-                "notes": "For the office kitchen",
-                "addedAt": "2025-01-25T14:30:00.000Z"
-            },
-            {
-                "id": "wishlist-2", 
-                "productId": "prod-5",
-                "notes": "Birthday gift idea",
-                "addedAt": "2025-01-26T09:15:00.000Z"
-            }
-        ]
-    }
+  {
+    "userId": "user-admin",
+    "items": [
+      {
+        "id": "wishlist-1",
+        "productId": "prod-3",
+        "notes": "For the office kitchen",
+        "addedAt": "2025-01-25T14:30:00.000Z"
+      },
+      {
+        "id": "wishlist-2",
+        "productId": "prod-5",
+        "notes": "Birthday gift idea",
+        "addedAt": "2025-01-26T09:15:00.000Z"
+      }
+    ]
+  },
+  {
+    "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
+    "items": [
+      {
+        "id": "a71ebede-b8c1-46d0-8ee8-14e889c7de5e",
+        "productId": "prod-6",
+        "notes": "",
+        "addedAt": "2025-09-01T08:42:44.969Z"
+      }
+    ]
+  }
 ]

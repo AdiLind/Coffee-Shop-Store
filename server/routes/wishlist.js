@@ -207,6 +207,7 @@ router.post('/to-cart', AuthMiddleware.requireAuth, async (req, res) => {
 
         const wishlists = await persistenceManager.readData('wishlists');
         const carts = await persistenceManager.readData('carts');
+        const products = await persistenceManager.readData('products');
         
         const userWishlist = wishlists.find(w => w.userId === userId);
         if (!userWishlist) {
@@ -242,10 +243,19 @@ router.post('/to-cart', AuthMiddleware.requireAuth, async (req, res) => {
                     // Increase quantity if already in cart
                     userCart.items[cartItemIndex].quantity += 1;
                 } else {
-                    // Add new item to cart
+                    // Get product details
+                    const product = products.find(p => p.id === productId);
+                    if (!product) {
+                        console.warn(`Product ${productId} not found when adding to cart`);
+                        continue;
+                    }
+                    
+                    // Add new item to cart with full product details
                     const cartItem = {
                         id: uuidv4(),
                         productId,
+                        title: product.title,
+                        price: product.price,
                         quantity: 1,
                         addedAt: new Date().toISOString()
                     };

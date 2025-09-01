@@ -241,64 +241,35 @@ class WishlistManager {
             return;
         }
 
+        const selectedProducts = this.wishlist
+            .filter(item => this.selectedItems.has(item.id))
+            .map(item => item.product.id);
+
         try {
-            // Get current cart
-            const cartResponse = await window.authManager.apiClient.request(`/cart/${this.currentUser.id}`);
-            const currentCart = cartResponse.success ? cartResponse.data : { items: [] };
-            
-            let addedCount = 0;
-            const selectedProductIds = Array.from(this.selectedItems);
-            
-            for (const itemId of selectedProductIds) {
-                const wishlistItem = this.wishlist.find(item => item.id === itemId);
-                if (!wishlistItem || !wishlistItem.product) continue;
-                
-                const product = wishlistItem.product;
-                const productId = product.id;
-                
-                // Check if product is already in cart
-                const existingItemIndex = currentCart.items.findIndex(item => item.productId === productId);
-                
-                if (existingItemIndex >= 0) {
-                    // Update quantity
-                    currentCart.items[existingItemIndex].quantity += 1;
-                } else {
-                    // Add new item
-                    currentCart.items.push({
-                        productId: productId,
-                        title: product.title,
-                        price: product.price,
-                        quantity: 1
-                    });
-                }
-                addedCount++;
-            }
-            
-            // Update cart on server
-            const updateResponse = await window.authManager.apiClient.request(`/cart/${this.currentUser.id}`, {
+            // Move items to cart using the API endpoint
+            const response = await window.authManager.apiClient.request('/wishlist/to-cart', {
                 method: 'POST',
-                body: JSON.stringify({ items: currentCart.items })
+                body: JSON.stringify({
+                    productIds: selectedProducts
+                })
             });
 
-            if (updateResponse.success) {
-                // Update cart counter
+            if (response.success) {
+                // Remove moved items from wishlist
+                this.wishlist = this.wishlist.filter(item => !this.selectedItems.has(item.id));
+                this.selectedItems.clear();
+                
+                this.updateDisplay();
+                this.updateBulkActions();
                 this.updateCartCounter();
                 
-                // Ask if user wants to remove items from wishlist
-                if (confirm(`${addedCount} item(s) added to cart! Remove them from wishlist?`)) {
-                    await this.removeSelected();
-                } else {
-                    // Just clear selection
-                    this.clearSelection();
-                }
-                
-                alert(`${addedCount} item(s) added to cart successfully!`);
+                alert(`${response.data.movedCount} item(s) moved to cart!`);
             } else {
-                alert('Failed to add items to cart');
+                alert(response.message || 'Failed to move items to cart');
             }
         } catch (error) {
-            console.error('Failed to add selected items to cart:', error);
-            alert('Failed to add items to cart');
+            console.error('Failed to move items to cart:', error);
+            alert('Failed to move items to cart');
         }
     }
 
@@ -344,44 +315,6 @@ class WishlistManager {
         }
         
         this.updateBulkActions();
-    }
-
-    async addSelectedToCart() {
-        if (this.selectedItems.size === 0) {
-            alert('Please select items to add to cart');
-            return;
-        }
-
-        const selectedProducts = this.wishlist
-            .filter(item => this.selectedItems.has(item.id))
-            .map(item => item.product.id);
-
-        try {
-            // Move items to cart
-            const response = await window.authManager.apiClient.request('/wishlist/to-cart', {
-                method: 'POST',
-                body: JSON.stringify({
-                    productIds: selectedProducts
-                })
-            });
-
-            if (response.success) {
-                // Remove moved items from wishlist
-                this.wishlist = this.wishlist.filter(item => !this.selectedItems.has(item.id));
-                this.selectedItems.clear();
-                
-                this.updateDisplay();
-                this.updateBulkActions();
-                this.updateCartCounter();
-                
-                alert(`${response.data.movedCount} item(s) moved to cart!`);
-            } else {
-                alert(response.message || 'Failed to move items to cart');
-            }
-        } catch (error) {
-            console.error('Failed to move items to cart:', error);
-            alert('Failed to move items to cart');
-        }
     }
 
     async removeSelected() {
