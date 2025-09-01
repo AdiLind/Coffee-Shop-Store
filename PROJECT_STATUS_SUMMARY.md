@@ -171,6 +171,13 @@ Building a full-stack coffee shop e-commerce application with Node.js backend an
 6. **Phase 5 Integration** - Successfully integrated all advanced features with existing system
 7. **Theme System** - Implemented comprehensive theming with localStorage persistence
 8. **API Expansion** - Added 25+ new API endpoints with proper authentication and validation
+9. **Reviews loading issue** - Fixed Reviews page stuck on "loading reviews..." by adding reviews.json mapping to persistence manager
+10. **Wishlist counter display** - Fixed wishlist header showing "Wishlist(0)" despite items being present
+11. **Individual wishlist "Add to Cart"** - Fixed failing individual item additions from wishlist to cart
+12. **Bulk wishlist operations** - Fixed bulk "Add to Cart" creating null/undefined items in cart
+13. **API client patterns** - Updated frontend classes to use correct API request methods
+14. **Class instantiation** - Fixed frontend class initialization from const to proper window objects
+15. **Wishlist bulk cart operations** - Enhanced /wishlist/to-cart API to include full product details, removed duplicate methods, cleaned invalid test data
 
 ## Architecture Overview
 
