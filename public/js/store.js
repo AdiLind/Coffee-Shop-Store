@@ -187,13 +187,23 @@ class StoreManager {
                 throw new Error('Product not found');
             }
 
-            const response = await window.authManager.apiClient.post('/wishlist/add', {
-                userId: user.id,
-                productId: productId
+            const response = await window.authManager.apiClient.request('/wishlist/add', {
+                method: 'POST',
+                body: JSON.stringify({
+                    productId: productId
+                })
             });
             
             if (response.success) {
                 window.authManager.showMessage(`${product.title} added to wishlist!`, 'success');
+                
+                // Update wishlist counter
+                if (window.wishlistManager) {
+                    window.wishlistManager.updateWishlistCounter();
+                } else {
+                    // If wishlist manager isn't available, update counter directly
+                    this.updateWishlistCountDirect();
+                }
             } else {
                 throw new Error(response.message || 'Failed to add to wishlist');
             }
@@ -201,6 +211,24 @@ class StoreManager {
         } catch (error) {
             console.error('Failed to add to wishlist:', error);
             window.authManager.showMessage('Failed to add item to wishlist', 'error');
+        }
+    }
+
+    async updateWishlistCountDirect() {
+        try {
+            if (!window.authManager || !window.authManager.currentUser) {
+                return;
+            }
+            
+            const response = await window.authManager.apiClient.request(`/wishlist/${window.authManager.currentUser.id}`);
+            if (response.success) {
+                const counter = document.getElementById('wishlist-count');
+                if (counter) {
+                    counter.textContent = response.data.totalItems || 0;
+                }
+            }
+        } catch (error) {
+            console.error('Failed to update wishlist count:', error);
         }
     }
 

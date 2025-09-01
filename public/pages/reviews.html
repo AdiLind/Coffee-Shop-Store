@@ -373,10 +373,28 @@
         // Initialize reviews page
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                await AuthManager.init();
-                await ReviewManager.init();
+                console.log('Reviews page: Starting initialization...');
+                
+                // Wait for auth manager to initialize
+                let attempts = 0;
+                while (!window.authManager && attempts < 50) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    attempts++;
+                }
+                
+                if (window.authManager) {
+                    console.log('Reviews page: Auth manager found, initializing...');
+                    await window.authManager.init();
+                } else {
+                    console.warn('Reviews page: Auth manager not found after waiting');
+                }
+                
+                // Initialize review manager
+                window.reviewManager = new ReviewManager();
+                await window.reviewManager.init();
+                console.log('Reviews page: Initialization complete');
             } catch (error) {
-                console.error('Failed to initialize reviews page:', error);
+                console.error('Reviews page: Failed to initialize:', error);
             }
         });
     </script>

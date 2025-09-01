@@ -354,8 +354,20 @@
         // Initialize wishlist page
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                await AuthManager.init();
-                await WishlistManager.init();
+                // Wait for auth manager to initialize
+                let attempts = 0;
+                while (!window.authManager && attempts < 50) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    attempts++;
+                }
+                
+                if (window.authManager) {
+                    await window.authManager.init();
+                }
+                
+                // Initialize wishlist manager
+                window.wishlistManager = new WishlistManager();
+                await window.wishlistManager.init();
             } catch (error) {
                 console.error('Failed to initialize wishlist page:', error);
             }

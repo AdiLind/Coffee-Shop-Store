@@ -12,7 +12,11 @@ class PersistenceManager {
             carts: 'carts.json',
             orders: 'orders.json',
             activity: 'activity.json',
-            sessions: 'sessions.json'
+            sessions: 'sessions.json',
+            reviews: 'reviews.json',
+            wishlists: 'wishlists.json',
+            loyalty: 'loyalty.json',
+            support: 'support.json'
         };
     }
 
@@ -40,7 +44,9 @@ class PersistenceManager {
 
     async readData(filename) {
         try {
-            const filePath = path.join(this.dataDir, filename);
+            // Check if filename is a key in this.files, if so get the actual filename
+            const actualFilename = this.files[filename] || filename;
+            const filePath = path.join(this.dataDir, actualFilename);
             const data = await fs.readFile(filePath, 'utf8');
             return JSON.parse(data);
         } catch (error) {
@@ -57,7 +63,9 @@ class PersistenceManager {
 
     async writeData(filename, data) {
         try {
-            const filePath = path.join(this.dataDir, filename);
+            // Check if filename is a key in this.files, if so get the actual filename
+            const actualFilename = this.files[filename] || filename;
+            const filePath = path.join(this.dataDir, actualFilename);
             const jsonData = JSON.stringify(data, null, 2);
             await fs.writeFile(filePath, jsonData, 'utf8');
             return true;

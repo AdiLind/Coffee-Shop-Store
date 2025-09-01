@@ -6,7 +6,10 @@ class WishlistManager {
     }
 
     async init() {
-        this.currentUser = AuthManager.currentUser;
+        // Wait for auth manager to be ready
+        await this.waitForAuthManager();
+        
+        this.currentUser = window.authManager ? window.authManager.currentUser : null;
         
         if (!this.currentUser) {
             this.showLoginPrompt();
@@ -16,6 +19,20 @@ class WishlistManager {
         this.setupEventListeners();
         await this.loadWishlist();
         this.showWishlistContent();
+    }
+
+    async waitForAuthManager() {
+        let attempts = 0;
+        const maxAttempts = 100;
+        
+        while (attempts < maxAttempts) {
+            if (window.authManager && 
+                typeof window.authManager.isAuthenticated === 'function') {
+                return;
+            }
+            await new Promise(resolve => setTimeout(resolve, 50));
+            attempts++;
+        }
     }
 
     setupEventListeners() {
@@ -46,7 +63,7 @@ class WishlistManager {
     async loadWishlist() {
         try {
             this.showLoading(true);
-            const response = await AuthManager.apiClient.get(`/wishlist/${this.currentUser.id}`);
+            const response = await window.authManager.apiClient.request(`/wishlist/${this.currentUser.id}`);
             
             if (response.success) {
                 this.wishlist = response.data.items || [];
@@ -174,13 +191,33 @@ class WishlistManager {
 
             const product = wishlistItem.product;
             
-            // Add to cart
-            const cartResponse = await AuthManager.apiClient.post(`/cart/${this.currentUser.id}`, {
-                productId: product.id,
-                quantity: 1
+            // Get current cart
+            const cartResponse = await window.authManager.apiClient.request(`/cart/${this.currentUser.id}`);
+            const currentCart = cartResponse.success ? cartResponse.data : { items: [] };
+            
+            // Check if product is already in cart
+            const existingItemIndex = currentCart.items.findIndex(item => item.productId === productId);
+            
+            if (existingItemIndex >= 0) {
+                // Update quantity
+                currentCart.items[existingItemIndex].quantity += 1;
+            } else {
+                // Add new item
+                currentCart.items.push({
+                    productId: productId,
+                    title: product.title,
+                    price: product.price,
+                    quantity: 1
+                });
+            }
+            
+            // Update cart on server
+            const updateResponse = await window.authManager.apiClient.request(`/cart/${this.currentUser.id}`, {
+                method: 'POST',
+                body: JSON.stringify({ items: currentCart.items })
             });
 
-            if (cartResponse.success) {
+            if (updateResponse.success) {
                 // Optionally remove from wishlist after adding to cart
                 if (confirm('Item added to cart! Remove from wishlist?')) {
                     await this.removeFromWishlist(productId, wishlistItem.id);
@@ -190,7 +227,7 @@ class WishlistManager {
                 this.updateCartCounter();
                 alert(`${product.title} added to cart!`);
             } else {
-                alert(cartResponse.message || 'Failed to add item to cart');
+                alert(updateResponse.message || 'Failed to add item to cart');
             }
         } catch (error) {
             console.error('Failed to add to cart:', error);
@@ -198,9 +235,78 @@ class WishlistManager {
         }
     }
 
+    async addSelectedToCart() {
+        if (this.selectedItems.size === 0) {
+            alert('Please select items to add to cart');
+            return;
+        }
+
+        try {
+            // Get current cart
+            const cartResponse = await window.authManager.apiClient.request(`/cart/${this.currentUser.id}`);
+            const currentCart = cartResponse.success ? cartResponse.data : { items: [] };
+            
+            let addedCount = 0;
+            const selectedProductIds = Array.from(this.selectedItems);
+            
+            for (const itemId of selectedProductIds) {
+                const wishlistItem = this.wishlist.find(item => item.id === itemId);
+                if (!wishlistItem || !wishlistItem.product) continue;
+                
+                const product = wishlistItem.product;
+                const productId = product.id;
+                
+                // Check if product is already in cart
+                const existingItemIndex = currentCart.items.findIndex(item => item.productId === productId);
+                
+                if (existingItemIndex >= 0) {
+                    // Update quantity
+                    currentCart.items[existingItemIndex].quantity += 1;
+                } else {
+                    // Add new item
+                    currentCart.items.push({
+                        productId: productId,
+                        title: product.title,
+                        price: product.price,
+                        quantity: 1
+                    });
+                }
+                addedCount++;
+            }
+            
+            // Update cart on server
+            const updateResponse = await window.authManager.apiClient.request(`/cart/${this.currentUser.id}`, {
+                method: 'POST',
+                body: JSON.stringify({ items: currentCart.items })
+            });
+
+            if (updateResponse.success) {
+                // Update cart counter
+                this.updateCartCounter();
+                
+                // Ask if user wants to remove items from wishlist
+                if (confirm(`${addedCount} item(s) added to cart! Remove them from wishlist?`)) {
+                    await this.removeSelected();
+                } else {
+                    // Just clear selection
+                    this.clearSelection();
+                }
+                
+                alert(`${addedCount} item(s) added to cart successfully!`);
+            } else {
+                alert('Failed to add items to cart');
+            }
+        } catch (error) {
+            console.error('Failed to add selected items to cart:', error);
+            alert('Failed to add items to cart');
+        }
+    }
+
     async removeFromWishlist(productId, itemId) {
         try {
-            const response = await AuthManager.apiClient.delete(`/wishlist/remove/${productId}`);
+            const response = await window.authManager.apiClient.request(`/wishlist/remove/${productId}`, {
+                method: 'DELETE'
+            });
             
             if (response.success) {
                 // Remove from local state
@@ -252,8 +358,11 @@ class WishlistManager {
 
         try {
             // Move items to cart
-            const response = await AuthManager.apiClient.post('/wishlist/to-cart', {
-                productIds: selectedProducts
+            const response = await window.authManager.apiClient.request('/wishlist/to-cart', {
+                method: 'POST',
+                body: JSON.stringify({
+                    productIds: selectedProducts
+                })
             });
 
             if (response.success) {
@@ -292,7 +401,9 @@ class WishlistManager {
         try {
             // Remove each selected item
             for (const productId of selectedProducts) {
-                await AuthManager.apiClient.delete(`/wishlist/remove/${productId}`);
+                await window.authManager.apiClient.request(`/wishlist/remove/${productId}`, {
+                    method: 'DELETE'
+                });
             }
 
             // Update local state
@@ -324,7 +435,9 @@ class WishlistManager {
         }
 
         try {
-            const response = await AuthManager.apiClient.delete('/wishlist/clear');
+            const response = await window.authManager.apiClient.request('/wishlist/clear', {
+                method: 'DELETE'
+            });
             
             if (response.success) {
                 this.wishlist = [];
@@ -377,11 +490,13 @@ class WishlistManager {
         }
     }
 
-    updateCartCounter() {
-        // This would typically call the cart manager to update the cart counter
-        // For now, we'll just trigger a cart count update
-        if (window.CartManager) {
-            window.CartManager.updateCartCount();
+    async updateCartCounter() {
+        try {
+            if (window.authManager && window.authManager.updateCartCount) {
+                await window.authManager.updateCartCount();
+            }
+        } catch (error) {
+            console.error('Failed to update cart counter:', error);
         }
     }
 
@@ -408,9 +523,12 @@ class WishlistManager {
     // Static method to add item to wishlist from other pages
     static async addToWishlist(productId, notes = '') {
         try {
-            const response = await AuthManager.apiClient.post('/wishlist/add', {
-                productId,
-                notes
+            const response = await window.authManager.apiClient.request('/wishlist/add', {
+                method: 'POST',
+                body: JSON.stringify({
+                    productId,
+                    notes
+                })
             });
 
             if (response.success) {
@@ -431,5 +549,5 @@ class WishlistManager {
     }
 }
 
-// Global instance
-const WishlistManager = new WishlistManager();
+// Global instance - will be initialized properly
+window.wishlistManager = null;

@@ -19,7 +19,6 @@ router.get('/product/:productId', async (req, res) => {
     try {
         const { productId } = req.params;
         const reviews = await persistenceManager.readData('reviews');
-        
         const productReviews = reviews.filter(review => review.productId === productId);
         
         // Calculate average rating

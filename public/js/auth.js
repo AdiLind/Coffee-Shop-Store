@@ -43,6 +43,10 @@ class AuthManager {
                 console.log('Auth Manager - User authenticated:', this.currentUser.username);
                 localStorage.setItem('userAuthenticated', 'true');
                 localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+                
+                // Update counters when authenticated
+                this.updateAllCounters();
+                
                 return true;
             }
         } catch (error) {
@@ -344,6 +348,47 @@ class AuthManager {
             return false;
         }
         return true;
+    }
+
+    // Update cart and wishlist counters
+    async updateCartCount() {
+        if (!this.isAuthenticated()) return;
+        
+        try {
+            const response = await this.apiClient.getCart(this.currentUser.id);
+            if (response.success) {
+                const totalItems = response.data.items.reduce((sum, item) => sum + item.quantity, 0);
+                const counter = document.getElementById('cart-count');
+                if (counter) {
+                    counter.textContent = totalItems;
+                }
+            }
+        } catch (error) {
+            console.error('Failed to update cart count:', error);
+        }
+    }
+
+    async updateWishlistCount() {
+        if (!this.isAuthenticated()) return;
+        
+        try {
+            const response = await this.apiClient.request(`/wishlist/${this.currentUser.id}`);
+            if (response.success) {
+                const counter = document.getElementById('wishlist-count');
+                if (counter) {
+                    counter.textContent = response.data.totalItems || 0;
+                }
+            }
+        } catch (error) {
+            console.error('Failed to update wishlist count:', error);
+        }
+    }
+
+    async updateAllCounters() {
+        await Promise.all([
+            this.updateCartCount(),
+            this.updateWishlistCount()
+        ]);
     }
 }
 

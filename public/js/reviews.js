@@ -4,27 +4,52 @@ class ReviewManager {
         this.userRating = 0;
         this.reviews = [];
         this.currentUser = null;
+        this.apiClient = new APIClient();
     }
 
     async init() {
+        // Wait for auth manager to be ready
+        await this.waitForAuthManager();
+        
         // Get product ID from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         this.currentProductId = urlParams.get('productId');
 
-        // Get current user
-        this.currentUser = AuthManager.currentUser;
+        // Get current user from auth manager
+        if (window.authManager) {
+            this.currentUser = window.authManager.currentUser;
+        }
 
         // Set up event listeners
         this.setupEventListeners();
 
-        if (this.currentProductId) {
-            await this.loadProductInfo();
-            await this.loadReviews();
-        } else {
-            this.showAllReviews();
+        try {
+            if (this.currentProductId) {
+                await this.loadProductInfo();
+                await this.loadReviews();
+            } else {
+                await this.showAllReviews();
+            }
+        } catch (error) {
+            console.error('Error during initialization:', error);
+            this.showError('Failed to load reviews');
         }
 
         this.updateUI();
+    }
+
+    async waitForAuthManager() {
+        let attempts = 0;
+        const maxAttempts = 100;
+        
+        while (attempts < maxAttempts) {
+            if (window.authManager && 
+                typeof window.authManager.isAuthenticated === 'function') {
+                return;
+            }
+            await new Promise(resolve => setTimeout(resolve, 50));
+            attempts++;
+        }
     }
 
     setupEventListeners() {
@@ -59,7 +84,7 @@ class ReviewManager {
 
     async loadProductInfo() {
         try {
-            const response = await ApiClient.get(`/products/${this.currentProductId}`);
+            const response = await this.apiClient.getProduct(this.currentProductId);
             if (response.success) {
                 const product = response.data;
                 document.getElementById('product-title').textContent = `${product.title} - Reviews`;
@@ -79,7 +104,7 @@ class ReviewManager {
                 ? `/reviews/product/${this.currentProductId}` 
                 : '/reviews/all';
             
-            const response = await ApiClient.get(endpoint);
+            const response = await this.apiClient.request(endpoint);
             
             if (response.success) {
                 this.reviews = response.data.reviews || [];
@@ -105,16 +130,17 @@ class ReviewManager {
     async loadAllReviews() {
         try {
             this.showLoading(true);
-            // Since we don't have an all reviews endpoint, we'll load all products and their reviews
-            const productsResponse = await AuthManager.apiClient.get('/products');
-            if (!productsResponse.success) return;
+            const productsResponse = await this.apiClient.getProducts();
+            if (!productsResponse.success) {
+                return;
+            }
 
             const products = productsResponse.data;
             let allReviews = [];
 
             for (const product of products) {
                 try {
-                    const reviewsResponse = await AuthManager.apiClient.get(`/reviews/product/${product.id}`);
+                    const reviewsResponse = await this.apiClient.request(`/reviews/product/${product.id}`);
                     if (reviewsResponse.success && reviewsResponse.data.reviews.length > 0) {
                         const reviews = reviewsResponse.data.reviews.map(review => ({
                             ...review,
@@ -332,7 +358,10 @@ class ReviewManager {
         }
 
         try {
-            const response = await ApiClient.post('/reviews', reviewData);
+            const response = await this.apiClient.request('/reviews', {
+                method: 'POST',
+                body: JSON.stringify(reviewData)
+            });
             
             if (response.success) {
                 document.getElementById('review-form').reset();
@@ -351,7 +380,9 @@ class ReviewManager {
 
     async markHelpful(reviewId) {
         try {
-            const response = await ApiClient.post(`/reviews/${reviewId}/helpful`);
+            const response = await this.apiClient.request(`/reviews/${reviewId}/helpful`, {
+                method: 'POST'
+            });
             
             if (response.success) {
                 // Update the helpful count in the UI
@@ -377,7 +408,9 @@ class ReviewManager {
 
     async deleteReview(reviewId) {
         try {
-            const response = await ApiClient.delete(`/reviews/${reviewId}`);
+            const response = await this.apiClient.request(`/reviews/${reviewId}`, {
+                method: 'DELETE'
+            });
             
             if (response.success) {
                 await this.loadReviews();
@@ -424,5 +457,5 @@ class ReviewManager {
     }
 }
 
-// Global instance
-const ReviewManager = new ReviewManager();
+// Global instance - will be initialized properly
+window.reviewManager = null;
