@@ -92,6 +92,76 @@ router.post('/create', AuthMiddleware.requireAuth, asyncWrapper(async (req, res)
     });
 }));
 
+// Create order (API client compatible endpoint)
+router.post('/', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
+    const { userId, items, totalAmount, shippingAddress } = req.body;
+    
+    // Ensure user can only create orders for themselves
+    if (req.user.id !== userId && req.user.role !== 'admin') {
+        return res.status(403).json({
+            success: false,
+            message: 'Access denied'
+        });
+    }
+    
+    // Validate required fields
+    if (!items || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({
+            success: false,
+            message: 'Order items are required'
+        });
+    }
+    
+    if (!totalAmount || !shippingAddress) {
+        return res.status(400).json({
+            success: false,
+            message: 'Total amount and shipping address are required'
+        });
+    }
+    
+    // Calculate totals
+    const subtotal = items.reduce((total, item) => {
+        return total + (item.price * item.quantity);
+    }, 0);
+    
+    const tax = subtotal * 0.08; // 8% tax
+    const shipping = subtotal >= 50 ? 0 : 9.99; // Free shipping over $50
+    const calculatedTotal = subtotal + tax + shipping;
+    
+    // Prepare order data for persistence manager
+    const orderData = {
+        userId: userId,
+        items: items.map(item => ({
+            productId: item.productId,
+            title: item.title,
+            price: item.price,
+            quantity: item.quantity
+        })),
+        subtotal: subtotal,
+        tax: tax,
+        shipping: shipping,
+        totalAmount: calculatedTotal,
+        shippingAddress: shippingAddress,
+        status: 'pending'
+    };
+    
+    // Save order (persistence manager adds ID and timestamps)
+    const savedOrder = await persistenceManager.createOrder(orderData);
+    
+    // Log activity
+    await persistenceManager.logActivity(userId, 'order_created', {
+        orderId: savedOrder.id,
+        itemCount: items.length,
+        totalAmount: calculatedTotal
+    });
+    
+    res.status(201).json({
+        success: true,
+        data: savedOrder,
+        message: 'Order created successfully'
+    });
+}));
+
 // Get specific order details
 router.get('/details/:orderId', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
     const { orderId } = req.params;
