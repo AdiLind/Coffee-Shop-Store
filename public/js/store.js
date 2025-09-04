@@ -19,23 +19,11 @@ class StoreManager {
         this.updateGuestWarning();
     }
 
-    // Wait for auth manager to initialize
+    // Wait for auth manager to initialize using shared utility
     async waitForAuthManager() {
-        let attempts = 0;
-        const maxAttempts = 100;
-        
-        while (attempts < maxAttempts) {
-            if (window.authManager && 
-                typeof window.authManager.isAuthenticated === 'function') {
-                // Auth manager exists and is ready
-                console.log('Store Manager - Auth manager ready, attempts:', attempts);
-                return;
-            }
-            await new Promise(resolve => setTimeout(resolve, 50));
-            attempts++;
-        }
-        
-        console.warn('Store Manager - AuthManager not available after waiting');
+        return await waitForAuthManager({
+            managerName: 'Store Manager'
+        });
     }
 
     // Load all products from API

@@ -240,3 +240,44 @@ const Events = {
         });
     }
 };
+
+/**
+ * Shared utility function to wait for AuthManager to be ready
+ * @param {Object} options - Configuration options
+ * @param {number} options.maxAttempts - Maximum number of attempts (default: 100)
+ * @param {number} options.intervalMs - Interval between attempts in milliseconds (default: 50)
+ * @param {string} options.managerName - Name for logging purposes (optional)
+ * @param {boolean} options.requireCurrentUser - Whether to wait for currentUser to be available (default: false)
+ * @returns {Promise<void>} Resolves when auth manager is ready
+ */
+async function waitForAuthManager(options = {}) {
+    const {
+        maxAttempts = 100,
+        intervalMs = 50,
+        managerName = 'Manager',
+        requireCurrentUser = false
+    } = options;
+
+    let attempts = 0;
+    
+    while (attempts < maxAttempts) {
+        if (window.authManager && typeof window.authManager.isAuthenticated === 'function') {
+            // Basic auth manager availability check
+            if (!requireCurrentUser) {
+                console.log(`${managerName} - Auth manager ready, attempts:`, attempts);
+                return;
+            }
+            
+            // Extended check for current user or confirmed no user
+            if (window.authManager.currentUser || localStorage.getItem('userAuthenticated') === 'false') {
+                console.log(`${managerName} - Auth manager ready with user status, attempts:`, attempts);
+                return;
+            }
+        }
+        
+        await new Promise(resolve => setTimeout(resolve, intervalMs));
+        attempts++;
+    }
+    
+    console.warn(`${managerName} - AuthManager not available after waiting ${maxAttempts} attempts`);
+}

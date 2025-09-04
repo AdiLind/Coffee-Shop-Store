@@ -33,24 +33,13 @@ class CartManager {
         this.setupEventListeners();
     }
 
-    // Wait for auth manager to initialize
+    // Wait for auth manager to initialize using shared utility
     async waitForAuthManager() {
-        let attempts = 0;
-        const maxAttempts = 100; // 10 seconds max
-        
-        while (attempts < maxAttempts) {
-            if (window.authManager && 
-                typeof window.authManager.isAuthenticated === 'function' && 
-                (window.authManager.currentUser || localStorage.getItem('userAuthenticated') === 'false')) {
-                // Auth manager exists and has finished initializing (either with user or confirmed no user)
-                console.log('Cart Manager - Auth manager ready, attempts:', attempts);
-                return;
-            }
-            await new Promise(resolve => setTimeout(resolve, 100));
-            attempts++;
-        }
-        
-        console.warn('AuthManager not available after waiting', attempts * 100, 'ms');
+        return await waitForAuthManager({
+            intervalMs: 100,
+            managerName: 'Cart Manager',
+            requireCurrentUser: true
+        });
     }
 
     // Load cart data from server

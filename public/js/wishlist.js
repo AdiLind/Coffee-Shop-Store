@@ -22,17 +22,9 @@ class WishlistManager {
     }
 
     async waitForAuthManager() {
-        let attempts = 0;
-        const maxAttempts = 100;
-        
-        while (attempts < maxAttempts) {
-            if (window.authManager && 
-                typeof window.authManager.isAuthenticated === 'function') {
-                return;
-            }
-            await new Promise(resolve => setTimeout(resolve, 50));
-            attempts++;
-        }
+        return await waitForAuthManager({
+            managerName: 'Wishlist Manager'
+        });
     }
 
     setupEventListeners() {
@@ -482,5 +474,5 @@ class WishlistManager {
     }
 }
 
-// Global instance - will be initialized properly
-window.wishlistManager = null;
+// WishlistManager class is ready for instantiation
+// Global instance will be initialized by the consuming page

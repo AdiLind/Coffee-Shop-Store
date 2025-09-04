@@ -26,20 +26,13 @@ class CheckoutManager {
         this.prefillCustomerInfo();
     }
 
-    // Wait for auth manager to initialize
+    // Wait for auth manager to initialize using shared utility
     async waitForAuthManager() {
-        let attempts = 0;
-        const maxAttempts = 50;
-        
-        while (attempts < maxAttempts) {
-            if (window.authManager && typeof window.authManager.isAuthenticated === 'function') {
-                return;
-            }
-            await new Promise(resolve => setTimeout(resolve, 100));
-            attempts++;
-        }
-        
-        console.warn('AuthManager not available after waiting');
+        return await waitForAuthManager({
+            maxAttempts: 50,
+            intervalMs: 100,
+            managerName: 'Checkout Manager'
+        });
     }
 
     // Load cart data for checkout

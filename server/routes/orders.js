@@ -5,6 +5,28 @@ const { asyncWrapper } = require('../modules/error-handler');
 const AuthMiddleware = require('../middleware/auth-middleware');
 const { v4: uuidv4 } = require('uuid');
 
+/**
+ * Calculate order totals (subtotal, tax, shipping, total)
+ * @param {Array} items - Array of order items with price and quantity
+ * @returns {Object} Object containing subtotal, tax, shipping, totalAmount
+ */
+function calculateOrderTotals(items) {
+    const subtotal = items.reduce((total, item) => {
+        return total + (item.price * item.quantity);
+    }, 0);
+    
+    const tax = subtotal * 0.08; // 8% tax
+    const shipping = subtotal >= 50 ? 0 : 9.99; // Free shipping over $50
+    const totalAmount = subtotal + tax + shipping;
+    
+    return {
+        subtotal: parseFloat(subtotal.toFixed(2)),
+        tax: parseFloat(tax.toFixed(2)),
+        shipping: parseFloat(shipping.toFixed(2)),
+        totalAmount: parseFloat(totalAmount.toFixed(2))
+    };
+}
+
 // Get user's order history
 router.get('/:userId', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
     const { userId } = req.params;
@@ -52,14 +74,8 @@ router.post('/create', AuthMiddleware.requireAuth, asyncWrapper(async (req, res)
         });
     }
     
-    // Calculate totals
-    const subtotal = cart.items.reduce((total, item) => {
-        return total + (item.price * item.quantity);
-    }, 0);
-    
-    const tax = subtotal * 0.08; // 8% tax
-    const shipping = subtotal > 50 ? 0 : 9.99; // Free shipping over $50
-    const totalAmount = subtotal + tax + shipping;
+    // Calculate totals using helper function
+    const totals = calculateOrderTotals(cart.items);
     
     // Create order using existing method but with enhanced data
     const newOrder = await persistenceManager.createOrder({
@@ -71,10 +87,10 @@ router.post('/create', AuthMiddleware.requireAuth, asyncWrapper(async (req, res)
             price: item.price,
             subtotal: item.price * item.quantity
         })),
-        subtotal: subtotal,
-        tax: tax,
-        shipping: shipping,
-        totalAmount: totalAmount,
+        subtotal: totals.subtotal,
+        tax: totals.tax,
+        shipping: totals.shipping,
+        totalAmount: totals.totalAmount,
         status: 'pending',
         customerInfo: {
             name: customerInfo.name,
@@ -119,14 +135,8 @@ router.post('/', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
         });
     }
     
-    // Calculate totals
-    const subtotal = items.reduce((total, item) => {
-        return total + (item.price * item.quantity);
-    }, 0);
-    
-    const tax = subtotal * 0.08; // 8% tax
-    const shipping = subtotal >= 50 ? 0 : 9.99; // Free shipping over $50
-    const calculatedTotal = subtotal + tax + shipping;
+    // Calculate totals using helper function
+    const totals = calculateOrderTotals(items);
     
     // Prepare order data for persistence manager
     const orderData = {
@@ -137,10 +147,10 @@ router.post('/', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
             price: item.price,
             quantity: item.quantity
         })),
-        subtotal: subtotal,
-        tax: tax,
-        shipping: shipping,
-        totalAmount: calculatedTotal,
+        subtotal: totals.subtotal,
+        tax: totals.tax,
+        shipping: totals.shipping,
+        totalAmount: totals.totalAmount,
         shippingAddress: shippingAddress,
         status: 'pending'
     };
@@ -152,7 +162,7 @@ router.post('/', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
     await persistenceManager.logActivity(userId, 'order_created', {
         orderId: savedOrder.id,
         itemCount: items.length,
-        totalAmount: calculatedTotal
+        totalAmount: totals.totalAmount
     });
     
     res.status(201).json({
