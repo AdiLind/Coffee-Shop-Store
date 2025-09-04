@@ -8,7 +8,7 @@
         "price": 299.99
       }
     ],
-    "updatedAt": "2025-08-29T10:18:24.736Z"
+    "updatedAt": "2025-09-03T20:39:48.045Z"
   },
   {
     "userId": "2912572d-5da5-436f-8ba3-bd0404ce6842",
@@ -60,42 +60,41 @@
         "title": "Premium Arabica Coffee Beans",
         "price": 24.99,
         "quantity": 1
-      },
-      {
-        "productId": "prod-4",
-        "title": "French Press Coffee Maker",
-        "price": 34.99,
-        "quantity": 3
-      },
-      {
-        "productId": "prod-6",
-        "title": "Automatic Drip Coffee Maker",
-        "price": 89.99,
-        "quantity": 1
-      },
-      {
-        "productId": "prod-10",
-        "title": "Coffee Scale with Timer",
-        "price": 49.99,
-        "quantity": 1
-      },
-      {
-        "id": "3e6dad73-272f-408d-8805-51831fa85c6e",
-        "productId": "prod-5",
-        "title": "Dark Roast Brazilian Beans",
-        "price": 22.99,
-        "quantity": 1,
-        "addedAt": "2025-09-01T08:42:53.702Z"
-      },
-      {
-        "id": "7d67af35-6799-455f-ad33-5d62df1c191e",
-        "productId": "prod-9",
-        "title": "Milk Frother Wand",
-        "price": 19.99,
-        "quantity": 1,
-        "addedAt": "2025-09-01T08:42:53.702Z"
       }
     ],
-    "updatedAt": "2025-09-01T08:42:53.702Z"
+    "updatedAt": "2025-09-03T20:35:27.130Z"
+  },
+  {
+    "userId": "884786ef-39a8-45a5-9e49-cd0b3d695ce6",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99
+      }
+    ],
+    "updatedAt": "2025-09-03T20:35:57.379Z"
+  },
+  {
+    "userId": "69b809fe-0d25-4ecb-8367-053fac39567e",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99
+      }
+    ],
+    "updatedAt": "2025-09-03T20:39:36.444Z"
+  },
+  {
+    "userId": "fe7e4f91-86cc-4be7-bfe5-9583af44ae85",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99
+      }
+    ],
+    "updatedAt": "2025-09-03T20:42:05.516Z"
   }
 ]

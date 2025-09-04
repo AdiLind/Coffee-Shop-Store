@@ -316,7 +316,7 @@
                 <a href="/pages/admin-analytics.html" class="active">Analytics</a>
                 <a href="/pages/store.html">Store</a>
                 <div id="auth-section">
-                    <a href="#" onclick="AuthManager.logout()">Logout</a>
+                    <a href="#" onclick="window.authManager.logout()">Logout</a>
                 </div>
             </div>
         </nav>
@@ -475,7 +475,7 @@
             }
 
             async init() {
-                const user = AuthManager.currentUser;
+                const user = window.authManager.currentUser;
                 
                 if (!user || user.role !== 'admin') {
                     document.getElementById('access-denied').style.display = 'block';
@@ -514,10 +514,10 @@
                 try {
                     // Load all analytics data in parallel
                     const [salesData, userData, productData, systemData] = await Promise.all([
-                        AuthManager.apiClient.get(`/analytics/sales?period=${this.currentPeriod}`),
-                        AuthManager.apiClient.get('/analytics/users'),
-                        AuthManager.apiClient.get('/analytics/products'),
-                        AuthManager.apiClient.get('/analytics/system')
+                        window.authManager.apiClient.get(`/analytics/sales?period=${this.currentPeriod}`),
+                        window.authManager.apiClient.get('/analytics/users'),
+                        window.authManager.apiClient.get('/analytics/products'),
+                        window.authManager.apiClient.get('/analytics/system')
                     ]);
 
                     if (salesData.success) this.data.sales = salesData.data;
@@ -698,7 +698,10 @@
         // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                await AuthManager.init();
+                // Wait for authManager to be ready
+                while (!window.authManager) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
                 await analyticsManager.init();
             } catch (error) {
                 console.error('Failed to initialize analytics dashboard:', error);

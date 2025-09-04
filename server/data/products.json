@@ -198,5 +198,65 @@
     "image": "/images/products/default.jpg",
     "createdAt": "2025-08-29T10:18:24.673Z",
     "inStock": true
+  },
+  {
+    "id": "ad1dc26b-fb78-4d93-a1ee-4dd018e79e8a",
+    "title": "Test Coffee Mug",
+    "description": "A test mug for automated testing",
+    "price": 9.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-09-03T20:05:19.722Z",
+    "inStock": true
+  },
+  {
+    "id": "86595756-ac4d-4e31-bf6e-044bb1b5dfb6",
+    "title": "E2E Test Product 1756930420661",
+    "description": "Product created during E2E testing",
+    "price": 19.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-09-03T20:13:40.667Z",
+    "inStock": true
+  },
+  {
+    "id": "e22bd681-3303-4961-9d8c-b095dc5e8b5f",
+    "title": "QA Test Product 1756931757411",
+    "description": "Product created during QA testing",
+    "price": 29.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-09-03T20:35:57.417Z",
+    "inStock": true
+  },
+  {
+    "id": "3a420d41-8627-453a-b748-7f75eabef05e",
+    "title": "QA Test Product 1756931976500",
+    "description": "Product created during QA testing",
+    "price": 29.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-09-03T20:39:36.506Z",
+    "inStock": true
+  },
+  {
+    "id": "573367f9-cc58-4820-b186-9b2a4ea061ac",
+    "title": "Test Coffee Mug",
+    "description": "A test mug for automated testing",
+    "price": 9.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-09-03T20:39:48.007Z",
+    "inStock": true
+  },
+  {
+    "id": "b789affc-7ee3-4d0f-a99f-73a58c969607",
+    "title": "QA Test Product 1756932125576",
+    "description": "Product created during QA testing",
+    "price": 29.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-09-03T20:42:05.581Z",
+    "inStock": true
   }
 ]

@@ -1,41 +1,64 @@
 [
-    {
-        "id": "review-1",
-        "productId": "prod-1",
-        "userId": "user-admin",
-        "username": "admin",
-        "rating": 5,
-        "title": "Excellent espresso machine!",
-        "comment": "This espresso machine exceeded my expectations. The build quality is outstanding and it produces consistently great espresso shots. The 15-bar pressure pump works perfectly and the stainless steel construction feels very durable. Highly recommended for home baristas!",
-        "verified": true,
-        "helpful": 12,
-        "helpfulVotes": ["user-1", "user-2", "user-3"],
-        "createdAt": "2025-01-20T09:30:00.000Z"
-    },
-    {
-        "id": "review-2",
-        "productId": "prod-2",
-        "userId": "user-admin",
-        "username": "admin", 
-        "rating": 4,
-        "title": "Great coffee beans with rich flavor",
-        "comment": "These Colombian Arabica beans have a wonderful chocolate and caramel flavor profile. The medium roast is perfect for espresso and drip coffee. Only reason for 4 stars instead of 5 is the price point, but the quality justifies it.",
-        "verified": true,
-        "helpful": 8,
-        "helpfulVotes": ["user-1", "user-4"],
-        "createdAt": "2025-01-22T14:15:00.000Z"
-    },
-    {
-        "id": "review-3",
-        "productId": "prod-1",
-        "userId": "user-test",
-        "username": "testuser",
-        "rating": 4,
-        "title": "Good machine but takes practice",
-        "comment": "The espresso machine is well-built and produces good results once you get the hang of it. The learning curve is a bit steep for beginners, but the results are worth it. Steam wand works great for milk frothing.",
-        "verified": true,
-        "helpful": 5,
-        "helpfulVotes": ["user-2"],
-        "createdAt": "2025-01-25T11:45:00.000Z"
-    }
+  {
+    "id": "review-1",
+    "productId": "prod-1",
+    "userId": "user-admin",
+    "username": "admin",
+    "rating": 5,
+    "title": "Excellent espresso machine!",
+    "comment": "This espresso machine exceeded my expectations. The build quality is outstanding and it produces consistently great espresso shots. The 15-bar pressure pump works perfectly and the stainless steel construction feels very durable. Highly recommended for home baristas!",
+    "verified": true,
+    "helpful": 12,
+    "helpfulVotes": [
+      "user-1",
+      "user-2",
+      "user-3"
+    ],
+    "createdAt": "2025-01-20T09:30:00.000Z"
+  },
+  {
+    "id": "review-2",
+    "productId": "prod-2",
+    "userId": "user-admin",
+    "username": "admin",
+    "rating": 4,
+    "title": "Great coffee beans with rich flavor",
+    "comment": "These Colombian Arabica beans have a wonderful chocolate and caramel flavor profile. The medium roast is perfect for espresso and drip coffee. Only reason for 4 stars instead of 5 is the price point, but the quality justifies it.",
+    "verified": true,
+    "helpful": 9,
+    "helpfulVotes": [
+      "user-1",
+      "user-4",
+      "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4"
+    ],
+    "createdAt": "2025-01-22T14:15:00.000Z"
+  },
+  {
+    "id": "review-3",
+    "productId": "prod-1",
+    "userId": "user-test",
+    "username": "testuser",
+    "rating": 4,
+    "title": "Good machine but takes practice",
+    "comment": "The espresso machine is well-built and produces good results once you get the hang of it. The learning curve is a bit steep for beginners, but the results are worth it. Steam wand works great for milk frothing.",
+    "verified": true,
+    "helpful": 5,
+    "helpfulVotes": [
+      "user-2"
+    ],
+    "createdAt": "2025-01-25T11:45:00.000Z"
+  },
+  {
+    "id": "fea20260-0899-48bc-91c3-f7e3614024ea",
+    "productId": "prod-1",
+    "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
+    "username": "lolo",
+    "rating": 5,
+    "title": "WOWOW",
+    "comment": "פשוט וואו",
+    "verified": true,
+    "helpful": 0,
+    "helpfulVotes": [],
+    "createdAt": "2025-09-01T07:31:23.352Z"
+  }
 ]

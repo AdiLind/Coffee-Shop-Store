@@ -10,7 +10,7 @@
       "language": "en"
     },
     "createdAt": "2025-01-15T09:00:00.000Z",
-    "lastLogin": "2025-08-29T11:11:33.394Z"
+    "lastLogin": "2025-09-04T05:57:51.583Z"
   },
   {
     "id": "user-2",
@@ -114,7 +114,7 @@
       "language": "en"
     },
     "createdAt": "2025-08-27T18:54:30.933Z",
-    "lastLogin": "2025-08-29T10:45:55.985Z"
+    "lastLogin": "2025-09-03T20:38:44.433Z"
   },
   {
     "id": "9f1fd2b0-8d42-4d9a-b8bd-6d7aba603b4d",
@@ -140,7 +140,7 @@
       "language": "en"
     },
     "createdAt": "2025-08-27T20:36:05.864Z",
-    "lastLogin": "2025-08-29T11:06:57.288Z"
+    "lastLogin": "2025-09-03T20:35:11.286Z"
   },
   {
     "id": "bd230754-036d-47c5-90c3-8916c2329252",
@@ -193,5 +193,200 @@
     },
     "createdAt": "2025-08-29T10:18:25.431Z",
     "lastLogin": "2025-08-29T10:18:26.037Z"
+  },
+  {
+    "id": "86e60efb-bc16-4479-89be-e52125543790",
+    "username": "testuser1756468179608",
+    "email": "test1756468179608@coffeetest.com",
+    "password": "$2b$12$erhgQWyjnd8PLRQ5exMMkOIIfFVPAwhWimDEECUt30HazVlg1KjBC",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-29T11:49:40.241Z",
+    "lastLogin": "2025-08-29T11:49:43.353Z"
+  },
+  {
+    "id": "001df913-50cf-45ae-9876-1d3e3d33d1c4",
+    "username": "rememberuser1756468181583",
+    "email": "remember1756468181583@coffeetest.com",
+    "password": "$2b$12$f2AUL5o2n8gin2ng8C6Qu.Xnn0KnjJhuSeha/NjN35kO0b6pUMDq2",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-08-29T11:49:42.170Z",
+    "lastLogin": "2025-08-29T11:49:42.770Z"
+  },
+  {
+    "id": "88c0d8b6-4fa0-4daf-a822-2ce8ef635e3f",
+    "username": "testuser1756725968150",
+    "email": "test1756725968150@coffeetest.com",
+    "password": "$2b$12$TJL79gD2An2r6Y4.I/JvMuwc9C.kEJSYhSVfF2.F9SuBpweU7eheC",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-01T11:26:08.715Z",
+    "lastLogin": "2025-09-01T11:26:11.762Z"
+  },
+  {
+    "id": "ba3e7714-a6f4-44a7-be96-93c2cb823172",
+    "username": "rememberuser1756725970047",
+    "email": "remember1756725970047@coffeetest.com",
+    "password": "$2b$12$2IXPQVVPeklPE1bRZR72UOtvhYpHVbzT7au6TwAkwB/3Z5L0kWLiq",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-01T11:26:10.608Z",
+    "lastLogin": "2025-09-01T11:26:11.181Z"
+  },
+  {
+    "id": "758d02e3-dd1d-4fad-accc-fe5353844c51",
+    "username": "testuser1756929919827",
+    "email": "test1756929919827@example.com",
+    "password": "$2b$12$DjOCpMdaylNgO5.E8O8TFeqTCnN6kmIXq9FOSvi0XebA9ZGlCoHP6",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:05:20.443Z",
+    "lastLogin": "2025-09-03T20:05:21.063Z"
+  },
+  {
+    "id": "5829da0b-5e84-4db5-9f1a-093a53914ab2",
+    "username": "testuser1756929922804",
+    "email": "test1756929922804@coffeetest.com",
+    "password": "$2b$12$9AcPdB7IrhWydxZCeCiggOfmffyHGNrllL1UxuhWcpT7ALKLvxVWq",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:05:23.405Z",
+    "lastLogin": "2025-09-03T20:05:26.535Z"
+  },
+  {
+    "id": "12d4a80c-35f2-41b1-b6a9-df041f0efd2a",
+    "username": "rememberuser1756929924717",
+    "email": "remember1756929924717@coffeetest.com",
+    "password": "$2b$12$klNPJojl0l0BA57KKNKE6e.LnZwzS.M3Z5VMr3/8YV2G93hQNDjGi",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:05:25.314Z",
+    "lastLogin": "2025-09-03T20:05:25.923Z"
+  },
+  {
+    "id": "59287b07-cf87-4b76-b784-5a9256e622cb",
+    "username": "e2euser_1756930417752",
+    "email": "e2etest_1756930417752@example.com",
+    "password": "$2b$12$dJDENr7aBt7r8xyWXQ14nuhUcS5Ht6jNNrLqzAuMsJjcp0RL063Wi",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:13:38.618Z",
+    "lastLogin": "2025-09-03T20:13:39.273Z"
+  },
+  {
+    "id": "920cdd17-6f2f-4a7f-8faf-2c821de48a5f",
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "$2b$12$SO22.zByINV/Ulw5PkEqzOkKcWCTT8zx4tlV6jr8ZjDw/3GTgyE/m",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:32:15.402Z",
+    "lastLogin": "2025-09-03T20:32:23.788Z"
+  },
+  {
+    "id": "884786ef-39a8-45a5-9e49-cd0b3d695ce6",
+    "username": "qauser_1756931755234",
+    "email": "qa_1756931755234@test.com",
+    "password": "$2b$12$vjlLrspLm3m4QohgA7QCXu3AH7ch1wXxjP1A8DQrZeUKfon8PdA.e",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:35:55.862Z",
+    "lastLogin": "2025-09-03T20:35:56.485Z"
+  },
+  {
+    "id": "69b809fe-0d25-4ecb-8367-053fac39567e",
+    "username": "qauser_1756931974298",
+    "email": "qa_1756931974298@test.com",
+    "password": "$2b$12$q/NTXT1a6MTEj6BOXIZzc.8v5xgow/gS9BvmFFuvGOfHPoujO6.Mi",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:39:34.930Z",
+    "lastLogin": "2025-09-03T20:39:35.553Z"
+  },
+  {
+    "id": "65e278af-57d9-4089-a6be-c50f76b1c514",
+    "username": "testuser1756931988072",
+    "email": "test1756931988073@example.com",
+    "password": "$2b$12$uefQ8z7yAqovVi2UPDRnvuofMfloqe8cesHohWm04/LJMRB3GKJai",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:39:48.656Z",
+    "lastLogin": "2025-09-03T20:39:49.257Z"
+  },
+  {
+    "id": "b01a52ae-38b3-473e-8252-99057e690eba",
+    "username": "testuser1756931990862",
+    "email": "test1756931990862@coffeetest.com",
+    "password": "$2b$12$saLTiwAcuWakPMYsx74Z3OAIrWSc6gYtX34RmnpXpbdQYvA0//b52",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:39:51.451Z",
+    "lastLogin": "2025-09-03T20:39:54.554Z"
+  },
+  {
+    "id": "aa7ea8eb-db10-4797-a67b-50579f84091b",
+    "username": "rememberuser1756931992731",
+    "email": "remember1756931992731@coffeetest.com",
+    "password": "$2b$12$TEDp0v/qD1Fo3frR6PDkLOrcizJZG8/HgQtbW9BCTEnP7evWwtY6G",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:39:53.322Z",
+    "lastLogin": "2025-09-03T20:39:53.919Z"
+  },
+  {
+    "id": "fe7e4f91-86cc-4be7-bfe5-9583af44ae85",
+    "username": "qauser_1756932123385",
+    "email": "qa_1756932123385@test.com",
+    "password": "$2b$12$An8jFfPBznQodbI7WzG58.tmqZX.nBqD6TLt/jrPyumndAEnE0iji",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-03T20:42:04.019Z",
+    "lastLogin": "2025-09-03T20:42:04.670Z"
   }
 ]

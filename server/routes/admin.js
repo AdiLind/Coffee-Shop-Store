@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { persistenceManager } = require('../modules/persist_module');
 const { asyncWrapper } = require('../modules/error-handler');
+const AuthMiddleware = require('../middleware/auth-middleware');
 
-router.get('/users', asyncWrapper(async (req, res) => {
+router.get('/users', AuthMiddleware.requireAuth, AuthMiddleware.requireAdmin, asyncWrapper(async (req, res) => {
     const users = await persistenceManager.getAllUsers();
     
     const safeUsers = users.map(user => ({
@@ -22,7 +23,17 @@ router.get('/users', asyncWrapper(async (req, res) => {
     });
 }));
 
-router.get('/activity', asyncWrapper(async (req, res) => {
+router.get('/orders', AuthMiddleware.requireAuth, AuthMiddleware.requireAdmin, asyncWrapper(async (req, res) => {
+    const orders = await persistenceManager.readData('orders.json');
+    
+    res.json({
+        success: true,
+        data: orders,
+        message: `Found ${orders.length} orders`
+    });
+}));
+
+router.get('/activity', AuthMiddleware.requireAuth, AuthMiddleware.requireAdmin, asyncWrapper(async (req, res) => {
     const activity = await persistenceManager.getAllActivity();
     
     res.json({
@@ -32,7 +43,7 @@ router.get('/activity', asyncWrapper(async (req, res) => {
     });
 }));
 
-router.get('/stats', asyncWrapper(async (req, res) => {
+router.get('/stats', AuthMiddleware.requireAuth, AuthMiddleware.requireAdmin, asyncWrapper(async (req, res) => {
     const [users, products, orders, activity] = await Promise.all([
         persistenceManager.getAllUsers(),
         persistenceManager.getAllProducts(),
@@ -50,6 +61,16 @@ router.get('/stats', asyncWrapper(async (req, res) => {
             generatedAt: new Date().toISOString()
         },
         message: 'Admin statistics retrieved successfully'
+    });
+}));
+
+router.get('/orders', AuthMiddleware.requireAuth, AuthMiddleware.requireAdmin, asyncWrapper(async (req, res) => {
+    const orders = await persistenceManager.readData('orders.json');
+    
+    res.json({
+        success: true,
+        data: orders,
+        message: `Found ${orders.length} orders`
     });
 }));
 

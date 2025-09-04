@@ -26,5 +26,16 @@
         "addedAt": "2025-09-01T08:42:44.969Z"
       }
     ]
+  },
+  {
+    "userId": "59287b07-cf87-4b76-b784-5a9256e622cb",
+    "items": [
+      {
+        "id": "03204a7f-f1a8-4581-9771-5357a5ebb905",
+        "productId": "prod-1",
+        "notes": "E2E test wishlist item",
+        "addedAt": "2025-09-03T20:13:40.830Z"
+      }
+    ]
   }
 ]

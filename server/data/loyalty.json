@@ -1,57 +1,89 @@
 [
-    {
-        "userId": "user-admin",
-        "totalPoints": 1850,
-        "availablePoints": 1350,
-        "tier": "gold",
-        "pointsHistory": [
-            {
-                "id": "history-1",
-                "type": "earned",
-                "amount": 500,
-                "description": "Order #ORD-001",
-                "orderId": "ORD-001",
-                "orderTotal": 45.99,
-                "multiplier": 1.0,
-                "timestamp": "2025-01-20T10:30:00.000Z"
-            },
-            {
-                "id": "history-2",
-                "type": "earned", 
-                "amount": 750,
-                "description": "Order #ORD-002",
-                "orderId": "ORD-002",
-                "orderTotal": 62.50,
-                "multiplier": 1.2,
-                "timestamp": "2025-01-22T14:15:00.000Z"
-            },
-            {
-                "id": "history-3",
-                "type": "earned",
-                "amount": 900,
-                "description": "Order #ORD-003", 
-                "orderId": "ORD-003",
-                "orderTotal": 78.99,
-                "multiplier": 1.5,
-                "timestamp": "2025-01-25T09:45:00.000Z"
-            },
-            {
-                "id": "history-4",
-                "type": "redeemed",
-                "amount": -500,
-                "description": "Redeemed: Free Coffee",
-                "rewardId": "reward-1",
-                "timestamp": "2025-01-26T16:20:00.000Z"
-            },
-            {
-                "id": "history-5",
-                "type": "redeemed",
-                "amount": -300,
-                "description": "Redeemed: Free Pastry",
-                "rewardId": "reward-3", 
-                "timestamp": "2025-01-27T11:10:00.000Z"
-            }
-        ],
-        "createdAt": "2025-01-15T08:00:00.000Z"
-    }
+  {
+    "userId": "user-admin",
+    "totalPoints": 1850,
+    "availablePoints": 1350,
+    "tier": "gold",
+    "pointsHistory": [
+      {
+        "id": "history-1",
+        "type": "earned",
+        "amount": 500,
+        "description": "Order #ORD-001",
+        "orderId": "ORD-001",
+        "orderTotal": 45.99,
+        "multiplier": 1,
+        "timestamp": "2025-01-20T10:30:00.000Z"
+      },
+      {
+        "id": "history-2",
+        "type": "earned",
+        "amount": 750,
+        "description": "Order #ORD-002",
+        "orderId": "ORD-002",
+        "orderTotal": 62.5,
+        "multiplier": 1.2,
+        "timestamp": "2025-01-22T14:15:00.000Z"
+      },
+      {
+        "id": "history-3",
+        "type": "earned",
+        "amount": 900,
+        "description": "Order #ORD-003",
+        "orderId": "ORD-003",
+        "orderTotal": 78.99,
+        "multiplier": 1.5,
+        "timestamp": "2025-01-25T09:45:00.000Z"
+      },
+      {
+        "id": "history-4",
+        "type": "redeemed",
+        "amount": -500,
+        "description": "Redeemed: Free Coffee",
+        "rewardId": "reward-1",
+        "timestamp": "2025-01-26T16:20:00.000Z"
+      },
+      {
+        "id": "history-5",
+        "type": "redeemed",
+        "amount": -300,
+        "description": "Redeemed: Free Pastry",
+        "rewardId": "reward-3",
+        "timestamp": "2025-01-27T11:10:00.000Z"
+      }
+    ],
+    "createdAt": "2025-01-15T08:00:00.000Z"
+  },
+  {
+    "userId": "59287b07-cf87-4b76-b784-5a9256e622cb",
+    "totalPoints": 0,
+    "availablePoints": 0,
+    "tier": "bronze",
+    "pointsHistory": [],
+    "createdAt": "2025-09-03T20:13:40.850Z"
+  },
+  {
+    "userId": "884786ef-39a8-45a5-9e49-cd0b3d695ce6",
+    "totalPoints": 0,
+    "availablePoints": 0,
+    "tier": "bronze",
+    "pointsHistory": [],
+    "createdAt": "2025-09-03T20:35:57.203Z"
+  },
+  {
+    "userId": "69b809fe-0d25-4ecb-8367-053fac39567e",
+    "totalPoints": 0,
+    "availablePoints": 0,
+    "tier": "bronze",
+    "pointsHistory": [],
+    "createdAt": "2025-09-03T20:39:36.244Z"
+  },
+  {
+    "userId": "fe7e4f91-86cc-4be7-bfe5-9583af44ae85",
+    "totalPoints": 0,
+    "availablePoints": 0,
+    "tier": "bronze",
+    "pointsHistory": [],
+    "createdAt": "2025-09-03T20:42:05.347Z"
+  }
 ]

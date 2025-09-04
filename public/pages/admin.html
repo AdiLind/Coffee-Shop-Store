@@ -24,7 +24,7 @@
                         <a href="/pages/admin-analytics.html">Analytics</a>
                         <a href="/pages/store.html">Store</a>
                         <div id="auth-section">
-                            <a href="#" onclick="AuthManager.logout()">Logout</a>
+                            <a href="#" onclick="window.authManager.logout()">Logout</a>
                         </div>
                     </div>
                     <div class="theme-toggle-container">
@@ -41,19 +41,19 @@
                     <div class="stats-grid">
                         <div class="stat-card">
                             <h3>Total Products</h3>
-                            <p class="stat-number" id="totalProducts">9</p>
+                            <p class="stat-number" id="totalProducts">Loading...</p>
                         </div>
                         <div class="stat-card">
                             <h3>Total Users</h3>
-                            <p class="stat-number" id="totalUsers">4</p>
+                            <p class="stat-number" id="totalUsers">Loading...</p>
                         </div>
                         <div class="stat-card">
                             <h3>Total Orders</h3>
-                            <p class="stat-number" id="totalOrders">0</p>
+                            <p class="stat-number" id="totalOrders">Loading...</p>
                         </div>
                         <div class="stat-card">
                             <h3>Revenue</h3>
-                            <p class="stat-number" id="totalRevenue">$0</p>
+                            <p class="stat-number" id="totalRevenue">Loading...</p>
                         </div>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
             }
 
             async init() {
-                this.currentUser = AuthManager.currentUser;
+                this.currentUser = window.authManager.currentUser;
                 
                 if (!this.currentUser || this.currentUser.role !== 'admin') {
                     window.location.href = '/pages/login.html';
@@ -152,43 +152,55 @@
 
             async loadAdminStats() {
                 try {
-                    const [productsRes, usersRes, ordersRes] = await Promise.all([
-                        AuthManager.apiClient.get('/products'),
-                        AuthManager.apiClient.get('/admin/users'),
-                        AuthManager.apiClient.get('/admin/orders')
-                    ]);
-
+                    // Load products count
+                    const productsRes = await window.authManager.apiClient.get('/products');
                     if (productsRes.success) {
                         document.getElementById('totalProducts').textContent = productsRes.data.length;
+                    } else {
+                        document.getElementById('totalProducts').textContent = 'Error';
                     }
-                    
+
+                    // Load users count
+                    const usersRes = await window.authManager.apiClient.get('/admin/users');
                     if (usersRes.success) {
                         document.getElementById('totalUsers').textContent = usersRes.data.length;
+                    } else {
+                        document.getElementById('totalUsers').textContent = 'Error';
                     }
-                    
+
+                    // Load orders count and revenue
+                    const ordersRes = await window.authManager.apiClient.get('/admin/orders');
                     if (ordersRes.success) {
                         const orders = ordersRes.data;
                         document.getElementById('totalOrders').textContent = orders.length;
-                        const revenue = orders.reduce((sum, order) => sum + (order.total || 0), 0);
+                        const revenue = orders.reduce((sum, order) => sum + (order.totalAmount || order.total || 0), 0);
                         document.getElementById('totalRevenue').textContent = formatCurrency(revenue);
+                    } else {
+                        document.getElementById('totalOrders').textContent = 'Error';
+                        document.getElementById('totalRevenue').textContent = 'Error';
                     }
                 } catch (error) {
                     console.error('Failed to load admin stats:', error);
+                    document.getElementById('totalProducts').textContent = 'Error';
+                    document.getElementById('totalUsers').textContent = 'Error';
+                    document.getElementById('totalOrders').textContent = 'Error';
+                    document.getElementById('totalRevenue').textContent = 'Error';
                 }
             }
+
 
             handleAdminAction(action) {
                 const messageDiv = document.getElementById('adminMessage');
                 
                 switch (action) {
                     case 'products':
-                        window.location.href = '/pages/store.html';
+                        this.showProductsManagement();
                         break;
                     case 'users':
-                        this.showMessage('Users management coming soon. Use Analytics for user insights.', 'info');
+                        this.showUsersManagement();
                         break;
                     case 'orders':
-                        window.location.href = '/pages/my-orders.html';
+                        this.showOrdersManagement();
                         break;
                     case 'activity':
                         window.location.href = '/pages/admin-analytics.html';
@@ -196,6 +208,229 @@
                     default:
                         this.showMessage('Unknown action', 'error');
                 }
+            }
+
+            async showProductsManagement() {
+                try {
+                    const response = await window.authManager.apiClient.get('/products');
+                    if (response.success) {
+                        this.displayProductsTable(response.data);
+                    }
+                } catch (error) {
+                    this.showMessage('Failed to load products', 'error');
+                }
+            }
+
+            async showUsersManagement() {
+                try {
+                    const response = await window.authManager.apiClient.get('/admin/users');
+                    if (response.success) {
+                        this.displayUsersTable(response.data);
+                    }
+                } catch (error) {
+                    this.showMessage('Failed to load users', 'error');
+                }
+            }
+
+            async showOrdersManagement() {
+                try {
+                    const ordersRes = await window.authManager.apiClient.get('/admin/orders');
+                    if (ordersRes.success) {
+                        this.displayOrdersTable(ordersRes.data);
+                    } else {
+                        this.showMessage('Failed to load orders', 'error');
+                    }
+                } catch (error) {
+                    this.showMessage('Failed to load orders', 'error');
+                }
+            }
+
+            displayProductsTable(products) {
+                const html = `
+                    <div class="management-section">
+                        <h3>Products Management</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${products.map(product => `
+                                    <tr>
+                                        <td>${product.id}</td>
+                                        <td>${product.title}</td>
+                                        <td>${product.category}</td>
+                                        <td>${formatCurrency(product.price)}</td>
+                                        <td>${product.inStock ? 'In Stock' : 'Out of Stock'}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger" onclick="window.AdminManager.deleteProduct('${product.id}')">Delete</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                        <button class="btn btn-secondary" onclick="window.AdminManager.hideManagement()">Close</button>
+                    </div>
+                `;
+                this.showManagementSection(html);
+            }
+
+            displayUsersTable(users) {
+                const html = `
+                    <div class="management-section">
+                        <h3>Users Management</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Created</th>
+                                    <th>Last Login</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${users.map(user => `
+                                    <tr>
+                                        <td>${user.id.substring(0, 8)}...</td>
+                                        <td>${user.username}</td>
+                                        <td>${user.email}</td>
+                                        <td><span class="role-badge ${user.role}">${user.role}</span></td>
+                                        <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+                                        <td>${new Date(user.lastLogin).toLocaleDateString()}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                        <button class="btn btn-secondary" onclick="window.AdminManager.hideManagement()">Close</button>
+                    </div>
+                `;
+                this.showManagementSection(html);
+            }
+
+            displayOrdersTable(orders) {
+                const html = `
+                    <div class="management-section">
+                        <h3>Orders Management</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${orders.map(order => `
+                                    <tr>
+                                        <td>${order.id.substring(0, 8)}...</td>
+                                        <td>${order.customerInfo?.name || 'N/A'}</td>
+                                        <td>${order.items?.length || 0} items</td>
+                                        <td>${formatCurrency(order.totalAmount || order.total || 0)}</td>
+                                        <td><span class="status-badge ${order.status}">${order.status}</span></td>
+                                        <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary" onclick="window.AdminManager.viewOrderDetails('${order.id}')">View</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                        <button class="btn btn-secondary" onclick="window.AdminManager.hideManagement()">Close</button>
+                    </div>
+                `;
+                this.showManagementSection(html);
+            }
+
+            showManagementSection(html) {
+                let managementDiv = document.getElementById('managementSection');
+                if (!managementDiv) {
+                    managementDiv = document.createElement('div');
+                    managementDiv.id = 'managementSection';
+                    managementDiv.className = 'management-container';
+                    document.querySelector('.admin-section').appendChild(managementDiv);
+                }
+                managementDiv.innerHTML = html;
+                managementDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            hideManagement() {
+                const managementDiv = document.getElementById('managementSection');
+                if (managementDiv) {
+                    managementDiv.innerHTML = '';
+                }
+            }
+
+            async deleteProduct(productId) {
+                if (!confirm('Are you sure you want to delete this product?')) {
+                    return;
+                }
+                
+                try {
+                    const response = await window.authManager.apiClient.delete(`/products/${productId}`);
+                    if (response.success) {
+                        this.showMessage('Product deleted successfully', 'success');
+                        await this.loadAdminStats();
+                        this.showProductsManagement();
+                    } else {
+                        this.showMessage('Failed to delete product', 'error');
+                    }
+                } catch (error) {
+                    this.showMessage('Failed to delete product', 'error');
+                }
+            }
+
+            async viewOrderDetails(orderId) {
+                try {
+                    const ordersRes = await window.authManager.apiClient.get('/admin/orders');
+                    if (ordersRes.success) {
+                        const order = ordersRes.data.find(o => o.id === orderId);
+                        if (order) {
+                            this.displayOrderDetails(order);
+                        } else {
+                            this.showMessage('Order not found', 'error');
+                        }
+                    } else {
+                        this.showMessage('Failed to load order details', 'error');
+                    }
+                } catch (error) {
+                    this.showMessage('Failed to load order details', 'error');
+                }
+            }
+
+            displayOrderDetails(order) {
+                const html = `
+                    <div class="order-details">
+                        <h4>Order Details: ${order.id}</h4>
+                        <div class="order-info">
+                            <p><strong>Customer:</strong> ${order.customerInfo?.name || 'N/A'}</p>
+                            <p><strong>Email:</strong> ${order.customerInfo?.email || 'N/A'}</p>
+                            <p><strong>Address:</strong> ${order.shippingAddress || 'N/A'}</p>
+                            <p><strong>Status:</strong> ${order.status}</p>
+                            <p><strong>Total:</strong> ${formatCurrency(order.totalAmount || order.total || 0)}</p>
+                            <p><strong>Date:</strong> ${new Date(order.createdAt).toLocaleString()}</p>
+                        </div>
+                        <h5>Items:</h5>
+                        <ul class="order-items">
+                            ${order.items?.map(item => `
+                                <li>${item.title} - Qty: ${item.quantity} - ${formatCurrency((item.price || 0) * (item.quantity || 1))}</li>
+                            `).join('') || '<li>No items</li>'}
+                        </ul>
+                        <button class="btn btn-secondary" onclick="window.AdminManager.hideManagement()">Close</button>
+                    </div>
+                `;
+                this.showManagementSection(html);
             }
 
             async handleAddProduct(form) {
@@ -210,7 +445,7 @@
                 };
 
                 try {
-                    const response = await AuthManager.apiClient.post('/products', product);
+                    const response = await window.authManager.apiClient.post('/products', product);
                     
                     if (response.success) {
                         this.showMessage('Product added successfully!', 'success');
@@ -234,12 +469,19 @@
             }
         }
 
+        // Global AdminManager instance for onclick handlers
+        window.AdminManager = null;
+
         // Initialize admin manager
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                await AuthManager.init();
-                const adminManager = new AdminManager();
-                await adminManager.init();
+                // Wait for authManager to be ready
+                while (!window.authManager) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                
+                window.AdminManager = new AdminManager();
+                await window.AdminManager.init();
             } catch (error) {
                 console.error('Failed to initialize admin panel:', error);
             }
