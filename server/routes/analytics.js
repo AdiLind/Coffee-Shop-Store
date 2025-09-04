@@ -42,7 +42,7 @@ router.get('/sales', async (req, res) => {
         );
         
         // Calculate totals
-        const totalRevenue = filteredOrders.reduce((sum, order) => sum + order.total, 0);
+        const totalRevenue = filteredOrders.reduce((sum, order) => sum + (order.totalAmount || order.total || 0), 0);
         const totalOrders = filteredOrders.length;
         const averageOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
         
@@ -77,7 +77,7 @@ router.get('/sales', async (req, res) => {
             return orderDate >= previousPeriodStart && orderDate < startDate;
         });
         
-        const previousRevenue = previousPeriodOrders.reduce((sum, order) => sum + order.total, 0);
+        const previousRevenue = previousPeriodOrders.reduce((sum, order) => sum + (order.totalAmount || order.total || 0), 0);
         const revenueGrowth = previousRevenue > 0 ? 
             ((totalRevenue - previousRevenue) / previousRevenue * 100) : 0;
         
@@ -162,7 +162,7 @@ router.get('/users', async (req, res) => {
             }
             
             customerStats[order.userId].totalOrders++;
-            customerStats[order.userId].totalSpent += order.total;
+            customerStats[order.userId].totalSpent += (order.totalAmount || order.total || 0);
             
             const orderDate = new Date(order.createdAt);
             if (!customerStats[order.userId].lastOrderDate || 
@@ -447,7 +447,7 @@ function groupSalesByPeriod(orders, groupBy) {
         }
         
         groups[key].orders++;
-        groups[key].revenue += order.total;
+        groups[key].revenue += (order.totalAmount || order.total || 0);
     });
     
     return Object.values(groups).sort((a, b) => a.period.localeCompare(b.period));

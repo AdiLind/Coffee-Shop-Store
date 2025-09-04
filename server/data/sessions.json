@@ -64,11 +64,11 @@
     "rememberMe": false
   },
   {
-    "id": "bd45d5d3-e5e4-4e3f-8ca2-983c194789d9",
-    "token": "899e31cb-ad5a-470e-8c17-9535eb9af640",
+    "id": "f0f4040f-e211-4b34-81fb-bb29710596e8",
+    "token": "60023cf0-beac-4341-a8e1-deeb444ac3f1",
     "userId": "user-1",
-    "createdAt": "2025-09-04T06:45:52.442Z",
-    "expiresAt": "2025-09-04T07:15:52.442Z",
+    "createdAt": "2025-09-04T06:51:23.279Z",
+    "expiresAt": "2025-09-04T07:21:23.279Z",
     "rememberMe": false
   }
 ]

@@ -546,14 +546,19 @@
             updateSalesMetrics() {
                 const sales = this.data.sales;
                 
-                document.getElementById('total-revenue').textContent = `$${sales.totals.revenue.toFixed(2)}`;
+                // Handle null/undefined revenue values
+                const revenue = sales.totals.revenue || 0;
+                const averageOrderValue = sales.totals.averageOrderValue || 0;
+                const revenueGrowth = sales.totals.revenueGrowth || 0;
+                
+                document.getElementById('total-revenue').textContent = `$${revenue.toFixed(2)}`;
                 document.getElementById('total-orders').textContent = sales.totals.orders.toLocaleString();
-                document.getElementById('avg-order-value').textContent = `$${sales.totals.averageOrderValue.toFixed(2)}`;
+                document.getElementById('avg-order-value').textContent = `$${averageOrderValue.toFixed(2)}`;
 
                 // Update change indicators
-                this.updateChangeIndicator('revenue-change', sales.totals.revenueGrowth, '%');
-                this.updateChangeIndicator('orders-change', sales.trends.ordersGrowth, '%');
-                this.updateChangeIndicator('aov-change', sales.trends.averageOrderValueGrowth, '%');
+                this.updateChangeIndicator('revenue-change', revenueGrowth, '%');
+                this.updateChangeIndicator('orders-change', sales.trends.ordersGrowth || 0, '%');
+                this.updateChangeIndicator('aov-change', sales.trends.averageOrderValueGrowth || 0, '%');
             }
 
             updateUserMetrics() {
