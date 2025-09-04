@@ -85,5 +85,29 @@
     "tier": "bronze",
     "pointsHistory": [],
     "createdAt": "2025-09-03T20:42:05.347Z"
+  },
+  {
+    "userId": "eb7d459a-44d7-4773-95c4-52b801f1c274",
+    "totalPoints": 0,
+    "availablePoints": 0,
+    "tier": "bronze",
+    "pointsHistory": [],
+    "createdAt": "2025-09-04T07:07:15.965Z"
+  },
+  {
+    "userId": "f118dd49-9f70-452a-9a15-57814a59e543",
+    "totalPoints": 0,
+    "availablePoints": 0,
+    "tier": "bronze",
+    "pointsHistory": [],
+    "createdAt": "2025-09-04T07:07:32.714Z"
+  },
+  {
+    "userId": "2a6af63d-d6cf-4c2c-8792-fdc1745bf1f3",
+    "totalPoints": 0,
+    "availablePoints": 0,
+    "tier": "bronze",
+    "pointsHistory": [],
+    "createdAt": "2025-09-04T13:10:30.774Z"
   }
 ]

@@ -20,10 +20,34 @@
     "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
     "items": [
       {
-        "id": "a71ebede-b8c1-46d0-8ee8-14e889c7de5e",
+        "id": "923ee16d-bc75-4872-bc4d-b5ba88c01055",
+        "productId": "prod-2",
+        "notes": "",
+        "addedAt": "2025-09-04T13:16:20.557Z"
+      },
+      {
+        "id": "6d78e529-b7c9-4a0c-b54d-2232ccbf9a15",
+        "productId": "prod-5",
+        "notes": "",
+        "addedAt": "2025-09-04T13:16:22.090Z"
+      },
+      {
+        "id": "89305e02-6d7d-4443-880d-fd08cede945e",
+        "productId": "prod-4",
+        "notes": "",
+        "addedAt": "2025-09-04T15:17:46.477Z"
+      },
+      {
+        "id": "a153cbda-0dbb-4606-aef2-75a1999a76fc",
         "productId": "prod-6",
         "notes": "",
-        "addedAt": "2025-09-01T08:42:44.969Z"
+        "addedAt": "2025-09-04T15:17:47.074Z"
+      },
+      {
+        "id": "8a8c5f6e-50bc-4101-944c-c467ac7bd19a",
+        "productId": "prod-3",
+        "notes": "",
+        "addedAt": "2025-09-04T15:17:47.748Z"
       }
     ]
   },
@@ -35,6 +59,39 @@
         "productId": "prod-1",
         "notes": "E2E test wishlist item",
         "addedAt": "2025-09-03T20:13:40.830Z"
+      }
+    ]
+  },
+  {
+    "userId": "2912572d-5da5-436f-8ba3-bd0404ce6842",
+    "items": [
+      {
+        "id": "e185bcf3-ccd1-495d-9fd2-b7e625714bad",
+        "productId": "prod-3",
+        "notes": "",
+        "addedAt": "2025-09-04T07:02:45.515Z"
+      }
+    ]
+  },
+  {
+    "userId": "f118dd49-9f70-452a-9a15-57814a59e543",
+    "items": [
+      {
+        "id": "adfa3c56-bb32-4cd6-a44c-da9daac98c68",
+        "productId": "prod-1",
+        "notes": "E2E test wishlist item",
+        "addedAt": "2025-09-04T07:07:32.689Z"
+      }
+    ]
+  },
+  {
+    "userId": "2a6af63d-d6cf-4c2c-8792-fdc1745bf1f3",
+    "items": [
+      {
+        "id": "4acf0de2-7d2f-48f6-9675-3c1e0dfdca96",
+        "productId": "prod-1",
+        "notes": "E2E test wishlist item",
+        "addedAt": "2025-09-04T13:10:30.741Z"
       }
     ]
   }

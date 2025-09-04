@@ -632,5 +632,147 @@
     "shippingAddress": "123 QA Test Street, Test City, TC 12345",
     "status": "pending",
     "createdAt": "2025-09-03T20:42:05.532Z"
+  },
+  {
+    "id": "0cd2161d-2240-4f52-a4ef-ea6dfa5f1583",
+    "userId": "eb7d459a-44d7-4773-95c4-52b801f1c274",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "price": 299.99,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 299.99,
+    "tax": 23.999200000000002,
+    "shipping": 0,
+    "totalAmount": 323.9892,
+    "shippingAddress": "123 Test St, Test City, TC 12345",
+    "status": "pending",
+    "createdAt": "2025-09-04T07:07:16.061Z"
+  },
+  {
+    "id": "8f54e6f0-d77f-4cd1-a933-7b6242e8f2d7",
+    "userId": "eb7d459a-44d7-4773-95c4-52b801f1c274",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "price": 299.99,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 299.99,
+    "tax": 23.999200000000002,
+    "shipping": 0,
+    "totalAmount": 323.9892,
+    "shippingAddress": "123 QA Test Street, Test City, TC 12345",
+    "status": "pending",
+    "createdAt": "2025-09-04T07:07:16.174Z"
+  },
+  {
+    "id": "ad1a6365-fde0-4a1e-9006-b7bf25ed85dd",
+    "userId": "f118dd49-9f70-452a-9a15-57814a59e543",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Test Product",
+        "price": 299.99,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 299.99,
+    "tax": 23.999200000000002,
+    "shipping": 0,
+    "totalAmount": 323.9892,
+    "shippingAddress": {
+      "street": "123 Test Street",
+      "city": "Test City",
+      "state": "TS",
+      "zipCode": "12345",
+      "country": "Test Country"
+    },
+    "status": "pending",
+    "createdAt": "2025-09-04T07:07:31.126Z"
+  },
+  {
+    "id": "5e9cb537-12f6-4719-9970-0cedcfe6e054",
+    "userId": "2a6af63d-d6cf-4c2c-8792-fdc1745bf1f3",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Test Product",
+        "price": 299.99,
+        "quantity": 1
+      }
+    ],
+    "subtotal": 299.99,
+    "tax": 23.999200000000002,
+    "shipping": 0,
+    "totalAmount": 323.9892,
+    "shippingAddress": {
+      "street": "123 Test Street",
+      "city": "Test City",
+      "state": "TS",
+      "zipCode": "12345",
+      "country": "Test Country"
+    },
+    "status": "pending",
+    "createdAt": "2025-09-04T13:10:29.074Z"
+  },
+  {
+    "id": "940a01ae-def9-445c-98ea-fbb6b57df563",
+    "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
+    "items": [
+      {
+        "productId": "prod-2",
+        "title": "Premium Arabica Coffee Beans",
+        "quantity": 1,
+        "price": 24.99,
+        "subtotal": 24.99
+      },
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "quantity": 1,
+        "price": 299.99,
+        "subtotal": 299.99
+      },
+      {
+        "productId": "prod-5",
+        "title": "Dark Roast Brazilian Beans",
+        "quantity": 3,
+        "price": 22.99,
+        "subtotal": 68.97
+      },
+      {
+        "productId": "prod-4",
+        "title": "French Press Coffee Maker",
+        "quantity": 1,
+        "price": 34.99,
+        "subtotal": 34.99
+      }
+    ],
+    "subtotal": 428.94000000000005,
+    "tax": 34.315200000000004,
+    "shipping": 0,
+    "totalAmount": 463.25520000000006,
+    "status": "completed",
+    "customerInfo": {
+      "name": "lolo",
+      "email": "lolo@lolo.com",
+      "address": "lolololool",
+      "phone": "050000000"
+    },
+    "shippingAddress": "lolololool",
+    "createdAt": "2025-09-04T13:15:19.165Z",
+    "completedAt": "2025-09-04T13:15:33.978Z",
+    "paymentDetails": {
+      "method": "credit-card",
+      "last4": "2465",
+      "transactionId": "tx_60cde4a7",
+      "processedAt": "2025-09-04T13:15:33.978Z"
+    }
   }
 ]
