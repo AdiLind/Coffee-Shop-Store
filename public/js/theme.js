@@ -660,11 +660,11 @@ class ThemeManager {
 }
 
 // Global instance
-const ThemeManager = new ThemeManager();
+const themeManager = new ThemeManager();
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => ThemeManager.init());
+    document.addEventListener('DOMContentLoaded', () => themeManager.init());
 } else {
-    ThemeManager.init();
+    themeManager.init();
 }
