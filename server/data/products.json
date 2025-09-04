@@ -5,7 +5,7 @@
     "description": "Italian-made espresso machine for perfect coffee brewing with 15-bar pressure pump and stainless steel construction",
     "price": 299.99,
     "category": "machines",
-    "image": "/images/products/espresso-machine.jpg",
+    "image": "/images/products/Professional Espresso Machine.jpeg",
     "inStock": true,
     "createdAt": "2025-01-15T10:00:00.000Z"
   },
@@ -15,7 +15,7 @@
     "description": "Single-origin Arabica beans from Colombian highlands, medium roast with notes of chocolate and caramel",
     "price": 24.99,
     "category": "beans",
-    "image": "/images/products/arabica-beans.jpg",
+    "image": "/images/products/Premium Arabica Coffee Beans.jpeg",
     "inStock": true,
     "createdAt": "2025-01-15T10:05:00.000Z"
   },
@@ -25,7 +25,7 @@
     "description": "Burr coffee grinder with adjustable grind settings for consistent particle size and optimal extraction",
     "price": 79.99,
     "category": "accessories",
-    "image": "/images/products/coffee-grinder.jpg",
+    "image": "/images/products/Manual Coffee Grinder.jpeg",
     "inStock": true,
     "createdAt": "2025-01-15T10:10:00.000Z"
   },
@@ -35,7 +35,7 @@
     "description": "Classic glass French press with stainless steel filter, perfect for brewing rich and full-bodied coffee",
     "price": 34.99,
     "category": "accessories",
-    "image": "/images/products/french-press.jpg",
+    "image": "/images/products/French Press Coffee Maker.jpeg",
     "inStock": true,
     "createdAt": "2025-01-15T10:15:00.000Z"
   },
@@ -45,7 +45,7 @@
     "description": "Bold Brazilian coffee beans with intense flavor, perfect for espresso and strong coffee preparations",
     "price": 22.99,
     "category": "beans",
-    "image": "/images/products/dark-roast-beans.jpg",
+    "image": "/images/products/Dark Roast Brazilian Beans.jpeg",
     "inStock": true,
     "createdAt": "2025-01-15T10:20:00.000Z"
   },
@@ -55,7 +55,7 @@
     "description": "Programmable drip coffee maker with 12-cup capacity, auto shut-off, and keep-warm plate",
     "price": 89.99,
     "category": "machines",
-    "image": "/images/products/drip-coffee-maker.jpg",
+    "image": "/images/products/Automatic Drip Coffee Maker.jpeg",
     "inStock": true,
     "createdAt": "2025-01-15T10:25:00.000Z"
   },
@@ -65,7 +65,7 @@
     "description": "Set of 4 elegant ceramic mugs with double-wall insulation to keep coffee hot longer",
     "price": 39.99,
     "category": "accessories",
-    "image": "/images/products/ceramic-mugs.jpg",
+    "image": "/images/products/Ceramic Coffee Mug Set.jpeg",
     "inStock": true,
     "createdAt": "2025-01-15T10:30:00.000Z"
   },
@@ -75,7 +75,7 @@
     "description": "Floral and fruity light roast Ethiopian coffee beans with bright acidity and wine-like characteristics",
     "price": 26.99,
     "category": "beans",
-    "image": "/images/products/ethiopian-beans.jpg",
+    "image": "/images/products/Ethiopian Light Roast Beans.jpeg",
     "inStock": false,
     "createdAt": "2025-01-15T10:35:00.000Z"
   },
@@ -85,7 +85,7 @@
     "description": "Electric milk frother for creating creamy foam for lattes, cappuccinos, and other specialty drinks",
     "price": 19.99,
     "category": "accessories",
-    "image": "/images/products/milk-frother.jpg",
+    "image": "/images/products/Milk Frother Wand.jpeg",
     "inStock": true,
     "createdAt": "2025-01-15T10:40:00.000Z"
   },
@@ -95,7 +95,7 @@
     "description": "Digital coffee scale with built-in timer for precise brewing measurements and consistent results",
     "price": 49.99,
     "category": "accessories",
-    "image": "/images/products/coffee-scale.jpg",
+    "image": "/images/products/Coffee Scale with Timer.jpeg",
     "inStock": true,
     "createdAt": "2025-01-15T10:45:00.000Z"
   },
@@ -105,7 +105,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-08-26T20:58:41.087Z",
     "inStock": true
   },
@@ -115,7 +115,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-08-27T05:58:58.295Z",
     "inStock": true
   },
@@ -125,7 +125,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-08-27T05:59:31.062Z",
     "inStock": true
   },
@@ -135,7 +135,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-08-27T06:03:18.270Z",
     "inStock": true
   },
@@ -145,7 +145,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-08-27T06:04:05.406Z",
     "inStock": true
   },
@@ -155,7 +155,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-08-27T20:11:47.364Z",
     "inStock": true
   },
@@ -165,7 +165,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-08-27T21:49:39.448Z",
     "inStock": true
   },
@@ -175,7 +175,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-08-27T21:55:13.531Z",
     "inStock": true
   },
@@ -185,7 +185,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-08-27T22:16:07.867Z",
     "inStock": true
   },
@@ -195,7 +195,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-08-29T10:18:24.673Z",
     "inStock": true
   },
@@ -205,7 +205,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-09-03T20:05:19.722Z",
     "inStock": true
   },
@@ -215,7 +215,7 @@
     "description": "Product created during E2E testing",
     "price": 19.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-09-03T20:13:40.667Z",
     "inStock": true
   },
@@ -225,7 +225,7 @@
     "description": "Product created during QA testing",
     "price": 29.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-09-03T20:35:57.417Z",
     "inStock": true
   },
@@ -235,7 +235,7 @@
     "description": "Product created during QA testing",
     "price": 29.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-09-03T20:39:36.506Z",
     "inStock": true
   },
@@ -245,7 +245,7 @@
     "description": "A test mug for automated testing",
     "price": 9.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-09-03T20:39:48.007Z",
     "inStock": true
   },
@@ -255,8 +255,38 @@
     "description": "Product created during QA testing",
     "price": 29.99,
     "category": "accessories",
-    "image": "/images/products/default.jpg",
+    "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-09-03T20:42:05.581Z",
+    "inStock": true
+  },
+  {
+    "id": "2f4c2a2d-bb6f-466c-9912-56f218f0f8bd",
+    "title": "QA Test Product 1756969636216",
+    "description": "Product created during QA testing",
+    "price": 29.99,
+    "category": "accessories",
+    "image": "/images/products/test_photo.jpeg",
+    "createdAt": "2025-09-04T07:07:16.222Z",
+    "inStock": true
+  },
+  {
+    "id": "9453b44f-1cef-40b6-aee1-2a1ce8cfebae",
+    "title": "E2E Test Product 1756969652556",
+    "description": "Product created during E2E testing",
+    "price": 19.99,
+    "category": "accessories",
+    "image": "/images/products/test_photo.jpeg",
+    "createdAt": "2025-09-04T07:07:32.563Z",
+    "inStock": true
+  },
+  {
+    "id": "a4879f7a-2415-467f-95e9-7de1a7f0a364",
+    "title": "E2E Test Product 1756991430401",
+    "description": "Product created during E2E testing",
+    "price": 19.99,
+    "category": "accessories",
+    "image": "/images/products/test_photo.jpeg",
+    "createdAt": "2025-09-04T13:10:30.409Z",
     "inStock": true
   }
 ]

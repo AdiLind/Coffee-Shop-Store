@@ -142,9 +142,9 @@ class StoreManager {
         
         return `
             <div class="product-card" data-product-id="${product.id}">
-                <div class="product-image-placeholder">
-                    <span class="product-category">${product.category}</span>
-                </div>
+                <img src="${product.image || '/images/products/placeholder.jpg'}" 
+                     alt="${product.title}" class="product-image">
+                <div class="product-category-badge">${product.category}</div>
                 
                 <div class="product-title">${sanitizeHTML(product.title)}</div>
                 <div class="product-description">${sanitizeHTML(product.description)}</div>
@@ -304,9 +304,9 @@ class StoreManager {
                 </div>
                 <div class="modal-body">
                     <div class="product-details">
-                        <div class="product-image-placeholder large">
-                            <span class="product-category">${product.category}</span>
-                        </div>
+                        <img src="${product.image || '/images/products/placeholder.jpg'}" 
+                             alt="${product.title}" class="product-image large">
+                        <div class="product-category-badge">${product.category}</div>
                         <div class="product-info">
                             <p class="product-description">${sanitizeHTML(product.description)}</p>
                             <p class="product-price large">${formatCurrency(product.price)}</p>

@@ -64,6 +64,12 @@ class CartManager {
             
             if (response.success) {
                 this.cart = response.data;
+                
+                // Enhance cart items with full product details including images
+                if (this.cart.items && this.cart.items.length > 0) {
+                    await this.enhanceCartItems();
+                }
+                
                 this.renderCart();
                 this.updateCartSummary();
             } else {
@@ -74,6 +80,30 @@ class CartManager {
             this.showError('Failed to load cart. Please refresh the page.');
         } finally {
             hideLoading('cartItems');
+        }
+    }
+
+    // Enhance cart items with full product details
+    async enhanceCartItems() {
+        try {
+            const productsResponse = await this.apiClient.getProducts();
+            if (productsResponse.success) {
+                const products = productsResponse.data;
+                
+                this.cart.items = this.cart.items.map(item => {
+                    const fullProduct = products.find(p => p.id === item.productId);
+                    if (fullProduct) {
+                        return {
+                            ...item,
+                            image: fullProduct.image,
+                            description: fullProduct.description
+                        };
+                    }
+                    return item;
+                });
+            }
+        } catch (error) {
+            console.error('Failed to enhance cart items:', error);
         }
     }
 
@@ -103,9 +133,8 @@ class CartManager {
         return `
             <div class="cart-item" data-product-id="${item.productId}">
                 <div class="item-image">
-                    <div class="product-image-placeholder">
-                        <span>${item.title}</span>
-                    </div>
+                    <img src="${item.image || '/images/products/placeholder.jpg'}" 
+                         alt="${item.title}" class="cart-item-image">
                 </div>
                 <div class="item-details">
                     <h3>${sanitizeHTML(item.title)}</h3>
