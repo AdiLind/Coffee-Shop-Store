@@ -132,22 +132,16 @@
                     await window.authManager.checkAuthStatus();
                     this.currentUser = window.authManager.currentUser;
                     
-                    console.log('Admin panel init - Current user:', this.currentUser);
-                    
                     if (!this.currentUser || this.currentUser.role !== 'admin') {
-                        console.log('Not logged in as admin, showing login message...');
-                        console.log('User role:', this.currentUser?.role);
                         document.getElementById('loginRequired').style.display = 'block';
                         document.querySelector('.admin-section').style.display = 'none';
                         return;
                     }
 
-                    console.log('Admin authenticated, setting up panel...');
                     this.setupEventListeners();
                     await this.loadAdminStats();
                 } catch (error) {
                     console.error('Admin panel initialization failed:', error);
-                    console.log('Not authenticated, showing login message...');
                     document.getElementById('loginRequired').style.display = 'block';
                     document.querySelector('.admin-section').style.display = 'none';
                 }
@@ -174,42 +168,30 @@
 
             async loadAdminStats() {
                 try {
-                    console.log('Loading admin stats...');
-                    
                     // Load products count
-                    console.log('Fetching products...');
                     const productsRes = await window.authManager.apiClient.get('/products');
-                    console.log('Products response:', productsRes);
                     if (productsRes.success) {
                         document.getElementById('totalProducts').textContent = productsRes.data.length;
                     } else {
-                        console.error('Products API failed:', productsRes);
                         document.getElementById('totalProducts').textContent = 'Error';
                     }
 
                     // Load users count
-                    console.log('Fetching users...');
                     const usersRes = await window.authManager.apiClient.get('/admin/users');
-                    console.log('Users response:', usersRes);
                     if (usersRes.success) {
                         document.getElementById('totalUsers').textContent = usersRes.data.length;
                     } else {
-                        console.error('Users API failed:', usersRes);
                         document.getElementById('totalUsers').textContent = 'Error';
                     }
 
                     // Load orders count and revenue
-                    console.log('Fetching orders...');
                     const ordersRes = await window.authManager.apiClient.get('/admin/orders');
-                    console.log('Orders response:', ordersRes);
                     if (ordersRes.success) {
                         const orders = ordersRes.data;
                         document.getElementById('totalOrders').textContent = orders.length;
                         const revenue = orders.reduce((sum, order) => sum + (order.totalAmount || order.total || 0), 0);
                         document.getElementById('totalRevenue').textContent = formatCurrency(revenue);
-                        console.log(`Orders loaded: ${orders.length}, Revenue: ${revenue}`);
                     } else {
-                        console.error('Orders API failed:', ordersRes);
                         document.getElementById('totalOrders').textContent = 'Error';
                         document.getElementById('totalRevenue').textContent = 'Error';
                     }
