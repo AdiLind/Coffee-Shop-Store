@@ -702,6 +702,9 @@
                 while (!window.authManager) {
                     await new Promise(resolve => setTimeout(resolve, 100));
                 }
+                
+                // Make sure authentication is checked
+                await window.authManager.checkAuthStatus();
                 await analyticsManager.init();
             } catch (error) {
                 console.error('Failed to initialize analytics dashboard:', error);

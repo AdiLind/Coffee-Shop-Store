@@ -128,14 +128,15 @@
 
             async init() {
                 try {
-                    // Wait for authManager to load current user
-                    await window.authManager.getCurrentUser();
+                    // Wait for authManager to check current authentication status
+                    await window.authManager.checkAuthStatus();
                     this.currentUser = window.authManager.currentUser;
                     
                     console.log('Admin panel init - Current user:', this.currentUser);
                     
                     if (!this.currentUser || this.currentUser.role !== 'admin') {
                         console.log('Not logged in as admin, showing login message...');
+                        console.log('User role:', this.currentUser?.role);
                         document.getElementById('loginRequired').style.display = 'block';
                         document.querySelector('.admin-section').style.display = 'none';
                         return;
@@ -146,8 +147,9 @@
                     await this.loadAdminStats();
                 } catch (error) {
                     console.error('Admin panel initialization failed:', error);
-                    alert('Please login as admin to access the admin panel');
-                    window.location.href = '/pages/login.html';
+                    console.log('Not authenticated, showing login message...');
+                    document.getElementById('loginRequired').style.display = 'block';
+                    document.querySelector('.admin-section').style.display = 'none';
                 }
             }
 
