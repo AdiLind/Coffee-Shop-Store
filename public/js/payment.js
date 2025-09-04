@@ -11,10 +11,10 @@ class PaymentManager {
         // Wait for auth manager to be ready
         await this.waitForAuthManager();
         
-        // Check authentication
-        const isAuthenticated = await window.authManager.recheckAuth();
+        // Check authentication using AuthHelper
+        const authResult = await AuthHelper.initializeManagerAuth('Payment Manager');
         
-        if (!isAuthenticated) {
+        if (!authResult.isAuthenticated) {
             console.log('Payment Manager - Not authenticated, showing login message');
             this.showLoginRequired();
             return;
@@ -46,7 +46,7 @@ class PaymentManager {
 
     // Load order details
     async loadOrderDetails() {
-        if (!window.authManager.isAuthenticated() || !this.orderId) return;
+        if (!AuthHelper.isAuthenticated() || !this.orderId) return;
 
         try {
             showLoading('orderSummary');
@@ -178,7 +178,7 @@ class PaymentManager {
 
     // Process payment
     async processPayment(paymentDetails) {
-        if (!window.authManager.isAuthenticated() || !this.orderId) return;
+        if (!AuthHelper.isAuthenticated() || !this.orderId) return;
 
         try {
             const response = await this.apiClient.request(`/orders/payment/${this.orderId}`, {

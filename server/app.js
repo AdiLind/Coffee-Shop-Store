@@ -65,10 +65,17 @@ async function initializeServer() {
         await persistenceManager.createSampleData();
         console.log('✅ Coffee shop data initialized');
         
-        // Start session cleanup interval
-        setInterval(async () => {
-            await AuthMiddleware.cleanupSessions();
+        // Start session cleanup interval with proper cleanup handling
+        const sessionCleanupInterval = setInterval(async () => {
+            try {
+                await AuthMiddleware.cleanupSessions();
+            } catch (error) {
+                console.error('❌ Session cleanup failed:', error);
+            }
         }, 60 * 60 * 1000); // Cleanup expired sessions every hour
+
+        // Store interval ID for cleanup on server shutdown
+        process.sessionCleanupInterval = sessionCleanupInterval;
         
         console.log('✅ Session cleanup scheduled');
     } catch (error) {
@@ -126,6 +133,40 @@ app.listen(PORT, async () => {
     console.log('     GET  /api/admin/activity');
     console.log('   💚 System:');
     console.log('     GET  /api/health');
+});
+
+// Graceful shutdown handlers to clean up intervals and prevent memory leaks
+function cleanup() {
+    console.log('\n🧹 Cleaning up server resources...');
+    if (process.sessionCleanupInterval) {
+        clearInterval(process.sessionCleanupInterval);
+        console.log('✅ Session cleanup interval cleared');
+    }
+}
+
+// Handle various shutdown signals
+process.on('SIGTERM', () => {
+    console.log('\n📡 SIGTERM received - shutting down gracefully');
+    cleanup();
+    process.exit(0);
+});
+
+process.on('SIGINT', () => {
+    console.log('\n📡 SIGINT received - shutting down gracefully');
+    cleanup();
+    process.exit(0);
+});
+
+process.on('uncaughtException', (error) => {
+    console.error('💥 Uncaught Exception:', error);
+    cleanup();
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
+    cleanup();
+    process.exit(1);
 });
 
 module.exports = app;

@@ -109,5 +109,13 @@
     "tier": "bronze",
     "pointsHistory": [],
     "createdAt": "2025-09-04T13:10:30.774Z"
+  },
+  {
+    "userId": "66ccd284-f95f-41d9-a5bd-fa98b874886e",
+    "totalPoints": 0,
+    "availablePoints": 0,
+    "tier": "bronze",
+    "pointsHistory": [],
+    "createdAt": "2025-09-04T21:01:22.325Z"
   }
 ]

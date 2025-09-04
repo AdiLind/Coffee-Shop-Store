@@ -10,7 +10,7 @@
       "language": "en"
     },
     "createdAt": "2025-01-15T09:00:00.000Z",
-    "lastLogin": "2025-09-04T19:30:25.133Z"
+    "lastLogin": "2025-09-04T21:23:58.562Z"
   },
   {
     "id": "user-2",
@@ -114,7 +114,7 @@
       "language": "en"
     },
     "createdAt": "2025-08-27T18:54:30.933Z",
-    "lastLogin": "2025-09-04T15:26:35.361Z"
+    "lastLogin": "2025-09-04T21:03:02.450Z"
   },
   {
     "id": "9f1fd2b0-8d42-4d9a-b8bd-6d7aba603b4d",
@@ -140,7 +140,7 @@
       "language": "en"
     },
     "createdAt": "2025-08-27T20:36:05.864Z",
-    "lastLogin": "2025-09-04T15:12:37.770Z"
+    "lastLogin": "2025-09-04T21:22:23.688Z"
   },
   {
     "id": "bd230754-036d-47c5-90c3-8916c2329252",
@@ -518,5 +518,655 @@
     },
     "createdAt": "2025-09-04T19:30:23.314Z",
     "lastLogin": "2025-09-04T19:30:23.910Z"
+  },
+  {
+    "id": "4227c18c-4568-4b7f-9091-b51252bdab5c",
+    "username": "frontendtest1757016993844",
+    "email": "frontend1757016993844@test.com",
+    "password": "$2b$12$K1fDiO0wAoW7dRJJJ5pX/.i4sZ6ZWupIp0vAyhqu.PrQfWu2rhjie",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:16:34.463Z",
+    "lastLogin": "2025-09-04T20:16:35.099Z"
+  },
+  {
+    "id": "e6d35a63-1354-47bf-838e-f4cadc49f3da",
+    "username": "frontendtest1757017376259",
+    "email": "frontend1757017376259@test.com",
+    "password": "$2b$12$RGPIN8qKH58VUCiADD8mbOZicCNf0I/XODKHMqFzzGQJo5l6jFYgq",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:22:56.843Z",
+    "lastLogin": "2025-09-04T20:22:57.445Z"
+  },
+  {
+    "id": "0a3a31f1-e961-4f69-a164-94bd343d2e08",
+    "username": "frontendtest1757017434389",
+    "email": "frontend1757017434389@test.com",
+    "password": "$2b$12$BfVU9ORHA7wE0EYBwDhwDO3e1Dzq7EqmXNKEfcHz8a/oyn..2oZzW",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:23:54.982Z",
+    "lastLogin": "2025-09-04T20:23:55.601Z"
+  },
+  {
+    "id": "1c6e9466-1f83-41ed-b1ac-61ab81f6d62d",
+    "username": "testuser1757018404939",
+    "email": "test1757018404939@coffeetest.com",
+    "password": "$2b$12$jnrRqrVK.nuB.5nSBgTw..yBA7TGxVruJ2Bl/TWI7ZuBd2p8yz0Na",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:40:05.531Z",
+    "lastLogin": "2025-09-04T20:40:07.983Z"
+  },
+  {
+    "id": "7e21b1bb-296a-48f0-89e8-aa31a7ae0b55",
+    "username": "remember1757018406180",
+    "email": "remember1757018406180@test.com",
+    "password": "$2b$12$b2ANM8csF6eVauaeAlumf.ZCLvcDySdIZ3vQuwPAK1ACcnN17A/Pe",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:40:06.769Z",
+    "lastLogin": "2025-09-04T20:40:07.352Z"
+  },
+  {
+    "id": "f5f82208-fc43-4904-95eb-d1765bc85558",
+    "username": "weaktest17570184093320.23096549776766184",
+    "email": "weak1757018409332@test.com",
+    "password": "$2b$12$5nD7kPDVlh4CnQYJBHS1vOhLmTqKXu3vdFeTCAjZq7.zvaNNE/p7e",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:40:09.918Z",
+    "lastLogin": null
+  },
+  {
+    "id": "db53aea1-4fb4-4481-b69c-3418b666a98e",
+    "username": "testuser1757018546915",
+    "email": "test1757018546915@coffeetest.com",
+    "password": "$2b$12$2INp1BP.VlMOQGT8CW4J6e50IbCiM0X8O8h8maVtMTEReVnVbpcoi",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:42:27.491Z",
+    "lastLogin": "2025-09-04T20:42:29.931Z"
+  },
+  {
+    "id": "61dc814b-a3ec-4c4f-aa9e-b0ab5e33cee6",
+    "username": "remember1757018548133",
+    "email": "remember1757018548133@test.com",
+    "password": "$2b$12$P/jIlrANOym9Ey4N1Iuw2eWpFIFk61z.KODkm4bQFCSZfrq1n2Dqi",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:42:28.715Z",
+    "lastLogin": "2025-09-04T20:42:29.301Z"
+  },
+  {
+    "id": "d1bb01ef-cd87-4b09-975b-622d04e65565",
+    "username": "weaktest17570185511410.763966020884336",
+    "email": "weak1757018551141@test.com",
+    "password": "$2b$12$UJgX/qmFyfwSUK7UpeT71OVVa.rBCuPe7P3Ogb59zmzCf5z22muYK",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:42:32.685Z",
+    "lastLogin": null
+  },
+  {
+    "id": "e187dd7a-3bf4-4ae4-a03f-32217ccff571",
+    "username": "testuser1757018568171",
+    "email": "test1757018568171@coffeetest.com",
+    "password": "$2b$12$KdivtpO44Av/t8qVKTrCRu0JqfmeHrlX5KpqvviCD7CObi3N1YoKq",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:42:48.753Z",
+    "lastLogin": "2025-09-04T20:42:51.172Z"
+  },
+  {
+    "id": "73ecb68d-ad00-410c-97cf-fffdac3cb4b5",
+    "username": "remember1757018569388",
+    "email": "remember1757018569388@test.com",
+    "password": "$2b$12$vuXUBQwcNhj02vj4lViOYuNM1shTt24U9K.OpmuLFXbEuM83OzI5C",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:42:49.965Z",
+    "lastLogin": "2025-09-04T20:42:50.545Z"
+  },
+  {
+    "id": "7c161be3-fa41-405d-a5c3-e463aaf22b5b",
+    "username": "testuser1757018723712",
+    "email": "test1757018723712@coffeetest.com",
+    "password": "$2b$12$zxcUsPzCudxkDV2LF93C/ucIm9jgmzkKLbxLnPkkR1feYkZXCIS3m",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:45:24.300Z",
+    "lastLogin": "2025-09-04T20:45:26.741Z"
+  },
+  {
+    "id": "aba9edb6-b89f-4561-a491-78820a2274f9",
+    "username": "remember1757018724943",
+    "email": "remember1757018724943@test.com",
+    "password": "$2b$12$zPrpABeb2Iar6tORcSOidODdzpHI73hbgOUN/ZnFjiNA/1Rm3xA1O",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:45:25.530Z",
+    "lastLogin": "2025-09-04T20:45:26.115Z"
+  },
+  {
+    "id": "7825961e-0549-4818-aaeb-55e8a27c544d",
+    "username": "weaktest17570187279570.7556489226445549",
+    "email": "weak1757018727957@test.com",
+    "password": "$2b$12$jzsMyHC.AIKYteEUVOJJZu9dKaJ/gGZ7DCdP1Y8OwvOPjmv3PmUry",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:45:28.533Z",
+    "lastLogin": null
+  },
+  {
+    "id": "639e1529-8865-4395-8a69-21801be2afdb",
+    "username": "frontendtest1757018906370",
+    "email": "frontend1757018906370@test.com",
+    "password": "$2b$12$j4dxxcp4Mqk3GnECu7a7L.dWmXJeVG7NvVu5Iv.lFNHpVMCp2XouS",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:48:26.925Z",
+    "lastLogin": "2025-09-04T20:48:27.504Z"
+  },
+  {
+    "id": "fa7a0bf2-45a8-4db3-8715-6d698b3ace9f",
+    "username": "testuser1757019106442",
+    "email": "test1757019106442@coffeetest.com",
+    "password": "$2b$12$lDYSFtZeSrk/EhXnVy0BVuUNDpxSMc5FCerTP92ODrVmsN/CnatJO",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:51:47.020Z",
+    "lastLogin": "2025-09-04T20:51:52.386Z"
+  },
+  {
+    "id": "fec9cd5d-f1b5-4f26-b3e3-48d871e32e5e",
+    "username": "regtest1757019108210",
+    "email": "regtest1757019108210@test.com",
+    "password": "$2b$12$mJeHNUok.DQEkKBMcwdhkOII39tHSQzSnQp33vK/lTzmbeQxSpCQ2",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:51:48.783Z",
+    "lastLogin": null
+  },
+  {
+    "id": "c02889b9-2ff6-41d4-8b09-a3940e25e65e",
+    "username": "testinvalid",
+    "email": "invalid-email",
+    "password": "$2b$12$Y9/IO4egRlQNRpw8ok2yBu63AicnmA81457SL5T4lEIGgMMCQ7RuK",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:51:49.367Z",
+    "lastLogin": null
+  },
+  {
+    "id": "23a3db0a-a587-4af1-95eb-f03a02da21da",
+    "username": "remember1757019109990",
+    "email": "remember1757019109990@test.com",
+    "password": "$2b$12$ZptdjhGGWItE/0K0BEjIN.P/ll6y/9XjI6T.3HlPWPyhE0/p63t0W",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:51:50.571Z",
+    "lastLogin": "2025-09-04T20:51:51.150Z"
+  },
+  {
+    "id": "2299e83b-ab11-4008-87fb-238bfa3b40f1",
+    "username": "weaktest17570191112460.6031518142290697",
+    "email": "weak1757019111246@test.com",
+    "password": "$2b$12$kmnXY.QuifZ2bR0fk7ogVuqvZmrKTov2jOZRkUYiYEs0.uvXRBQ/6",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:51:51.824Z",
+    "lastLogin": null
+  },
+  {
+    "id": "5199e2bc-bd7b-4de6-9737-438e71051f5a",
+    "username": "weaktest17570191135640.6194590218203069",
+    "email": "weak1757019113564@test.com",
+    "password": "$2b$12$gtgo6Hm1B/PYUY.gN9M/cOlfJn6lQBLgvUVmZ.UaoYTH32cMBToYq",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:51:54.133Z",
+    "lastLogin": null
+  },
+  {
+    "id": "be40e2fb-44df-4e12-a445-6671f1e0747d",
+    "username": "frontendtest1757019120102",
+    "email": "frontend1757019120102@test.com",
+    "password": "$2b$12$OAI0TcVVcpvjz546ftmiKOLUGo8oiwoiXkaJVQcyz1Cj.We1Nb60.",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:52:00.687Z",
+    "lastLogin": "2025-09-04T20:52:01.262Z"
+  },
+  {
+    "id": "fe52f775-4a28-424e-9e09-7d2be73c720a",
+    "username": "frontendtest1757019529504",
+    "email": "frontend1757019529504@test.com",
+    "password": "$2b$12$YZL4E/EJICgWdjzDYJ9vKeCaC9vHvAevoI2uwYLjQXQi./EEjXYSu",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:58:50.070Z",
+    "lastLogin": "2025-09-04T20:58:50.656Z"
+  },
+  {
+    "id": "9e73e593-970b-45f1-a1d9-061c43ede8a6",
+    "username": "testuser1757019539843",
+    "email": "test1757019539843@coffeetest.com",
+    "password": "$2b$12$92z2yUO6oUSi.cVdJE5.s.Gof47nHnaXoe8zyiSDth1NUjApv1jTi",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:59:00.419Z",
+    "lastLogin": "2025-09-04T20:59:02.848Z"
+  },
+  {
+    "id": "dd543d4b-a3c6-4588-9004-670657d952f5",
+    "username": "remember1757019541034",
+    "email": "remember1757019541034@test.com",
+    "password": "$2b$12$gRILJJDdy7UyfC5fju0VW.gYES/EH.fAXXqg0fXe816gLZdMT1xc2",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:59:01.619Z",
+    "lastLogin": "2025-09-04T20:59:02.214Z"
+  },
+  {
+    "id": "29374d4c-1af3-4961-a42b-1aea455b9600",
+    "username": "weaktest17570195441100.5110000277252347",
+    "email": "weak1757019544110@test.com",
+    "password": "$2b$12$f2yynfdoM7k7mEa39nhjtuV73oDRmVVWKrXI9VLkcXR24xVSsafM.",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:59:04.683Z",
+    "lastLogin": null
+  },
+  {
+    "id": "7152e972-0bcc-4dbc-8de9-2ecc3d7ae999",
+    "username": "testuser1757019575790",
+    "email": "test1757019575790@coffeetest.com",
+    "password": "$2b$12$uzeHMIED/eljAVglWWy2HO8uVTV7JuG1W9ceOmYO1D0ZHp.yE/GiC",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:59:36.379Z",
+    "lastLogin": "2025-09-04T20:59:38.832Z"
+  },
+  {
+    "id": "bf61fdcd-6a3a-4ef7-9c4f-99c2a0c72049",
+    "username": "remember1757019577015",
+    "email": "remember1757019577015@test.com",
+    "password": "$2b$12$59k0iEtXxsi3ls.6Ai.2lO4vVkV/WcFTAC590nL/9qqTx91UiJRsK",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:59:37.613Z",
+    "lastLogin": "2025-09-04T20:59:38.201Z"
+  },
+  {
+    "id": "32839e44-e6ce-4637-97f4-d596cf100813",
+    "username": "weaktest17570195800990.2293430201548241",
+    "email": "weak1757019580099@test.com",
+    "password": "$2b$12$OO9cHheUEL7jwa/bPsp4c.5iowCeEr/oT9NsLEoBO2Wp3qNSbldeK",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T20:59:40.675Z",
+    "lastLogin": null
+  },
+  {
+    "id": "66ccd284-f95f-41d9-a5bd-fa98b874886e",
+    "username": "qauser_1757019680394",
+    "email": "qa_1757019680394@test.com",
+    "password": "$2b$12$2w3GhvWze2/FWydo/0Pf3u8sBNCpWWDVdCwrHvMUZWM/tFRrj8Vn.",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:01:21.006Z",
+    "lastLogin": "2025-09-04T21:01:21.624Z"
+  },
+  {
+    "id": "8bfad96d-789e-4dcd-85b5-3f9fa14f8afe",
+    "username": "testuser1757020195321",
+    "email": "test1757020195321@coffeetest.com",
+    "password": "$2b$12$rCzAQasZ9lOewukRFRLn9u8h8PcojSAyC.6KKYZ4SXgtkM4GSXiaG",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:09:55.904Z",
+    "lastLogin": "2025-09-04T21:10:00.784Z"
+  },
+  {
+    "id": "997a7d18-6752-4244-be05-b23185a3e523",
+    "username": "regtest1757020197110",
+    "email": "regtest1757020197110@test.com",
+    "password": "$2b$12$kogfA9hwBwwwQGDbgZ1xxe6dBLli06Q9Tb090KFmDCfqSolvieaA2",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:09:57.686Z",
+    "lastLogin": null
+  },
+  {
+    "id": "00207c75-9a64-48ed-b843-ba182de0b013",
+    "username": "remember1757020198310",
+    "email": "remember1757020198310@test.com",
+    "password": "$2b$12$CYV0aJzLpLIYK4abijKQRuD74bdUWuiTvVCX5pCM4lwUa5stJJP1O",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:09:58.882Z",
+    "lastLogin": "2025-09-04T21:09:59.469Z"
+  },
+  {
+    "id": "b839094e-8f6a-4b10-8e8b-531c17ffa696",
+    "username": "weaktest17570201995910.33707109840355876",
+    "email": "weak1757020199591@test.com",
+    "password": "$2b$12$0lgzxotyNgaZcViUFnd6o.VhYnxlHaeAzE.pxXcvOTK9aqIIShl0y",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:10:00.172Z",
+    "lastLogin": null
+  },
+  {
+    "id": "10fc0a4e-0607-43dd-bcc5-7e7f193c8c03",
+    "username": "weaktest17570202020320.8780154872265509",
+    "email": "weak1757020202032@test.com",
+    "password": "$2b$12$q3mSCyYagh1LG6SXxO.0FuuGgfmj/VwNGdNOmR98zctL4jJGCFdw6",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:10:02.602Z",
+    "lastLogin": null
+  },
+  {
+    "id": "ac440dfc-5735-4f09-9115-ca141bb1b4f4",
+    "username": "testuser1757020432707",
+    "email": "test1757020432707@coffeetest.com",
+    "password": "$2b$12$vnomXbDjiFXvnEkbGP/GiusI9hh5CT3cPiSJ4ZmoLJUMseQXQFQey",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:13:53.287Z",
+    "lastLogin": "2025-09-04T21:13:55.679Z"
+  },
+  {
+    "id": "7078d46c-ad6d-4038-a961-2f1dff6fdb58",
+    "username": "regtest1757020434488",
+    "email": "regtest1757020434488@test.com",
+    "password": "$2b$12$m9p8xeylYA1er2VODW/n7eJd4vqD74RMOCh3ujfTLEv4XPxue//8W",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:13:55.066Z",
+    "lastLogin": null
+  },
+  {
+    "id": "4f09b693-2c3e-4cb3-a422-d47efa3768fe",
+    "username": "remember1757020435704",
+    "email": "remember1757020435704@test.com",
+    "password": "$2b$12$/ImHkapeAM100QGGxKTS3urYdXyHY6Ncfz1Q8Btr0vn7fkVj0ypty",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:13:56.278Z",
+    "lastLogin": "2025-09-04T21:13:56.874Z"
+  },
+  {
+    "id": "25e75091-403f-480d-b7b3-6583a5c5a996",
+    "username": "testuser1757020531233",
+    "email": "test1757020531233@coffeetest.com",
+    "password": "$2b$12$A0yJ1iU411q.Kv8zfBXjfOzec4O7CWy9t62Bnog3JdScYjN0uYwX6",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:15:31.813Z",
+    "lastLogin": "2025-09-04T21:15:36.654Z"
+  },
+  {
+    "id": "b5cc28d5-1020-4435-b3ec-c70034324bf8",
+    "username": "regtest1757020533005",
+    "email": "regtest1757020533005@test.com",
+    "password": "$2b$12$KFXgUFaZkpvV0QLOMEztjO9hevRC4wxkkbtCmLF5j0R8KAP3Yaeg6",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:15:33.590Z",
+    "lastLogin": null
+  },
+  {
+    "id": "2644a7c2-5b66-497e-ad6e-4a8f197689db",
+    "username": "remember1757020534235",
+    "email": "remember1757020534235@test.com",
+    "password": "$2b$12$k8.e7EqGib1DmLMYnEvvKuEMY0jKpa4.QdsXpzeSPq11ORQ6fviCu",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:15:34.810Z",
+    "lastLogin": "2025-09-04T21:15:35.394Z"
+  },
+  {
+    "id": "672afc1b-d9c8-4c71-b8fe-95f4265b0e59",
+    "username": "weaktest17570205354920.69615825182555",
+    "email": "weak1757020535492@test.com",
+    "password": "$2b$12$BbUxlF7FqXvch5jiywHkwuXuiaAzPfjtW.6Xf/5xtiKahQLKOVVUm",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:15:36.073Z",
+    "lastLogin": null
+  },
+  {
+    "id": "c24b4865-6e1a-4c7e-a4f2-435bb8d4768e",
+    "username": "testuser1757020711986",
+    "email": "test1757020711986@coffeetest.com",
+    "password": "$2b$12$jfjugN6gJncxtVDX3xJQ4OZw99eY7RSPDAzrv4WWIAM8YMxxf5ive",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:18:32.570Z",
+    "lastLogin": "2025-09-04T21:18:34.959Z"
+  },
+  {
+    "id": "c1faa576-d5ca-48cc-89eb-22d2fa9b04d7",
+    "username": "regtest1757020713774",
+    "email": "regtest1757020713774@test.com",
+    "password": "$2b$12$cjzygmINcovqSbNwOXAC9OyywRtqA1u9KEddpOZ2ZQXJGucG.faAe",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:18:34.347Z",
+    "lastLogin": null
+  },
+  {
+    "id": "13df22e6-0c83-486e-b4cc-d299af997faa",
+    "username": "remember1757020714990",
+    "email": "remember1757020714990@test.com",
+    "password": "$2b$12$Uj7laM5vTgfSagFLAiReIO.qOh4jdsAIsDZXwc6dTSNbMQ1BmsB7W",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:18:35.564Z",
+    "lastLogin": "2025-09-04T21:18:36.151Z"
+  },
+  {
+    "id": "3702ab42-8474-4c3a-8443-5df4b983b0a1",
+    "username": "weaktest17570207162520.5133351191752393",
+    "email": "weak1757020716252@test.com",
+    "password": "$2b$12$qVJF0FrDXm0lXOE9z4CwJuRgHesD5Aydkr9Cru0C5cW4CftZQ.rhS",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:18:36.832Z",
+    "lastLogin": null
+  },
+  {
+    "id": "d9942e4a-546f-4667-8478-437793663d34",
+    "username": "testuser1757021016923",
+    "email": "test1757021016923@coffeetest.com",
+    "password": "$2b$12$uaRMkDVuxVARlncmKSHq2.DQMRocHGa1xTT70TEw5g3tz4Gm9lmnG",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:23:37.532Z",
+    "lastLogin": "2025-09-04T21:23:41.202Z"
+  },
+  {
+    "id": "8c64dd1f-14c1-448e-bce3-50651c0db1b7",
+    "username": "remember1757021018186",
+    "email": "remember1757021018186@test.com",
+    "password": "$2b$12$k1VclWvGGvXFcbkG0FL79eU40f4d7k5c5iyr28EEdeEWfTGCScMHC",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:23:38.772Z",
+    "lastLogin": "2025-09-04T21:23:40.567Z"
+  },
+  {
+    "id": "5a6729aa-f3ac-42dd-a8e4-04030540b41b",
+    "username": "weaktest17570210224920.4860127024708951",
+    "email": "weak1757021022492@test.com",
+    "password": "$2b$12$hdJA/SNWKtg12uXHYzqHSuxXDT/hjdz69hPnyMWUMbZZbhOIGsCpm",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:23:43.076Z",
+    "lastLogin": null
+  },
+  {
+    "id": "4d7ffc90-5e85-4b04-a1d3-388ab5cc61e3",
+    "username": "frontendtest1757021036805",
+    "email": "frontend1757021036805@test.com",
+    "password": "$2b$12$oFf9nlhRLrjd18xLaEE40eF3eqx9txcbfhz/H7oQMIH08Km25ae82",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-04T21:23:57.390Z",
+    "lastLogin": "2025-09-04T21:23:57.976Z"
   }
 ]

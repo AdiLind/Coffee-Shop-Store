@@ -87,7 +87,7 @@ class AuthMiddleware {
             }
 
             // Get user details
-            const users = await persistenceManager.getUsers();
+            const users = await persistenceManager.getAllUsers();
             const user = users.find(u => u.id === session.userId);
             
             if (!user) {

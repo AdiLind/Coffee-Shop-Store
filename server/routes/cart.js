@@ -20,6 +20,7 @@ router.post('/:userId', asyncWrapper(async (req, res) => {
     if (!Array.isArray(items)) {
         return res.status(400).json({
             success: false,
+            error: 'INVALID_ITEMS_FORMAT',
             message: 'Items must be an array'
         });
     }

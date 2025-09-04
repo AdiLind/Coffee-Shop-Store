@@ -32,12 +32,6 @@
         "addedAt": "2025-09-04T13:16:22.090Z"
       },
       {
-        "id": "89305e02-6d7d-4443-880d-fd08cede945e",
-        "productId": "prod-4",
-        "notes": "",
-        "addedAt": "2025-09-04T15:17:46.477Z"
-      },
-      {
         "id": "a153cbda-0dbb-4606-aef2-75a1999a76fc",
         "productId": "prod-6",
         "notes": "",
@@ -70,6 +64,18 @@
         "productId": "prod-3",
         "notes": "",
         "addedAt": "2025-09-04T07:02:45.515Z"
+      },
+      {
+        "id": "172790c9-8c9e-4762-b025-3eafe49a2204",
+        "productId": "prod-1",
+        "notes": "",
+        "addedAt": "2025-09-04T21:01:18.584Z"
+      },
+      {
+        "id": "b30f1068-2824-4dd8-afb8-4ce901d15529",
+        "productId": "prod-5",
+        "notes": "",
+        "addedAt": "2025-09-04T21:01:20.233Z"
       }
     ]
   },

@@ -135,10 +135,6 @@ class PersistenceManager {
         }
     }
 
-    async getUsers() {
-        return await this.readData(this.files.users);
-    }
-
     async getAllUsers() {
         return await this.readData(this.files.users);
     }
@@ -162,10 +158,6 @@ class PersistenceManager {
     }
 
     async addUser(userData) {
-        return await this.appendData(this.files.users, userData);
-    }
-
-    async createUser(userData) {
         return await this.appendData(this.files.users, userData);
     }
 

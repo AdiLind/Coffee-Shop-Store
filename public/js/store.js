@@ -126,7 +126,7 @@ class StoreManager {
 
     // Create HTML for a single product card
     createProductCard(product) {
-        const isAuthenticated = window.authManager && window.authManager.isAuthenticated();
+        const isAuthenticated = AuthHelper.isAuthenticated();
         
         return `
             <div class="product-card" data-product-id="${product.id}">
@@ -162,13 +162,13 @@ class StoreManager {
 
     // Add product to wishlist
     async addToWishlist(productId) {
-        if (!window.authManager || !window.authManager.isAuthenticated()) {
-            window.authManager.showMessage('Please login to add items to wishlist', 'warning');
+        if (!AuthHelper.isAuthenticated()) {
+            AuthHelper.handleAuthFailure('add items to wishlist');
             return;
         }
 
         try {
-            const user = window.authManager.currentUser;
+            const user = AuthHelper.getCurrentUser();
             const product = this.products.find(p => p.id === productId);
             
             if (!product) {
@@ -204,11 +204,12 @@ class StoreManager {
 
     async updateWishlistCountDirect() {
         try {
-            if (!window.authManager || !window.authManager.currentUser) {
+            if (!AuthHelper.isAuthenticated()) {
                 return;
             }
             
-            const response = await window.authManager.apiClient.request(`/wishlist/${window.authManager.currentUser.id}`);
+            const user = AuthHelper.getCurrentUser();
+            const response = await window.authManager.apiClient.request(`/wishlist/${user.id}`);
             if (response.success) {
                 const counter = document.getElementById('wishlist-count');
                 if (counter) {
@@ -222,13 +223,13 @@ class StoreManager {
 
     // Add product to cart
     async addToCart(productId) {
-        if (!window.authManager || !window.authManager.isAuthenticated()) {
-            window.authManager.showMessage('Please login to add items to cart', 'warning');
+        if (!AuthHelper.isAuthenticated()) {
+            AuthHelper.handleAuthFailure('add items to cart');
             return;
         }
 
         try {
-            const user = window.authManager.currentUser;
+            const user = AuthHelper.getCurrentUser();
             const product = this.products.find(p => p.id === productId);
             
             if (!product) {
@@ -305,7 +306,7 @@ class StoreManager {
                     </div>
                 </div>
                 <div class="modal-actions">
-                    ${window.authManager && window.authManager.isAuthenticated() ? 
+                    ${AuthHelper.isAuthenticated() ? 
                         `<button class="btn btn-primary" onclick="storeManager.addToCart('${product.id}'); this.closest('.product-modal').remove();">
                             Add to Cart
                         </button>
@@ -363,7 +364,7 @@ class StoreManager {
     updateGuestWarning() {
         const guestWarning = document.getElementById('guestWarning');
         if (guestWarning && window.authManager) {
-            if (!window.authManager.isAuthenticated()) {
+            if (!AuthHelper.isAuthenticated()) {
                 guestWarning.style.display = 'block';
             } else {
                 guestWarning.style.display = 'none';

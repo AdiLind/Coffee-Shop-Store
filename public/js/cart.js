@@ -10,19 +10,10 @@ class CartManager {
         // Wait for auth manager to be ready
         await this.waitForAuthManager();
         
-        // Force re-check authentication status to make sure we have the latest state
-        console.log('Cart Manager - Rechecking authentication...');
-        const isAuthenticated = await window.authManager.recheckAuth();
+        // Check authentication using AuthHelper
+        const authResult = await AuthHelper.initializeManagerAuth('Cart Manager');
         
-        // Debug authentication state
-        console.log('Cart Manager - Auth check:', {
-            authManagerExists: !!window.authManager,
-            currentUser: window.authManager?.currentUser,
-            isAuthenticated: isAuthenticated
-        });
-        
-        // Check authentication
-        if (!isAuthenticated) {
+        if (!authResult.isAuthenticated) {
             console.log('Cart Manager - Not authenticated, showing login message');
             this.showLoginMessage();
             return;
@@ -44,11 +35,11 @@ class CartManager {
 
     // Load cart data from server
     async loadCart() {
-        if (!window.authManager.isAuthenticated()) return;
+        if (!AuthHelper.isAuthenticated()) return;
 
         try {
             showLoading('cartItems');
-            const user = window.authManager.currentUser;
+            const user = AuthHelper.getCurrentUser();
             const response = await this.apiClient.getCart(user.id);
             
             if (response.success) {
@@ -142,7 +133,7 @@ class CartManager {
 
     // Update item quantity
     async updateQuantity(productId, change) {
-        if (!window.authManager.isAuthenticated()) return;
+        if (!AuthHelper.isAuthenticated()) return;
 
         try {
             const itemIndex = this.cart.items.findIndex(item => item.productId === productId);
@@ -156,7 +147,7 @@ class CartManager {
                 return;
             }
 
-            const user = window.authManager.currentUser;
+            const user = AuthHelper.getCurrentUser();
             const response = await this.apiClient.request(`/cart/update/${user.id}/${productId}`, {
                 method: 'PUT',
                 body: JSON.stringify({ quantity: newQuantity })
@@ -179,14 +170,14 @@ class CartManager {
 
     // Remove item from cart
     async removeItem(productId) {
-        if (!window.authManager.isAuthenticated()) return;
+        if (!AuthHelper.isAuthenticated()) return;
 
         try {
             const itemIndex = this.cart.items.findIndex(item => item.productId === productId);
             if (itemIndex === -1) return;
 
             const removedItem = this.cart.items[itemIndex];
-            const user = window.authManager.currentUser;
+            const user = AuthHelper.getCurrentUser();
             
             const response = await this.apiClient.request(`/cart/remove/${user.id}/${productId}`, {
                 method: 'DELETE'
@@ -209,9 +200,9 @@ class CartManager {
 
     // Save cart to server
     async saveCart() {
-        if (!window.authManager.isAuthenticated()) return;
+        if (!AuthHelper.isAuthenticated()) return;
 
-        const user = window.authManager.currentUser;
+        const user = AuthHelper.getCurrentUser();
         const response = await this.apiClient.updateCart(user.id, this.cart);
         
         if (!response.success) {
@@ -265,7 +256,7 @@ class CartManager {
 
     // Clear entire cart
     async clearCart() {
-        if (!window.authManager.isAuthenticated()) return;
+        if (!AuthHelper.isAuthenticated()) return;
 
         try {
             if (!confirm('Are you sure you want to clear your entire cart?')) {
@@ -291,8 +282,8 @@ class CartManager {
 
     // Handle checkout
     async checkout() {
-        if (!window.authManager.isAuthenticated()) {
-            window.authManager.showMessage('Please login to checkout', 'warning');
+        if (!AuthHelper.isAuthenticated()) {
+            AuthHelper.handleAuthFailure('checkout');
             return;
         }
 
@@ -302,7 +293,7 @@ class CartManager {
         }
 
         try {
-            const user = window.authManager.currentUser;
+            const user = AuthHelper.getCurrentUser();
             const subtotal = this.calculateSubtotal();
             const shipping = 9.99;
             const total = subtotal + shipping;
@@ -351,8 +342,8 @@ class CartManager {
 
     // Proceed to checkout
     async proceedToCheckout() {
-        if (!window.authManager.isAuthenticated()) {
-            window.authManager.showMessage('Please login to checkout', 'warning');
+        if (!AuthHelper.isAuthenticated()) {
+            AuthHelper.handleAuthFailure('checkout');
             return;
         }
 

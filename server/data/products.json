@@ -288,5 +288,15 @@
     "image": "/images/products/test_photo.jpeg",
     "createdAt": "2025-09-04T13:10:30.409Z",
     "inStock": true
+  },
+  {
+    "id": "e1aa2623-7791-4782-9316-298573c0a597",
+    "title": "QA Test Product 1757019682629",
+    "description": "Product created during QA testing",
+    "price": 29.99,
+    "category": "accessories",
+    "image": "/images/products/default.jpg",
+    "createdAt": "2025-09-04T21:01:22.637Z",
+    "inStock": true
   }
 ]

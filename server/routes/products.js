@@ -38,6 +38,7 @@ router.post('/', asyncWrapper(async (req, res) => {
     if (!title || !description || !price || !category) {
         return res.status(400).json({
             success: false,
+            error: 'MISSING_REQUIRED_FIELDS',
             message: 'Missing required fields: title, description, price, category'
         });
     }

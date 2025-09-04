@@ -11,10 +11,10 @@ class CheckoutManager {
         // Wait for auth manager to be ready
         await this.waitForAuthManager();
         
-        // Check authentication
-        const isAuthenticated = await window.authManager.recheckAuth();
+        // Check authentication using AuthHelper
+        const authResult = await AuthHelper.initializeManagerAuth('Checkout Manager');
         
-        if (!isAuthenticated) {
+        if (!authResult.isAuthenticated) {
             console.log('Checkout Manager - Not authenticated, showing login message');
             this.showLoginRequired();
             return;
@@ -37,11 +37,11 @@ class CheckoutManager {
 
     // Load cart data for checkout
     async loadCartForCheckout() {
-        if (!window.authManager.isAuthenticated()) return;
+        if (!AuthHelper.isAuthenticated()) return;
 
         try {
             showLoading('orderItems');
-            const user = window.authManager.currentUser;
+            const user = AuthHelper.getCurrentUser();
             const response = await this.apiClient.getCart(user.id);
             
             if (response.success) {
@@ -128,7 +128,7 @@ class CheckoutManager {
 
     // Prefill customer information if available
     prefillCustomerInfo() {
-        const user = window.authManager.currentUser;
+        const user = AuthHelper.getCurrentUser();
         if (user) {
             const emailInput = document.getElementById('customerEmail');
             if (emailInput) {
@@ -139,7 +139,7 @@ class CheckoutManager {
 
     // Create order
     async createOrder(customerInfo) {
-        if (!window.authManager.isAuthenticated()) return;
+        if (!AuthHelper.isAuthenticated()) return;
 
         try {
             const response = await this.apiClient.request('/orders/create', {

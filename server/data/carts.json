@@ -12,45 +12,8 @@
   },
   {
     "userId": "2912572d-5da5-436f-8ba3-bd0404ce6842",
-    "items": [
-      {
-        "productId": "prod-7",
-        "title": "Ceramic Coffee Mug Set",
-        "price": 39.99,
-        "quantity": 3
-      },
-      {
-        "productId": "prod-5",
-        "title": "Dark Roast Brazilian Beans",
-        "price": 22.99,
-        "quantity": 3
-      },
-      {
-        "productId": "prod-6",
-        "title": "Automatic Drip Coffee Maker",
-        "price": 89.99,
-        "quantity": 2
-      },
-      {
-        "productId": "prod-3",
-        "title": "Manual Coffee Grinder",
-        "price": 79.99,
-        "quantity": 6
-      },
-      {
-        "productId": "prod-2",
-        "title": "Premium Arabica Coffee Beans",
-        "price": 24.99,
-        "quantity": 3
-      },
-      {
-        "productId": "prod-1",
-        "title": "Professional Espresso Machine",
-        "price": 299.99,
-        "quantity": 1
-      }
-    ],
-    "updatedAt": "2025-09-04T07:02:43.807Z"
+    "items": [],
+    "updatedAt": "2025-09-04T21:22:05.236Z"
   },
   {
     "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",
@@ -89,10 +52,10 @@
         "productId": "prod-4",
         "title": "French Press Coffee Maker",
         "price": 34.99,
-        "quantity": 1
+        "quantity": 2
       }
     ],
-    "updatedAt": "2025-09-04T15:18:01.581Z"
+    "updatedAt": "2025-09-04T21:22:35.006Z"
   },
   {
     "userId": "884786ef-39a8-45a5-9e49-cd0b3d695ce6",
@@ -137,5 +100,160 @@
       }
     ],
     "updatedAt": "2025-09-04T07:07:16.157Z"
+  },
+  {
+    "userId": "4227c18c-4568-4b7f-9091-b51252bdab5c",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Professional Espresso Machine"
+      }
+    ],
+    "updatedAt": "2025-09-04T20:16:36.709Z"
+  },
+  {
+    "userId": "e6d35a63-1354-47bf-838e-f4cadc49f3da",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Professional Espresso Machine"
+      }
+    ],
+    "updatedAt": "2025-09-04T20:22:59.014Z"
+  },
+  {
+    "userId": "0a3a31f1-e961-4f69-a164-94bd343d2e08",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Professional Espresso Machine"
+      }
+    ],
+    "updatedAt": "2025-09-04T20:23:57.059Z"
+  },
+  {
+    "userId": "db53aea1-4fb4-4481-b69c-3418b666a98e",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "price": 299.99,
+        "quantity": 3
+      }
+    ],
+    "updatedAt": "2025-09-04T20:42:30.704Z"
+  },
+  {
+    "userId": "e187dd7a-3bf4-4ae4-a03f-32217ccff571",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "price": 299.99,
+        "quantity": 3
+      }
+    ],
+    "updatedAt": "2025-09-04T20:42:51.968Z"
+  },
+  {
+    "userId": "7c161be3-fa41-405d-a5c3-e463aaf22b5b",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "price": 299.99,
+        "quantity": 3
+      }
+    ],
+    "updatedAt": "2025-09-04T20:45:27.521Z"
+  },
+  {
+    "userId": "639e1529-8865-4395-8a69-21801be2afdb",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Professional Espresso Machine"
+      }
+    ],
+    "updatedAt": "2025-09-04T20:48:28.787Z"
+  },
+  {
+    "userId": "fe52f775-4a28-424e-9e09-7d2be73c720a",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Professional Espresso Machine"
+      }
+    ],
+    "updatedAt": "2025-09-04T20:58:51.960Z"
+  },
+  {
+    "userId": "9e73e593-970b-45f1-a1d9-061c43ede8a6",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "price": 299.99,
+        "quantity": 3
+      }
+    ],
+    "updatedAt": "2025-09-04T20:59:03.698Z"
+  },
+  {
+    "userId": "7152e972-0bcc-4dbc-8de9-2ecc3d7ae999",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "price": 299.99,
+        "quantity": 3
+      }
+    ],
+    "updatedAt": "2025-09-04T20:59:39.668Z"
+  },
+  {
+    "userId": "66ccd284-f95f-41d9-a5bd-fa98b874886e",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99
+      }
+    ],
+    "updatedAt": "2025-09-04T21:01:22.549Z"
+  },
+  {
+    "userId": "d9942e4a-546f-4667-8478-437793663d34",
+    "items": [
+      {
+        "productId": "prod-1",
+        "title": "Professional Espresso Machine",
+        "price": 299.99,
+        "quantity": 3
+      }
+    ],
+    "updatedAt": "2025-09-04T21:23:42.029Z"
+  },
+  {
+    "userId": "4d7ffc90-5e85-4b04-a1d3-388ab5cc61e3",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Professional Espresso Machine"
+      }
+    ],
+    "updatedAt": "2025-09-04T21:23:59.395Z"
   }
 ]

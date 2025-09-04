@@ -36,7 +36,7 @@ router.post('/register', ErrorHandler.asyncWrapper(async (req, res) => {
     }
 
     // Check if user already exists
-    const users = await persistenceManager.getUsers();
+    const users = await persistenceManager.getAllUsers();
     const existingUser = users.find(u => 
         u.username.toLowerCase() === username.toLowerCase() || 
         u.email.toLowerCase() === email.toLowerCase()
@@ -97,7 +97,7 @@ router.post('/login', ErrorHandler.asyncWrapper(async (req, res) => {
     }
 
     // Find user
-    const users = await persistenceManager.getUsers();
+    const users = await persistenceManager.getAllUsers();
     const user = users.find(u => 
         u.username.toLowerCase() === username.toLowerCase() || 
         u.email.toLowerCase() === username.toLowerCase()
@@ -184,7 +184,7 @@ router.put('/profile', AuthMiddleware.requireAuth, ErrorHandler.asyncWrapper(asy
     const { email, preferences } = req.body;
     const userId = req.user.id;
 
-    const users = await persistenceManager.getUsers();
+    const users = await persistenceManager.getAllUsers();
     const userIndex = users.findIndex(u => u.id === userId);
 
     if (userIndex === -1) {

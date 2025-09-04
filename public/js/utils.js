@@ -281,3 +281,128 @@ async function waitForAuthManager(options = {}) {
     
     console.warn(`${managerName} - AuthManager not available after waiting ${maxAttempts} attempts`);
 }
+
+/**
+ * AuthHelper - Centralized authentication utilities
+ * Consolidates common authentication patterns across frontend managers
+ */
+class AuthHelper {
+    /**
+     * Check if auth manager exists and user is authenticated
+     * @returns {boolean} True if authenticated
+     */
+    static isAuthenticated() {
+        return window.authManager && 
+               typeof window.authManager.isAuthenticated === 'function' && 
+               window.authManager.isAuthenticated();
+    }
+
+    /**
+     * Get current authenticated user
+     * @returns {Object|null} Current user object or null if not authenticated
+     */
+    static getCurrentUser() {
+        return this.isAuthenticated() ? window.authManager.currentUser : null;
+    }
+
+    /**
+     * Check authentication with recheck capability
+     * @returns {Promise<boolean>} True if authenticated after recheck
+     */
+    static async recheckAuthentication() {
+        if (!window.authManager || typeof window.authManager.recheckAuth !== 'function') {
+            return false;
+        }
+        return await window.authManager.recheckAuth();
+    }
+
+    /**
+     * Require authentication - redirect if not authenticated
+     * @param {string} message - Message to show before redirect (optional)
+     * @param {string} redirectUrl - URL to redirect to (default: login page)
+     * @returns {boolean} True if authenticated, false if redirected
+     */
+    static requireAuth(message = 'Please login to access this page', redirectUrl = '/pages/login.html') {
+        if (!this.isAuthenticated()) {
+            if (window.authManager && typeof window.authManager.showMessage === 'function') {
+                window.authManager.showMessage(message, 'warning');
+            } else {
+                alert(message);
+            }
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 1500);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Handle authentication failure with consistent messaging
+     * @param {string} action - Action that requires authentication
+     * @param {string} message - Custom message (optional)
+     */
+    static handleAuthFailure(action = 'perform this action', message = null) {
+        const defaultMessage = `Please login to ${action}`;
+        const finalMessage = message || defaultMessage;
+        
+        if (window.authManager && typeof window.authManager.showMessage === 'function') {
+            window.authManager.showMessage(finalMessage, 'warning');
+        } else {
+            alert(finalMessage);
+        }
+    }
+
+    /**
+     * Check if current user is admin
+     * @returns {boolean} True if user is admin
+     */
+    static isAdmin() {
+        const user = this.getCurrentUser();
+        return user && user.role === 'admin';
+    }
+
+    /**
+     * Get user ID safely
+     * @returns {string|null} User ID or null if not authenticated
+     */
+    static getUserId() {
+        const user = this.getCurrentUser();
+        return user ? user.id : null;
+    }
+
+    /**
+     * Check auth and show login message if not authenticated
+     * Used for initialization in managers
+     * @param {string} managerName - Name of the manager for logging
+     * @returns {boolean} True if authenticated
+     */
+    static checkAuthAndShowLogin(managerName) {
+        if (!this.isAuthenticated()) {
+            console.log(`${managerName} - Not authenticated, showing login message`);
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Comprehensive authentication check for manager initialization
+     * @param {string} managerName - Name of the manager
+     * @returns {Promise<{isAuthenticated: boolean, user: Object|null}>}
+     */
+    static async initializeManagerAuth(managerName) {
+        console.log(`${managerName} - Rechecking authentication...`);
+        const isAuthenticated = await this.recheckAuthentication();
+        
+        console.log(`${managerName} - Auth check:`, {
+            authManagerExists: !!window.authManager,
+            currentUser: this.getCurrentUser(),
+            isAuthenticated: isAuthenticated
+        });
+        
+        return {
+            isAuthenticated: isAuthenticated,
+            user: this.getCurrentUser()
+        };
+    }
+}

@@ -10,10 +10,10 @@ class OrdersManager {
         // Wait for auth manager to be ready
         await this.waitForAuthManager();
         
-        // Check authentication
-        const isAuthenticated = await window.authManager.recheckAuth();
+        // Check authentication using AuthHelper
+        const authResult = await AuthHelper.initializeManagerAuth('Orders Manager');
         
-        if (!isAuthenticated) {
+        if (!authResult.isAuthenticated) {
             console.log('Orders Manager - Not authenticated, showing login message');
             this.showLoginRequired();
             return;
@@ -35,11 +35,11 @@ class OrdersManager {
 
     // Load user's order history
     async loadOrderHistory() {
-        if (!window.authManager.isAuthenticated()) return;
+        if (!AuthHelper.isAuthenticated()) return;
 
         try {
             showLoading('ordersList');
-            const user = window.authManager.currentUser;
+            const user = AuthHelper.getCurrentUser();
             const response = await this.apiClient.request(`/orders/${user.id}`);
             
             if (response.success) {
