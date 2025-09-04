@@ -35,6 +35,13 @@
         </header>
         
         <main class="main">
+            <!-- Login Required Message -->
+            <div id="loginRequired" class="message" style="display: none; background: #f8d7da; color: #721c24; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
+                <h2>🔐 Admin Access Required</h2>
+                <p>Please <a href="/pages/login.html" style="color: #721c24; font-weight: bold;">login as admin</a> to access the admin panel.</p>
+                <p><strong>Admin credentials:</strong> username: <code>admin</code>, password: <code>admin</code></p>
+            </div>
+
             <div class="admin-section">
                 <div class="admin-stats">
                     <h2>Store Statistics</h2>
@@ -120,15 +127,28 @@
             }
 
             async init() {
-                this.currentUser = window.authManager.currentUser;
-                
-                if (!this.currentUser || this.currentUser.role !== 'admin') {
-                    window.location.href = '/pages/login.html';
-                    return;
-                }
+                try {
+                    // Wait for authManager to load current user
+                    await window.authManager.getCurrentUser();
+                    this.currentUser = window.authManager.currentUser;
+                    
+                    console.log('Admin panel init - Current user:', this.currentUser);
+                    
+                    if (!this.currentUser || this.currentUser.role !== 'admin') {
+                        console.log('Not logged in as admin, showing login message...');
+                        document.getElementById('loginRequired').style.display = 'block';
+                        document.querySelector('.admin-section').style.display = 'none';
+                        return;
+                    }
 
-                this.setupEventListeners();
-                await this.loadAdminStats();
+                    console.log('Admin authenticated, setting up panel...');
+                    this.setupEventListeners();
+                    await this.loadAdminStats();
+                } catch (error) {
+                    console.error('Admin panel initialization failed:', error);
+                    alert('Please login as admin to access the admin panel');
+                    window.location.href = '/pages/login.html';
+                }
             }
 
             setupEventListeners() {
@@ -152,30 +172,42 @@
 
             async loadAdminStats() {
                 try {
+                    console.log('Loading admin stats...');
+                    
                     // Load products count
+                    console.log('Fetching products...');
                     const productsRes = await window.authManager.apiClient.get('/products');
+                    console.log('Products response:', productsRes);
                     if (productsRes.success) {
                         document.getElementById('totalProducts').textContent = productsRes.data.length;
                     } else {
+                        console.error('Products API failed:', productsRes);
                         document.getElementById('totalProducts').textContent = 'Error';
                     }
 
                     // Load users count
+                    console.log('Fetching users...');
                     const usersRes = await window.authManager.apiClient.get('/admin/users');
+                    console.log('Users response:', usersRes);
                     if (usersRes.success) {
                         document.getElementById('totalUsers').textContent = usersRes.data.length;
                     } else {
+                        console.error('Users API failed:', usersRes);
                         document.getElementById('totalUsers').textContent = 'Error';
                     }
 
                     // Load orders count and revenue
+                    console.log('Fetching orders...');
                     const ordersRes = await window.authManager.apiClient.get('/admin/orders');
+                    console.log('Orders response:', ordersRes);
                     if (ordersRes.success) {
                         const orders = ordersRes.data;
                         document.getElementById('totalOrders').textContent = orders.length;
                         const revenue = orders.reduce((sum, order) => sum + (order.totalAmount || order.total || 0), 0);
                         document.getElementById('totalRevenue').textContent = formatCurrency(revenue);
+                        console.log(`Orders loaded: ${orders.length}, Revenue: ${revenue}`);
                     } else {
+                        console.error('Orders API failed:', ordersRes);
                         document.getElementById('totalOrders').textContent = 'Error';
                         document.getElementById('totalRevenue').textContent = 'Error';
                     }
