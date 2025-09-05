@@ -18,6 +18,15 @@ class PersistenceManager {
             loyalty: 'loyalty.json',
             support: 'support.json'
         };
+        
+        // Simple in-memory cache for performance optimization
+        this.cache = new Map();
+        this.cacheExpiry = new Map();
+        this.CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+        
+        // User activity index for faster lookups
+        this.activityUserIndex = new Map();
+        this.indexLastUpdated = null;
     }
 
     async initializeDataFiles() {
@@ -68,6 +77,17 @@ class PersistenceManager {
             const filePath = path.join(this.dataDir, actualFilename);
             const jsonData = JSON.stringify(data, null, 2);
             await fs.writeFile(filePath, jsonData, 'utf8');
+            
+            // Clear related cache entries when data is written
+            this.clearCache(`data:${actualFilename}`);
+            if (actualFilename === this.files.activity) {
+                this.clearCache('activity:');
+                this.indexLastUpdated = null; // Force index rebuild
+            }
+            if (actualFilename === this.files.products) {
+                this.clearCache('search:');
+            }
+            
             return true;
         } catch (error) {
             throw createError(`Failed to write ${filename}: ${error.message}`, 500, 'FILE_WRITE_ERROR');
@@ -204,15 +224,51 @@ class PersistenceManager {
         }
     }
 
-    async searchProducts(query) {
+    /**
+     * Optimized product search with caching and result limiting
+     * @param {string} query - Search query
+     * @param {Object} options - Search options
+     * @param {number} options.limit - Maximum number of results (default: 50)
+     * @param {boolean} options.useCache - Whether to use cached results (default: true)
+     * @returns {Promise<Array>} - Array of matching products
+     */
+    async searchProducts(query, options = {}) {
         try {
-            const products = await this.readData(this.files.products);
-            const searchTerm = query.toLowerCase();
-            return products.filter(product => 
-                product.title.toLowerCase().includes(searchTerm) ||
-                product.description.toLowerCase().includes(searchTerm) ||
-                product.category.toLowerCase().includes(searchTerm)
-            );
+            const { limit = 50, useCache = true } = options;
+            const searchTerm = query.toLowerCase().trim();
+            
+            // Early return for empty queries
+            if (!searchTerm) {
+                return [];
+            }
+            
+            // Check cache first
+            const cacheKey = `search:${searchTerm}:${limit}`;
+            if (useCache && this.isCacheValid(cacheKey)) {
+                return this.cache.get(cacheKey);
+            }
+            
+            // Load products with caching
+            const products = await this.getCachedData(this.files.products);
+            
+            // Optimized search with early termination and result limiting
+            const results = [];
+            const searchWords = searchTerm.split(' ').filter(word => word.length > 0);
+            
+            for (const product of products) {
+                if (results.length >= limit) break; // Early termination
+                
+                if (this.matchesSearchCriteria(product, searchTerm, searchWords)) {
+                    results.push(product);
+                }
+            }
+            
+            // Cache the results
+            if (useCache) {
+                this.setCacheEntry(cacheKey, results);
+            }
+            
+            return results;
         } catch (error) {
             throw createError(`Failed to search products: ${error.message}`, 500, 'SEARCH_ERROR');
         }
@@ -285,10 +341,46 @@ class PersistenceManager {
         return await this.appendData(this.files.activity, activity);
     }
 
-    async getActivityByUser(username) {
+    /**
+     * Optimized user activity retrieval with indexing and caching
+     * @param {string} username - Username to get activities for
+     * @param {Object} options - Query options
+     * @param {number} options.limit - Maximum number of activities (default: 100)
+     * @param {number} options.offset - Number of activities to skip (default: 0)
+     * @param {boolean} options.useCache - Whether to use cached results (default: true)
+     * @returns {Promise<Array>} - Array of user activities
+     */
+    async getActivityByUser(username, options = {}) {
         try {
-            const activities = await this.readData(this.files.activity);
-            return activities.filter(activity => activity.username === username);
+            const { limit = 100, offset = 0, useCache = true } = options;
+            
+            // Check cache first
+            const cacheKey = `activity:${username}:${limit}:${offset}`;
+            if (useCache && this.isCacheValid(cacheKey)) {
+                return this.cache.get(cacheKey);
+            }
+            
+            // Update activity index if needed
+            await this.updateActivityIndex();
+            
+            // Use index for fast lookup
+            const userActivityIds = this.activityUserIndex.get(username) || [];
+            
+            // Apply pagination
+            const paginatedIds = userActivityIds.slice(offset, offset + limit);
+            
+            // Load full activities (only for the ones we need)
+            const activities = await this.getCachedData(this.files.activity);
+            const results = paginatedIds.map(id => 
+                activities.find(activity => activity.id === id)
+            ).filter(activity => activity !== undefined);
+            
+            // Cache the results
+            if (useCache) {
+                this.setCacheEntry(cacheKey, results);
+            }
+            
+            return results;
         } catch (error) {
             throw createError(`Failed to get user activity: ${error.message}`, 500, 'ACTIVITY_READ_ERROR');
         }
@@ -382,6 +474,140 @@ class PersistenceManager {
         }
 
         console.log('✅ Sample data initialization complete!');
+    }
+    
+    /**
+     * Check if a product matches search criteria
+     * @param {Object} product - Product to check
+     * @param {string} searchTerm - Full search term
+     * @param {Array} searchWords - Individual search words
+     * @returns {boolean} - Whether product matches
+     */
+    matchesSearchCriteria(product, searchTerm, searchWords) {
+        const title = product.title?.toLowerCase() || '';
+        const description = product.description?.toLowerCase() || '';
+        const category = product.category?.toLowerCase() || '';
+        
+        // Exact phrase match (highest priority)
+        if (title.includes(searchTerm) || description.includes(searchTerm) || category.includes(searchTerm)) {
+            return true;
+        }
+        
+        // All words must match somewhere in the product
+        return searchWords.every(word => 
+            title.includes(word) || description.includes(word) || category.includes(word)
+        );
+    }
+    
+    /**
+     * Update the activity user index for faster lookups
+     */
+    async updateActivityIndex() {
+        try {
+            const activities = await this.getCachedData(this.files.activity);
+            const currentHash = this.getDataHash(activities);
+            
+            // Only rebuild index if data has changed
+            if (this.indexLastUpdated !== currentHash) {
+                this.activityUserIndex.clear();
+                
+                for (const activity of activities) {
+                    if (activity.username && activity.id) {
+                        if (!this.activityUserIndex.has(activity.username)) {
+                            this.activityUserIndex.set(activity.username, []);
+                        }
+                        this.activityUserIndex.get(activity.username).push(activity.id);
+                    }
+                }
+                
+                // Sort by timestamp (most recent first) for each user
+                for (const [username, activityIds] of this.activityUserIndex.entries()) {
+                    const sortedIds = activityIds.sort((a, b) => {
+                        const activityA = activities.find(act => act.id === a);
+                        const activityB = activities.find(act => act.id === b);
+                        const timestampA = new Date(activityA?.timestamp || 0);
+                        const timestampB = new Date(activityB?.timestamp || 0);
+                        return timestampB - timestampA; // Most recent first
+                    });
+                    this.activityUserIndex.set(username, sortedIds);
+                }
+                
+                this.indexLastUpdated = currentHash;
+            }
+        } catch (error) {
+            console.error('Failed to update activity index:', error);
+            // Don't throw error - fallback to original method
+        }
+    }
+    
+    /**
+     * Cache management methods
+     */
+    
+    /**
+     * Get cached data with TTL support
+     */
+    async getCachedData(filename) {
+        const cacheKey = `data:${filename}`;
+        if (this.isCacheValid(cacheKey)) {
+            return this.cache.get(cacheKey);
+        }
+        
+        const data = await this.readData(filename);
+        this.setCacheEntry(cacheKey, data);
+        return data;
+    }
+    
+    /**
+     * Check if cache entry is valid
+     */
+    isCacheValid(key) {
+        if (!this.cache.has(key)) {
+            return false;
+        }
+        
+        const expiry = this.cacheExpiry.get(key);
+        const now = Date.now();
+        
+        if (now > expiry) {
+            this.cache.delete(key);
+            this.cacheExpiry.delete(key);
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Set cache entry with TTL
+     */
+    setCacheEntry(key, value) {
+        this.cache.set(key, value);
+        this.cacheExpiry.set(key, Date.now() + this.CACHE_TTL);
+    }
+    
+    /**
+     * Clear specific cache entries
+     */
+    clearCache(pattern) {
+        const keysToDelete = [];
+        for (const key of this.cache.keys()) {
+            if (!pattern || key.includes(pattern)) {
+                keysToDelete.push(key);
+            }
+        }
+        
+        for (const key of keysToDelete) {
+            this.cache.delete(key);
+            this.cacheExpiry.delete(key);
+        }
+    }
+    
+    /**
+     * Generate a simple hash of data for change detection
+     */
+    getDataHash(data) {
+        return JSON.stringify(data).length + ':' + (data.length || 0);
     }
 }
 

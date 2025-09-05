@@ -124,40 +124,139 @@ class StoreManager {
         productsGrid.innerHTML = productsHTML;
     }
 
-    // Create HTML for a single product card
+    /**
+     * Create HTML for a single product card
+     * @param {Object} product - Product data object
+     * @returns {string} HTML string for the product card
+     */
     createProductCard(product) {
         const isAuthenticated = AuthHelper.isAuthenticated();
         
+        return this.createProductCardContainer(
+            product.id,
+            this.createProductImage(product),
+            this.createProductCategoryBadge(product),
+            this.createProductInfo(product),
+            this.createProductActions(product, isAuthenticated),
+            this.createOutOfStockBadge(product)
+        );
+    }
+
+    /**
+     * Create the main product card container
+     * @param {string} productId - Product ID
+     * @param {string} imageHTML - Product image HTML
+     * @param {string} badgeHTML - Category badge HTML
+     * @param {string} infoHTML - Product info HTML
+     * @param {string} actionsHTML - Product actions HTML
+     * @param {string} stockHTML - Stock status HTML
+     * @returns {string} Complete product card HTML
+     */
+    createProductCardContainer(productId, imageHTML, badgeHTML, infoHTML, actionsHTML, stockHTML) {
         return `
-            <div class="product-card" data-product-id="${product.id}">
-                <img src="${product.image || '/images/products/placeholder.jpg'}" 
-                     alt="${product.title}" class="product-image">
-                <div class="product-category-badge">${product.category}</div>
-                
+            <div class="product-card" data-product-id="${productId}">
+                ${imageHTML}
+                ${badgeHTML}
+                ${infoHTML}
+                ${actionsHTML}
+                ${stockHTML}
+            </div>
+        `;
+    }
+
+    /**
+     * Create product image HTML
+     * @param {Object} product - Product data object
+     * @returns {string} Product image HTML
+     */
+    createProductImage(product) {
+        return `<img src="${product.image || '/images/products/placeholder.jpg'}" 
+                     alt="${product.title}" class="product-image">`;
+    }
+
+    /**
+     * Create product category badge HTML
+     * @param {Object} product - Product data object
+     * @returns {string} Category badge HTML
+     */
+    createProductCategoryBadge(product) {
+        return `<div class="product-category-badge">${product.category}</div>`;
+    }
+
+    /**
+     * Create product information HTML (title, description, price)
+     * @param {Object} product - Product data object
+     * @returns {string} Product info HTML
+     */
+    createProductInfo(product) {
+        return `
                 <div class="product-title">${sanitizeHTML(product.title)}</div>
                 <div class="product-description">${sanitizeHTML(product.description)}</div>
                 <div class="product-price">${formatCurrency(product.price)}</div>
-                
+        `;
+    }
+
+    /**
+     * Create product actions HTML (buttons for cart, wishlist, view)
+     * @param {Object} product - Product data object
+     * @param {boolean} isAuthenticated - User authentication status
+     * @returns {string} Product actions HTML
+     */
+    createProductActions(product, isAuthenticated) {
+        const mainActions = isAuthenticated ?
+            this.createAuthenticatedActions(product.id) :
+            this.createGuestActions();
+        
+        return `
                 <div class="product-actions">
-                    ${isAuthenticated ? 
-                        `<button class="btn btn-primary" onclick="storeManager.addToCart('${product.id}')">
+                    ${mainActions}
+                    ${this.createViewDetailsButton(product.id)}
+                </div>
+        `;
+    }
+
+    /**
+     * Create actions for authenticated users
+     * @param {string} productId - Product ID
+     * @returns {string} Authenticated user actions HTML
+     */
+    createAuthenticatedActions(productId) {
+        return `<button class="btn btn-primary" onclick="storeManager.addToCart('${productId}')">
                             Add to Cart
                         </button>
-                        <button class="btn btn-outline" onclick="storeManager.addToWishlist('${product.id}')" title="Add to Wishlist">
+                        <button class="btn btn-outline" onclick="storeManager.addToWishlist('${productId}')" title="Add to Wishlist">
                             ♥
-                        </button>` :
-                        `<button class="btn btn-secondary" onclick="authManager.showMessage('Please login to add items to cart', 'warning')">
+                        </button>`;
+    }
+
+    /**
+     * Create actions for guest users
+     * @returns {string} Guest user actions HTML
+     */
+    createGuestActions() {
+        return `<button class="btn btn-secondary" onclick="authManager.showMessage('Please login to add items to cart', 'warning')">
                             Login to Buy
-                        </button>`
-                    }
-                    <button class="btn btn-outline" onclick="storeManager.viewProduct('${product.id}')">
+                        </button>`;
+    }
+
+    /**
+     * Create view details button
+     * @param {string} productId - Product ID
+     * @returns {string} View details button HTML
+     */
+    createViewDetailsButton(productId) {
+        return `<button class="btn btn-outline" onclick="storeManager.viewProduct('${productId}')">
                         View Details
-                    </button>
-                </div>
-                
-                ${product.inStock === false ? '<div class="out-of-stock">Out of Stock</div>' : ''}
-            </div>
-        `;
+                    </button>`;
+    }
+
+    /**
+     * Create out of stock badge if needed
+     * @param {Object} product - Product data object
+     * @returns {string} Out of stock HTML or empty string
+     */
+    createOutOfStockBadge(product) {
+        return product.inStock === false ? '<div class="out-of-stock">Out of Stock</div>' : '';
     }
 
     // Add product to wishlist

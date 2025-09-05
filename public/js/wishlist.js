@@ -217,19 +217,19 @@ class WishlistManager {
                 
                 // Update cart counter
                 this.updateCartCounter();
-                alert(`${product.title} added to cart!`);
+                NotificationSystem.success(`${product.title} added to cart!`);
             } else {
-                alert(updateResponse.message || 'Failed to add item to cart');
+                NotificationSystem.error(updateResponse.message || 'Failed to add item to cart');
             }
         } catch (error) {
             console.error('Failed to add to cart:', error);
-            alert('Failed to add item to cart');
+            NotificationSystem.error('Failed to add item to cart');
         }
     }
 
     async addSelectedToCart() {
         if (this.selectedItems.size === 0) {
-            alert('Please select items to add to cart');
+            NotificationSystem.warning('Please select items to add to cart');
             return;
         }
 
@@ -255,13 +255,13 @@ class WishlistManager {
                 this.updateBulkActions();
                 this.updateCartCounter();
                 
-                alert(`${response.data.movedCount} item(s) moved to cart!`);
+                NotificationSystem.success(`${response.data.movedCount} item(s) moved to cart!`);
             } else {
-                alert(response.message || 'Failed to move items to cart');
+                NotificationSystem.error(response.message || 'Failed to move items to cart');
             }
         } catch (error) {
             console.error('Failed to move items to cart:', error);
-            alert('Failed to move items to cart');
+            NotificationSystem.error('Failed to move items to cart');
         }
     }
 
@@ -279,13 +279,13 @@ class WishlistManager {
                 this.updateDisplay();
                 this.updateBulkActions();
                 
-                alert('Item removed from wishlist');
+                NotificationSystem.success('Item removed from wishlist');
             } else {
-                alert(response.message || 'Failed to remove item from wishlist');
+                NotificationSystem.error(response.message || 'Failed to remove item from wishlist');
             }
         } catch (error) {
             console.error('Failed to remove from wishlist:', error);
-            alert('Failed to remove item from wishlist');
+            NotificationSystem.error('Failed to remove item from wishlist');
         }
     }
 
@@ -311,7 +311,7 @@ class WishlistManager {
 
     async removeSelected() {
         if (this.selectedItems.size === 0) {
-            alert('Please select items to remove');
+            NotificationSystem.warning('Please select items to remove');
             return;
         }
 
@@ -338,10 +338,10 @@ class WishlistManager {
             this.updateDisplay();
             this.updateBulkActions();
             
-            alert('Selected items removed from wishlist');
+            NotificationSystem.success('Selected items removed from wishlist');
         } catch (error) {
             console.error('Failed to remove selected items:', error);
-            alert('Failed to remove selected items');
+            NotificationSystem.error('Failed to remove selected items');
         }
     }
 
@@ -369,13 +369,13 @@ class WishlistManager {
                 this.selectedItems.clear();
                 this.updateDisplay();
                 this.updateBulkActions();
-                alert('Wishlist cleared successfully');
+                NotificationSystem.success('Wishlist cleared successfully');
             } else {
-                alert(response.message || 'Failed to clear wishlist');
+                NotificationSystem.error(response.message || 'Failed to clear wishlist');
             }
         } catch (error) {
             console.error('Failed to clear wishlist:', error);
-            alert('Failed to clear wishlist');
+            NotificationSystem.error('Failed to clear wishlist');
         }
     }
 
@@ -463,12 +463,12 @@ class WishlistManager {
                 }
                 return true;
             } else {
-                alert(response.message || 'Failed to add to wishlist');
+                NotificationSystem.error(response.message || 'Failed to add to wishlist');
                 return false;
             }
         } catch (error) {
             console.error('Failed to add to wishlist:', error);
-            alert('Failed to add to wishlist');
+            NotificationSystem.error('Failed to add to wishlist');
             return false;
         }
     }

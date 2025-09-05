@@ -370,7 +370,7 @@ class ReviewManager {
         document.querySelectorAll('.helpful-button').forEach(button => {
             button.addEventListener('click', async (e) => {
                 if (!this.currentUser) {
-                    alert('Please login to vote on reviews');
+                    NotificationSystem.warning('Please login to vote on reviews');
                     return;
                 }
                 
@@ -400,12 +400,12 @@ class ReviewManager {
 
     async submitReview() {
         if (!this.currentUser) {
-            alert('Please login to submit a review');
+            NotificationSystem.warning('Please login to submit a review');
             return;
         }
 
         if (!this.currentProductId) {
-            alert('Product ID is required');
+            NotificationSystem.error('Product ID is required');
             return;
         }
 
@@ -418,17 +418,17 @@ class ReviewManager {
         };
 
         if (!reviewData.rating || reviewData.rating < 1 || reviewData.rating > 5) {
-            alert('Please select a rating');
+            NotificationSystem.warning('Please select a rating');
             return;
         }
 
         if (!reviewData.title || reviewData.title.length < 1) {
-            alert('Please enter a review title');
+            NotificationSystem.warning('Please enter a review title');
             return;
         }
 
         if (!reviewData.comment || reviewData.comment.length < 1) {
-            alert('Please enter a review comment');
+            NotificationSystem.warning('Please enter a review comment');
             return;
         }
 
@@ -443,13 +443,13 @@ class ReviewManager {
                 this.userRating = 0;
                 this.updateRatingDisplay();
                 await this.loadReviews();
-                alert('Review submitted successfully!');
+                NotificationSystem.success('Review submitted successfully!');
             } else {
-                alert(response.message || 'Failed to submit review');
+                NotificationSystem.error(response.message || 'Failed to submit review');
             }
         } catch (error) {
             console.error('Failed to submit review:', error);
-            alert('Failed to submit review. Please try again.');
+            NotificationSystem.error('Failed to submit review. Please try again.');
         }
     }
 
@@ -473,11 +473,11 @@ class ReviewManager {
                     }
                 }
             } else {
-                alert(response.message || 'Failed to vote on review');
+                NotificationSystem.error(response.message || 'Failed to vote on review');
             }
         } catch (error) {
             console.error('Failed to mark review as helpful:', error);
-            alert('Failed to vote on review');
+            NotificationSystem.error('Failed to vote on review');
         }
     }
 
@@ -489,20 +489,20 @@ class ReviewManager {
             
             if (response.success) {
                 await this.loadReviews();
-                alert('Review deleted successfully');
+                NotificationSystem.success('Review deleted successfully');
             } else {
-                alert(response.message || 'Failed to delete review');
+                NotificationSystem.error(response.message || 'Failed to delete review');
             }
         } catch (error) {
             console.error('Failed to delete review:', error);
-            alert('Failed to delete review');
+            NotificationSystem.error('Failed to delete review');
         }
     }
 
     editReview(reviewId) {
         // For now, just show an alert. In a full implementation, 
         // you'd show an edit form or modal
-        alert('Edit functionality would be implemented here');
+        NotificationSystem.info('Edit functionality would be implemented here');
     }
 
     updateUI() {

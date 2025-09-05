@@ -324,11 +324,7 @@ class AuthHelper {
      */
     static requireAuth(message = 'Please login to access this page', redirectUrl = '/pages/login.html') {
         if (!this.isAuthenticated()) {
-            if (window.authManager && typeof window.authManager.showMessage === 'function') {
-                window.authManager.showMessage(message, 'warning');
-            } else {
-                alert(message);
-            }
+            NotificationSystem.show(message, 'warning');
             setTimeout(() => {
                 window.location.href = redirectUrl;
             }, 1500);
@@ -346,11 +342,7 @@ class AuthHelper {
         const defaultMessage = `Please login to ${action}`;
         const finalMessage = message || defaultMessage;
         
-        if (window.authManager && typeof window.authManager.showMessage === 'function') {
-            window.authManager.showMessage(finalMessage, 'warning');
-        } else {
-            alert(finalMessage);
-        }
+        NotificationSystem.show(finalMessage, 'warning');
     }
 
     /**
@@ -406,3 +398,302 @@ class AuthHelper {
         };
     }
 }
+
+/**
+ * Centralized Notification System
+ * Provides consistent messaging across all frontend managers
+ * Replaces inconsistent alert() and authManager.showMessage() usage
+ */
+class NotificationSystem {
+    
+    /**
+     * Show a notification message with consistent styling and behavior
+     * @param {string} message - Message to display
+     * @param {string} type - Notification type ('success', 'error', 'warning', 'info')
+     * @param {Object} options - Additional options
+     * @param {number} options.duration - Auto-hide duration in ms (0 for persistent)
+     * @param {boolean} options.allowHtml - Whether to allow HTML content
+     */
+    static show(message, type = 'info', options = {}) {
+        const { 
+            duration = type === 'error' ? 5000 : 3000, 
+            allowHtml = false 
+        } = options;
+        
+        // Try to use authManager if available (preferred method)
+        if (this.canUseAuthManager()) {
+            return this.showViaAuthManager(message, type, duration);
+        }
+        
+        // Fallback to custom toast system
+        return this.showViaToast(message, type, duration, allowHtml);
+    }
+    
+    /**
+     * Show success message
+     * @param {string} message - Success message
+     * @param {Object} options - Additional options
+     */
+    static success(message, options = {}) {
+        return this.show(message, 'success', options);
+    }
+    
+    /**
+     * Show error message
+     * @param {string} message - Error message
+     * @param {Object} options - Additional options
+     */
+    static error(message, options = {}) {
+        return this.show(message, 'error', options);
+    }
+    
+    /**
+     * Show warning message
+     * @param {string} message - Warning message
+     * @param {Object} options - Additional options
+     */
+    static warning(message, options = {}) {
+        return this.show(message, 'warning', options);
+    }
+    
+    /**
+     * Show info message
+     * @param {string} message - Info message
+     * @param {Object} options - Additional options
+     */
+    static info(message, options = {}) {
+        return this.show(message, 'info', options);
+    }
+    
+    /**
+     * Show confirmation dialog
+     * @param {string} message - Confirmation message
+     * @param {Object} options - Additional options
+     * @param {string} options.confirmText - Confirm button text
+     * @param {string} options.cancelText - Cancel button text
+     * @returns {Promise<boolean>} - True if confirmed, false if cancelled
+     */
+    static async confirm(message, options = {}) {
+        const { 
+            confirmText = 'Confirm', 
+            cancelText = 'Cancel' 
+        } = options;
+        
+        // Use browser confirm as fallback for now
+        // In a full implementation, this would use a custom modal
+        return new Promise((resolve) => {
+            const result = window.confirm(message);
+            resolve(result);
+        });
+    }
+    
+    /**
+     * Check if authManager is available and functional
+     */
+    static canUseAuthManager() {
+        return window.authManager && 
+               typeof window.authManager.showMessage === 'function';
+    }
+    
+    /**
+     * Show notification via authManager (preferred method)
+     */
+    static showViaAuthManager(message, type, duration) {
+        try {
+            window.authManager.showMessage(message, type, duration);
+            return true;
+        } catch (error) {
+            console.error('Failed to show notification via authManager:', error);
+            return this.showViaToast(message, type, duration);
+        }
+    }
+    
+    /**
+     * Show notification via custom toast system (fallback)
+     */
+    static showViaToast(message, type, duration, allowHtml = false) {
+        try {
+            // Ensure toast container exists
+            this.ensureToastContainer();
+            
+            // Create toast element
+            const toast = this.createToast(message, type, allowHtml);
+            
+            // Add to container with animation
+            const container = document.getElementById('notification-container');
+            container.appendChild(toast);
+            
+            // Trigger show animation
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+            
+            // Auto-remove after duration
+            if (duration > 0) {
+                setTimeout(() => {
+                    this.removeToast(toast);
+                }, duration);
+            }
+            
+            return toast;
+        } catch (error) {
+            console.error('Failed to show toast notification:', error);
+            // Ultimate fallback to alert
+            alert(message);
+            return null;
+        }
+    }
+    
+    /**
+     * Create toast container if it doesn't exist
+     */
+    static ensureToastContainer() {
+        let container = document.getElementById('notification-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'notification-container';
+            container.className = 'notification-container';
+            container.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 10000;
+                pointer-events: none;
+            `;
+            document.body.appendChild(container);
+        }
+        return container;
+    }
+    
+    /**
+     * Create a toast element
+     */
+    static createToast(message, type, allowHtml) {
+        const toast = document.createElement('div');
+        toast.className = `notification-toast notification-${type}`;
+        
+        // Set content safely
+        if (allowHtml) {
+            toast.innerHTML = message;
+        } else {
+            toast.textContent = message;
+        }
+        
+        // Add close button
+        const closeButton = document.createElement('button');
+        closeButton.innerHTML = '&times;';
+        closeButton.className = 'notification-close';
+        closeButton.onclick = (e) => {
+            e.stopPropagation();
+            this.removeToast(toast);
+        };
+        toast.appendChild(closeButton);
+        
+        // Apply styles
+        toast.style.cssText = `
+            background: ${this.getToastBackground(type)};
+            color: ${this.getToastTextColor(type)};
+            border: 1px solid ${this.getToastBorderColor(type)};
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 10px;
+            min-width: 300px;
+            max-width: 500px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            line-height: 1.4;
+            pointer-events: auto;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        `;
+        
+        // Style close button
+        closeButton.style.cssText = `
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: inherit;
+            opacity: 0.7;
+            margin-left: 12px;
+            flex-shrink: 0;
+            padding: 0;
+            line-height: 1;
+        `;
+        
+        return toast;
+    }
+    
+    /**
+     * Remove toast with animation
+     */
+    static removeToast(toast) {
+        if (toast && toast.parentNode) {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 300);
+        }
+    }
+    
+    /**
+     * Get background color for toast type
+     */
+    static getToastBackground(type) {
+        const colors = {
+            success: '#d4edda',
+            error: '#f8d7da',
+            warning: '#fff3cd',
+            info: '#d1ecf1'
+        };
+        return colors[type] || colors.info;
+    }
+    
+    /**
+     * Get text color for toast type
+     */
+    static getToastTextColor(type) {
+        const colors = {
+            success: '#155724',
+            error: '#721c24',
+            warning: '#856404',
+            info: '#0c5460'
+        };
+        return colors[type] || colors.info;
+    }
+    
+    /**
+     * Get border color for toast type
+     */
+    static getToastBorderColor(type) {
+        const colors = {
+            success: '#c3e6cb',
+            error: '#f5c6cb',
+            warning: '#ffeeba',
+            info: '#bee5eb'
+        };
+        return colors[type] || colors.info;
+    }
+}
+
+// Add CSS class for show animation
+const style = document.createElement('style');
+style.textContent = `
+    .notification-toast.show {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
+    }
+    
+    .notification-close:hover {
+        opacity: 1 !important;
+    }
+`;
+document.head.appendChild(style);
