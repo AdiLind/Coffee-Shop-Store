@@ -360,11 +360,11 @@
     "rememberMe": false
   },
   {
-    "id": "e22165a5-23dd-4f5f-860a-44fac3eef01f",
-    "token": "0f90b0e1-7a36-4071-b0e8-81e44f0f89d1",
+    "id": "08d5ad64-31c7-4a65-ab9a-97e585edca9d",
+    "token": "7a2d3ee6-6407-4400-9ffc-d4b9cb45127c",
     "userId": "2912572d-5da5-436f-8ba3-bd0404ce6842",
-    "createdAt": "2025-09-05T13:15:00.571Z",
-    "expiresAt": "2025-09-05T13:45:00.571Z",
+    "createdAt": "2025-09-05T13:37:01.035Z",
+    "expiresAt": "2025-09-05T14:07:01.035Z",
     "rememberMe": false
   }
 ]

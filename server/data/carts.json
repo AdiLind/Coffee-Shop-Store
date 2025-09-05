@@ -12,8 +12,15 @@
   },
   {
     "userId": "2912572d-5da5-436f-8ba3-bd0404ce6842",
-    "items": [],
-    "updatedAt": "2025-09-04T21:22:05.236Z"
+    "items": [
+      {
+        "productId": "prod-2",
+        "title": "Premium Arabica Coffee Beans",
+        "price": 24.99,
+        "quantity": 1
+      }
+    ],
+    "updatedAt": "2025-09-05T13:37:07.666Z"
   },
   {
     "userId": "0d92c028-7ac3-4bd3-b8c9-c2df723dc2d4",

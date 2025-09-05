@@ -3125,5 +3125,12 @@
     "action": "register",
     "details": null,
     "timestamp": "2025-09-05T09:33:43.061Z"
+  },
+  {
+    "id": "32241fd3-5e2c-4ae9-8563-0430f7cf1dc1",
+    "username": "Adi",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T13:37:01.045Z"
   }
 ]
