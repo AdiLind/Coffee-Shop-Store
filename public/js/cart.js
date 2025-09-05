@@ -106,28 +106,94 @@ class CartManager {
         cartItemsContainer.innerHTML = cartItemsHTML;
     }
 
-    // Create HTML for a single cart item
+    /**
+     * Create HTML for a single cart item using component-based approach
+     * @param {Object} item - Cart item object containing product data
+     * @returns {string} Complete HTML string for cart item
+     */
     createCartItemHTML(item) {
-        const itemTotal = (item.price * item.quantity).toFixed(2);
-        
         return `
             <div class="cart-item" data-product-id="${item.productId}">
-                <div class="item-image">
-                    <img src="${item.image || '/images/products/placeholder.jpg'}" 
-                         alt="${item.title}" class="cart-item-image">
-                </div>
-                <div class="item-details">
-                    <h3>${sanitizeHTML(item.title)}</h3>
-                    <p class="item-price">${formatCurrency(item.price)} each</p>
-                </div>
-                <div class="item-quantity">
-                    <button class="btn btn-sm quantity-btn" onclick="cartManager.updateQuantity('${item.productId}', -1)">−</button>
-                    <span class="quantity-display">${item.quantity}</span>
-                    <button class="btn btn-sm quantity-btn" onclick="cartManager.updateQuantity('${item.productId}', 1)">+</button>
-                </div>
-                <div class="item-total">${formatCurrency(itemTotal)}</div>
-                <button class="btn btn-outline btn-sm remove-item" onclick="cartManager.removeItem('${item.productId}')">Remove</button>
+                ${this.createCartItemImage(item)}
+                ${this.createCartItemDetails(item)}
+                ${this.createCartItemQuantityControls(item)}
+                ${this.createCartItemTotal(item)}
+                ${this.createCartItemRemoveButton(item)}
             </div>
+        `;
+    }
+
+    /**
+     * Create the image section of a cart item
+     * @param {Object} item - Cart item object
+     * @returns {string} HTML string for item image
+     */
+    createCartItemImage(item) {
+        const imageUrl = item.image || '/images/products/placeholder.jpg';
+        return `
+            <div class="item-image">
+                <img src="${imageUrl}" 
+                     alt="${sanitizeHTML(item.title)}" 
+                     class="cart-item-image">
+            </div>
+        `;
+    }
+
+    /**
+     * Create the product details section of a cart item
+     * @param {Object} item - Cart item object
+     * @returns {string} HTML string for item details
+     */
+    createCartItemDetails(item) {
+        return `
+            <div class="item-details">
+                <h3>${sanitizeHTML(item.title)}</h3>
+                <p class="item-price">${formatCurrency(item.price)} each</p>
+            </div>
+        `;
+    }
+
+    /**
+     * Create the quantity control section of a cart item
+     * @param {Object} item - Cart item object
+     * @returns {string} HTML string for quantity controls
+     */
+    createCartItemQuantityControls(item) {
+        return `
+            <div class="item-quantity">
+                <button class="btn btn-sm quantity-btn" 
+                        onclick="cartManager.updateQuantity('${item.productId}', -1)"
+                        aria-label="Decrease quantity">−</button>
+                <span class="quantity-display" aria-label="Current quantity">${item.quantity}</span>
+                <button class="btn btn-sm quantity-btn" 
+                        onclick="cartManager.updateQuantity('${item.productId}', 1)"
+                        aria-label="Increase quantity">+</button>
+            </div>
+        `;
+    }
+
+    /**
+     * Create the total price section of a cart item
+     * @param {Object} item - Cart item object
+     * @returns {string} HTML string for item total
+     */
+    createCartItemTotal(item) {
+        const itemTotal = (item.price * item.quantity).toFixed(2);
+        return `<div class="item-total">${formatCurrency(itemTotal)}</div>`;
+    }
+
+    /**
+     * Create the remove button for a cart item
+     * @param {Object} item - Cart item object
+     * @returns {string} HTML string for remove button
+     */
+    createCartItemRemoveButton(item) {
+        return `
+            <button class="btn btn-outline btn-sm remove-item" 
+                    onclick="cartManager.removeItem('${item.productId}')"
+                    aria-label="Remove ${sanitizeHTML(item.title)} from cart">
+                Remove
+            </button>
         `;
     }
 

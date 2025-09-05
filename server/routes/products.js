@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { persistenceManager } = require('../modules/persist_module');
 const { asyncWrapper } = require('../modules/error-handler');
+const { validateRequiredFields, validateNumericField } = require('../middleware/validation-middleware');
 
 router.get('/', asyncWrapper(async (req, res) => {
     const { search, category } = req.query;
@@ -32,16 +33,11 @@ router.get('/:id', asyncWrapper(async (req, res) => {
     });
 }));
 
-router.post('/', asyncWrapper(async (req, res) => {
+router.post('/', 
+    validateRequiredFields(['title', 'description', 'price', 'category']),
+    validateNumericField('price', { min: 0.01, max: 9999.99 }),
+    asyncWrapper(async (req, res) => {
     const { title, description, price, category, image } = req.body;
-    
-    if (!title || !description || !price || !category) {
-        return res.status(400).json({
-            success: false,
-            error: 'MISSING_REQUIRED_FIELDS',
-            message: 'Missing required fields: title, description, price, category'
-        });
-    }
     
     const newProduct = await persistenceManager.createProduct({
         title,

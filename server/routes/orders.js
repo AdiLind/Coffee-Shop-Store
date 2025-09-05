@@ -6,6 +6,7 @@ const AuthMiddleware = require('../middleware/auth-middleware');
 const { v4: uuidv4 } = require('uuid');
 const paymentService = require('../services/paymentService');
 const OrderService = require('../services/orderService');
+const { validateRequiredFields, validateNestedFields, validateArrayField, validateNumericField } = require('../middleware/validation-middleware');
 
 // Initialize order service with persistence manager
 const orderService = new OrderService(persistenceManager);
@@ -58,18 +59,15 @@ router.get('/:userId', AuthMiddleware.requireAuth, asyncWrapper(async (req, res)
 }));
 
 // Create order from cart (checkout process)
-router.post('/create', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
+router.post('/create', 
+    AuthMiddleware.requireAuth,
+    validateNestedFields('customerInfo', ['name', 'email', 'address'], {
+        errorCode: 'MISSING_CUSTOMER_INFO',
+        customMessage: 'Customer information is required (name, email, address)'
+    }),
+    asyncWrapper(async (req, res) => {
     const { customerInfo } = req.body;
     const userId = req.user.id;
-    
-    // Validate required fields
-    if (!customerInfo || !customerInfo.name || !customerInfo.email || !customerInfo.address) {
-        return res.status(400).json({
-            success: false,
-            error: 'MISSING_CUSTOMER_INFO',
-            message: 'Customer information is required (name, email, address)'
-        });
-    }
     
     // Get user's cart
     const cart = await persistenceManager.getUserCart(userId);
@@ -117,7 +115,16 @@ router.post('/create', AuthMiddleware.requireAuth, asyncWrapper(async (req, res)
 }));
 
 // Create order (API client compatible endpoint)
-router.post('/', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
+router.post('/', 
+    AuthMiddleware.requireAuth,
+    validateRequiredFields(['userId', 'totalAmount', 'shippingAddress']),
+    validateArrayField('items', { 
+        minLength: 1,
+        errorCode: 'MISSING_ORDER_ITEMS',
+        customMessage: 'Order items are required' 
+    }),
+    validateNumericField('totalAmount', { min: 0.01 }),
+    asyncWrapper(async (req, res) => {
     const { userId, items, totalAmount, shippingAddress } = req.body;
     
     // Ensure user can only create orders for themselves
@@ -126,23 +133,6 @@ router.post('/', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
             success: false,
             error: 'ACCESS_DENIED',
             message: 'Access denied'
-        });
-    }
-    
-    // Validate required fields
-    if (!items || !Array.isArray(items) || items.length === 0) {
-        return res.status(400).json({
-            success: false,
-            error: 'MISSING_ORDER_ITEMS',
-            message: 'Order items are required'
-        });
-    }
-    
-    if (!totalAmount || !shippingAddress) {
-        return res.status(400).json({
-            success: false,
-            error: 'MISSING_REQUIRED_FIELDS',
-            message: 'Total amount and shipping address are required'
         });
     }
     

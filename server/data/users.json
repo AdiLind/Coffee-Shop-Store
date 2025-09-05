@@ -10,7 +10,7 @@
       "language": "en"
     },
     "createdAt": "2025-01-15T09:00:00.000Z",
-    "lastLogin": "2025-09-05T08:59:16.896Z"
+    "lastLogin": "2025-09-05T09:33:37.714Z"
   },
   {
     "id": "user-2",
@@ -1532,5 +1532,122 @@
     },
     "createdAt": "2025-09-05T08:59:15.147Z",
     "lastLogin": "2025-09-05T08:59:15.727Z"
+  },
+  {
+    "id": "13fa406e-84fd-4baa-b831-5453a6a96806",
+    "username": "testuser1757062954270",
+    "email": "test1757062954270@coffeetest.com",
+    "password": "$2b$12$gmsOeQPUc87ZcD5aSmxTDebFOsuJ2dwjU0Ko6A9zujT2rbTyXTgL2",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-05T09:02:34.844Z",
+    "lastLogin": "2025-09-05T09:02:39.701Z"
+  },
+  {
+    "id": "c9e7dd77-f4c7-4e16-a5e2-368b40733602",
+    "username": "regtest1757062956040",
+    "email": "regtest1757062956040@test.com",
+    "password": "$2b$12$O6AmUWjVhmpoFlEwB5bIMeqFV8PnlLhrsZn89LTe5zfv.rqGrQibu",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-05T09:02:36.615Z",
+    "lastLogin": null
+  },
+  {
+    "id": "62d097d4-473d-4eeb-8786-0de64bcb61a1",
+    "username": "remember1757062957278",
+    "email": "remember1757062957278@test.com",
+    "password": "$2b$12$ezpnJN/Z7RECeN8mYDOj0uoYcyYU3JY3mYo/sdreMYeeJNVzm7gvG",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-05T09:02:37.854Z",
+    "lastLogin": "2025-09-05T09:02:38.438Z"
+  },
+  {
+    "id": "8872d14a-e728-4b49-b40a-18abd93c8fb2",
+    "username": "weaktest17570629585390.8102536329968526",
+    "email": "weak1757062958540@test.com",
+    "password": "$2b$12$LubW.3j4UppMM/9CsBVVkeIu7OTYt42Phk59O0Av/WEInYfNu/qDW",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-05T09:02:39.106Z",
+    "lastLogin": null
+  },
+  {
+    "id": "be2d8646-796e-43f0-a295-8838141f80d4",
+    "username": "testuser1757064815950",
+    "email": "test1757064815950@coffeetest.com",
+    "password": "$2b$12$20D73awDukcAa5T8bWCZ8uM1WqKwYmiKdTF4WtXB1SuCeaWXxsUOK",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-05T09:33:36.525Z",
+    "lastLogin": "2025-09-05T09:33:41.352Z"
+  },
+  {
+    "id": "5df13519-e594-41a4-91e2-71a304c62391",
+    "username": "regtest1757064817731",
+    "email": "regtest1757064817731@test.com",
+    "password": "$2b$12$REtRTZKsADKexSpqacNTVuuXkmDAs/aSWdAR2izNCjZl8cA9l6RPu",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-05T09:33:38.300Z",
+    "lastLogin": null
+  },
+  {
+    "id": "2043e628-2176-4e3e-8e38-b2e9c7c6728f",
+    "username": "remember1757064818936",
+    "email": "remember1757064818936@test.com",
+    "password": "$2b$12$BTaE2xB.n1c.AW5.GAaTJOx4xuOeC/OMVl7RwItz4oRVPk0QCrTka",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-05T09:33:39.507Z",
+    "lastLogin": "2025-09-05T09:33:40.093Z"
+  },
+  {
+    "id": "214390d5-35a9-477c-ab0b-ed745b2fe471",
+    "username": "weaktest17570648201930.8492766100538167",
+    "email": "weak1757064820193@test.com",
+    "password": "$2b$12$pyraR.oqcO/iIMftAbELbOl1omNPGyWb9LDvOHNkX.dRAoW/Kj5Im",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-05T09:33:40.768Z",
+    "lastLogin": null
+  },
+  {
+    "id": "9a05accb-c305-48a9-ba22-975786099661",
+    "username": "weaktest17570648224840.5750755475467442",
+    "email": "weak1757064822484@test.com",
+    "password": "$2b$12$vhU36gziA8m0cgWSGXhjfe06w8yONBAsEvQNSdk1sNYbUG9zPqDne",
+    "role": "user",
+    "preferences": {
+      "theme": "light",
+      "language": "en"
+    },
+    "createdAt": "2025-09-05T09:33:43.050Z",
+    "lastLogin": null
   }
 ]

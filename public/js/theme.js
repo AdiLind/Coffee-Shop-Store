@@ -750,25 +750,35 @@ class ThemeManager {
         themeColorMeta.content = theme.colors['--primary-color'];
     }
 
+    /**
+     * Apply font size scaling using CSS custom properties
+     * This method now uses pure CSS variables for better performance and maintainability
+     * @param {string} sizeName - The font size key (small, normal, large, xlarge)
+     */
     applyFontSize(sizeName) {
         const fontSize = this.fontSizes[sizeName];
-        if (!fontSize) return;
+        if (!fontSize) {
+            console.warn(`Unknown font size: ${sizeName}`);
+            return;
+        }
 
+        // Set CSS custom property for font scaling - all elements using rem units will automatically scale
         const root = document.documentElement;
         root.style.setProperty('--font-scale', fontSize.scale);
         
-        // Apply scaling to common elements
-        const scalableElements = ['body', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'a', 'button', 'input', 'textarea', 'select'];
-        scalableElements.forEach(selector => {
-            const elements = document.querySelectorAll(selector);
-            elements.forEach(el => {
-                if (!el.style.fontSize || el.style.fontSize === '') {
-                    const computedSize = window.getComputedStyle(el).fontSize;
-                    const baseSize = parseFloat(computedSize);
-                    el.style.fontSize = `${baseSize * fontSize.scale}px`;
-                }
-            });
+        // Update current font size for persistence
+        this.currentFontSize = sizeName;
+        localStorage.setItem('coffee-shop-font-size', sizeName);
+        
+        // Dispatch event for any components that need to know about font size changes
+        const fontChangeEvent = new CustomEvent('fontSizeChanged', { 
+            detail: { 
+                sizeName, 
+                scale: fontSize.scale,
+                displayName: fontSize.name 
+            } 
         });
+        document.dispatchEvent(fontChangeEvent);
     }
 
     updateThemeControls() {

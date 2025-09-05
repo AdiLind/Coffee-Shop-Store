@@ -2971,5 +2971,159 @@
     "action": "login",
     "details": null,
     "timestamp": "2025-09-05T08:59:16.905Z"
+  },
+  {
+    "id": "2d6b8c97-0083-4b04-adb9-cf5b7b145f2e",
+    "username": "testuser1757062954270",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:34.849Z"
+  },
+  {
+    "id": "e88ad195-7a40-4359-af3e-2536af304839",
+    "username": "testuser1757062954270",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:35.444Z"
+  },
+  {
+    "id": "9298ea8e-1dac-4374-aca1-47b08719f3ab",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:36.031Z"
+  },
+  {
+    "id": "b344eb6a-9781-49a9-8475-71ad5ea034dc",
+    "username": "regtest1757062956040",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:36.621Z"
+  },
+  {
+    "id": "5d03239a-5587-4522-9f29-6a184c4210ff",
+    "username": "testuser1757062954270",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:37.254Z"
+  },
+  {
+    "id": "f4db1e1a-3247-4361-b4f8-cd4a3d627334",
+    "username": "remember1757062957278",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:37.859Z"
+  },
+  {
+    "id": "adcd2314-3774-4bac-b738-7c158e0c77ea",
+    "username": "remember1757062957278",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:38.444Z"
+  },
+  {
+    "id": "9d5281a3-c8b4-4bb4-9fce-2230162b1a8e",
+    "username": "weaktest17570629585390.8102536329968526",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:39.114Z"
+  },
+  {
+    "id": "6971907b-25c5-46af-a022-a69061f6a2f4",
+    "username": "testuser1757062954270",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:39.679Z"
+  },
+  {
+    "id": "c860f18b-7be2-4611-9b76-851257a32809",
+    "username": "testuser1757062954270",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:39.693Z"
+  },
+  {
+    "id": "047204de-4ca7-40ab-bb73-b0551e14c713",
+    "username": "testuser1757062954270",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:02:39.707Z"
+  },
+  {
+    "id": "b0bee0e4-d6c7-4367-b777-9df14c6fb5a5",
+    "username": "testuser1757064815950",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:36.542Z"
+  },
+  {
+    "id": "03bf3732-ca91-468c-804b-dd2b8d1174cb",
+    "username": "testuser1757064815950",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:37.133Z"
+  },
+  {
+    "id": "0f1b483f-c2aa-47d8-8154-6923fb002643",
+    "username": "admin",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:37.720Z"
+  },
+  {
+    "id": "57131e22-f4e6-4e89-acff-7049347bf991",
+    "username": "regtest1757064817731",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:38.305Z"
+  },
+  {
+    "id": "3427a3fb-baa5-4b1b-b3d7-69dfb4753e89",
+    "username": "testuser1757064815950",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:38.915Z"
+  },
+  {
+    "id": "32df5731-623a-4b81-ba47-e1744cd27732",
+    "username": "remember1757064818936",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:39.514Z"
+  },
+  {
+    "id": "10337150-0d7f-4846-ab8b-cb42dbb457f0",
+    "username": "remember1757064818936",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:40.100Z"
+  },
+  {
+    "id": "2970235c-d696-48fe-9316-c0dd85f5bcc4",
+    "username": "weaktest17570648201930.8492766100538167",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:40.774Z"
+  },
+  {
+    "id": "18dbf6db-bf06-4582-b5d7-8ba8988c763e",
+    "username": "testuser1757064815950",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:41.339Z"
+  },
+  {
+    "id": "885c6948-bb81-4cb0-9499-dd901e34e922",
+    "username": "testuser1757064815950",
+    "action": "login",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:41.361Z"
+  },
+  {
+    "id": "f0ed690d-afbb-47a9-b071-b969af18f2c7",
+    "username": "weaktest17570648224840.5750755475467442",
+    "action": "register",
+    "details": null,
+    "timestamp": "2025-09-05T09:33:43.061Z"
   }
 ]

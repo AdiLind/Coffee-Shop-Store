@@ -5,32 +5,26 @@ const router = express.Router();
 const { persistenceManager } = require('../modules/persist_module');
 const AuthMiddleware = require('../middleware/auth-middleware');
 const ErrorHandler = require('../modules/error-handler');
+const { validateRequiredFields, validateFieldsMatch } = require('../middleware/validation-middleware');
 
 // POST /api/auth/register - User registration
-router.post('/register', ErrorHandler.asyncWrapper(async (req, res) => {
+router.post('/register', 
+    validateRequiredFields(['username', 'email', 'password', 'confirmPassword'], {
+        errorCode: 'MISSING_FIELDS',
+        customMessage: 'All fields are required: username, email, password, confirmPassword'
+    }),
+    validateFieldsMatch('password', 'confirmPassword', {
+        errorCode: 'PASSWORD_MISMATCH',
+        customMessage: 'Passwords do not match'
+    }),
+    ErrorHandler.asyncWrapper(async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
 
-    // Validation
-    if (!username || !email || !password || !confirmPassword) {
-        return res.status(400).json({
-            success: false,
-            error: 'Missing fields',
-            message: 'All fields are required: username, email, password, confirmPassword'
-        });
-    }
-
-    if (password !== confirmPassword) {
-        return res.status(400).json({
-            success: false,
-            error: 'Password mismatch',
-            message: 'Password and confirm password do not match'
-        });
-    }
-
+    // Password length validation
     if (password.length < 6) {
         return res.status(400).json({
             success: false,
-            error: 'Weak password',
+            error: 'WEAK_PASSWORD',
             message: 'Password must be at least 6 characters long'
         });
     }
@@ -45,7 +39,7 @@ router.post('/register', ErrorHandler.asyncWrapper(async (req, res) => {
     if (existingUser) {
         return res.status(409).json({
             success: false,
-            error: 'User exists',
+            error: 'USER_EXISTS',
             message: 'Username or email already exists'
         });
     }
@@ -84,17 +78,13 @@ router.post('/register', ErrorHandler.asyncWrapper(async (req, res) => {
 }));
 
 // POST /api/auth/login - User login
-router.post('/login', ErrorHandler.asyncWrapper(async (req, res) => {
+router.post('/login', 
+    validateRequiredFields(['username', 'password'], {
+        errorCode: 'MISSING_CREDENTIALS',
+        customMessage: 'Username and password are required'
+    }),
+    ErrorHandler.asyncWrapper(async (req, res) => {
     const { username, password, rememberMe } = req.body;
-
-    // Validation
-    if (!username || !password) {
-        return res.status(400).json({
-            success: false,
-            error: 'Missing credentials',
-            message: 'Username and password are required'
-        });
-    }
 
     // Find user
     const users = await persistenceManager.getAllUsers();
