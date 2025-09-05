@@ -199,58 +199,141 @@ class ReviewManager {
         this.attachReviewEventListeners();
     }
 
+    /**
+     * Render a review card with all its components
+     * @param {Object} review - Review data object
+     * @returns {string} HTML string for the review card
+     */
     renderReview(review) {
-        const reviewDate = new Date(review.createdAt).toLocaleDateString();
-        const isOwner = this.currentUser && this.currentUser.id === review.userId;
-        const isAdmin = this.currentUser && this.currentUser.role === 'admin';
-        const canEdit = isOwner || isAdmin;
-
-        const productInfo = review.productTitle ? 
-            `<div class="review-product">
-                <img src="${review.productImage || '/images/products/placeholder.jpg'}" 
-                     alt="${review.productTitle}" style="width: 40px; height: 40px; border-radius: 5px; margin-right: 10px;">
-                <a href="/pages/reviews.html?productId=${review.productId}" style="text-decoration: none; color: var(--primary-color);">
-                    ${review.productTitle}
-                </a>
-            </div>` : '';
+        const reviewDate = this.formatReviewDate(review.createdAt);
+        const permissions = this.getReviewPermissions(review);
+        const productInfo = this.renderProductInfo(review);
+        const userSection = this.renderUserSection(review, reviewDate, permissions);
+        const controlsSection = this.renderControlsSection(review, permissions);
+        const contentSection = this.renderContentSection(review);
+        const actionsSection = this.renderActionsSection(review);
 
         return `
             <div class="review-card" data-review-id="${review.id}">
                 ${productInfo}
                 <div class="review-header">
-                    <div class="review-user">
-                        <div>
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <strong>${review.username}</strong>
-                                ${review.verified ? '<span class="verified-badge">Verified Purchase</span>' : ''}
-                            </div>
-                            <div class="stars" style="margin-top: 5px;">
-                                ${this.renderStars(review.rating)}
-                            </div>
-                        </div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div class="review-date">${reviewDate}</div>
-                        ${canEdit ? `
-                            <div class="review-controls" style="margin-top: 10px;">
-                                ${isOwner ? `<button class="edit-btn" data-review-id="${review.id}">Edit</button>` : ''}
-                                <button class="delete-btn" data-review-id="${review.id}">Delete</button>
-                            </div>
-                        ` : ''}
-                    </div>
+                    ${userSection}
+                    ${controlsSection}
                 </div>
-                
-                <div class="review-title">${review.title}</div>
-                <div class="review-comment">${review.comment}</div>
-                
-                <div class="review-actions">
-                    <button class="helpful-button" data-review-id="${review.id}">
-                        <span>👍</span>
-                        <span>Helpful (${review.helpful || 0})</span>
-                    </button>
-                </div>
+                ${contentSection}
+                ${actionsSection}
             </div>
         `;
+    }
+
+    /**
+     * Format review creation date for display
+     * @param {string} createdAt - ISO date string
+     * @returns {string} Formatted date string
+     */
+    formatReviewDate(createdAt) {
+        return new Date(createdAt).toLocaleDateString();
+    }
+
+    /**
+     * Get permission flags for current user and review
+     * @param {Object} review - Review data object
+     * @returns {Object} Permission flags
+     */
+    getReviewPermissions(review) {
+        const isOwner = this.currentUser && this.currentUser.id === review.userId;
+        const isAdmin = this.currentUser && this.currentUser.role === 'admin';
+        const canEdit = isOwner || isAdmin;
+        return { isOwner, isAdmin, canEdit };
+    }
+
+    /**
+     * Render product information section if available
+     * @param {Object} review - Review data object
+     * @returns {string} HTML string for product info or empty string
+     */
+    renderProductInfo(review) {
+        if (!review.productTitle) {
+            return '';
+        }
+        
+        return `<div class="review-product">
+            <img src="${review.productImage || '/images/products/placeholder.jpg'}" 
+                 alt="${review.productTitle}" style="width: 40px; height: 40px; border-radius: 5px; margin-right: 10px;">
+            <a href="/pages/reviews.html?productId=${review.productId}" style="text-decoration: none; color: var(--primary-color);">
+                ${review.productTitle}
+            </a>
+        </div>`;
+    }
+
+    /**
+     * Render user information section of review
+     * @param {Object} review - Review data object
+     * @param {string} reviewDate - Formatted date string
+     * @param {Object} permissions - Permission flags
+     * @returns {string} HTML string for user section
+     */
+    renderUserSection(review, reviewDate, permissions) {
+        return `<div class="review-user">
+            <div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <strong>${review.username}</strong>
+                    ${review.verified ? '<span class="verified-badge">Verified Purchase</span>' : ''}
+                </div>
+                <div class="stars" style="margin-top: 5px;">
+                    ${this.renderStars(review.rating)}
+                </div>
+            </div>
+        </div>`;
+    }
+
+    /**
+     * Render controls section (date and edit/delete buttons)
+     * @param {Object} review - Review data object
+     * @param {Object} permissions - Permission flags
+     * @returns {string} HTML string for controls section
+     */
+    renderControlsSection(review, permissions) {
+        const reviewDate = this.formatReviewDate(review.createdAt);
+        const editButton = permissions.isOwner ? 
+            `<button class="edit-btn" data-review-id="${review.id}">Edit</button>` : '';
+        const deleteButton = permissions.canEdit ? 
+            `<button class="delete-btn" data-review-id="${review.id}">Delete</button>` : '';
+        
+        const controlsHtml = permissions.canEdit ? 
+            `<div class="review-controls" style="margin-top: 10px;">
+                ${editButton}
+                ${deleteButton}
+            </div>` : '';
+
+        return `<div style="text-align: right;">
+            <div class="review-date">${reviewDate}</div>
+            ${controlsHtml}
+        </div>`;
+    }
+
+    /**
+     * Render content section (title and comment)
+     * @param {Object} review - Review data object
+     * @returns {string} HTML string for content section
+     */
+    renderContentSection(review) {
+        return `<div class="review-title">${review.title}</div>
+        <div class="review-comment">${review.comment}</div>`;
+    }
+
+    /**
+     * Render actions section (helpful button)
+     * @param {Object} review - Review data object
+     * @returns {string} HTML string for actions section
+     */
+    renderActionsSection(review) {
+        return `<div class="review-actions">
+            <button class="helpful-button" data-review-id="${review.id}">
+                <span>👍</span>
+                <span>Helpful (${review.helpful || 0})</span>
+            </button>
+        </div>`;
     }
 
     renderStars(rating) {

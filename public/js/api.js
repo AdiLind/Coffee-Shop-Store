@@ -67,35 +67,47 @@ class APIClient {
     }
 
     // Authentication endpoints
+    /**
+     * Register a new user account
+     * @param {Object} userData - User registration data
+     * @returns {Promise<Object>} Registration response
+     */
     async register(userData) {
-        return this.request('/auth/register', {
-            method: 'POST',
-            body: JSON.stringify(userData)
-        });
+        return this.post('/auth/register', userData);
     }
 
+    /**
+     * Authenticate user login
+     * @param {Object} credentials - Login credentials
+     * @returns {Promise<Object>} Login response
+     */
     async login(credentials) {
-        return this.request('/auth/login', {
-            method: 'POST',
-            body: JSON.stringify(credentials)
-        });
+        return this.post('/auth/login', credentials);
     }
 
+    /**
+     * Logout current user
+     * @returns {Promise<Object>} Logout response
+     */
     async logout() {
-        return this.request('/auth/logout', {
-            method: 'POST'
-        });
+        return this.post('/auth/logout');
     }
 
+    /**
+     * Get current user profile
+     * @returns {Promise<Object>} User profile data
+     */
     async getProfile() {
-        return this.request('/auth/profile');
+        return this.get('/auth/profile');
     }
 
+    /**
+     * Update user profile
+     * @param {Object} profileData - Updated profile data
+     * @returns {Promise<Object>} Update response
+     */
     async updateProfile(profileData) {
-        return this.request('/auth/profile', {
-            method: 'PUT',
-            body: JSON.stringify(profileData)
-        });
+        return this.put('/auth/profile', profileData);
     }
 
     // Product endpoints

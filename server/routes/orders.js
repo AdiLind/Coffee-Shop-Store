@@ -4,6 +4,11 @@ const { persistenceManager } = require('../modules/persist_module');
 const { asyncWrapper } = require('../modules/error-handler');
 const AuthMiddleware = require('../middleware/auth-middleware');
 const { v4: uuidv4 } = require('uuid');
+const paymentService = require('../services/paymentService');
+const OrderService = require('../services/orderService');
+
+// Initialize order service with persistence manager
+const orderService = new OrderService(persistenceManager);
 
 /**
  * Calculate order totals (subtotal, tax, shipping, total)
@@ -208,67 +213,78 @@ router.get('/details/:orderId', AuthMiddleware.requireAuth, asyncWrapper(async (
     });
 }));
 
-// Process fake payment
+/**
+ * Process payment for an order
+ * Separated concerns: payment validation, processing, and order updates
+ */
 router.post('/payment/:orderId', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
     const { orderId } = req.params;
     const { paymentDetails } = req.body;
     
-    if (!paymentDetails || !paymentDetails.cardNumber || !paymentDetails.expiryDate || !paymentDetails.cvv) {
-        return res.status(400).json({
-            success: false,
-            error: 'MISSING_PAYMENT_DETAILS',
-            message: 'Payment details are required'
+    try {
+        // 1. Validate payment details
+        const validation = paymentService.validatePaymentDetails(paymentDetails);
+        if (!validation.isValid) {
+            return res.status(400).json({
+                success: false,
+                error: 'INVALID_PAYMENT_DETAILS',
+                message: 'Payment validation failed',
+                details: validation.errors
+            });
+        }
+
+        // 2. Get and validate order ownership
+        const order = await orderService.getOrderById(orderId, req.user.id, req.user.role);
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                error: 'ORDER_NOT_FOUND',
+                message: 'Order not found'
+            });
+        }
+
+        // 3. Process payment through payment service
+        const paymentResult = await paymentService.processPayment(paymentDetails, order.totalAmount);
+        const paymentRecord = paymentService.createPaymentRecord(paymentResult);
+
+        // 4. Update order with payment details
+        const updatedOrder = await orderService.processPaymentForOrder(orderId, req.user.id, paymentRecord);
+
+        // 5. Clear user's cart after successful payment
+        await orderService.clearUserCart(req.user.id);
+
+        // 6. Generate response with payment confirmation
+        const confirmation = paymentService.generateConfirmation(paymentResult);
+        
+        res.json({
+            success: true,
+            data: {
+                order: updatedOrder,
+                payment: confirmation
+            },
+            message: 'Payment processed successfully'
         });
+    } catch (error) {
+        // Handle specific service errors
+        if (error.message === 'ACCESS_DENIED') {
+            return res.status(403).json({
+                success: false,
+                error: 'ACCESS_DENIED',
+                message: 'Access denied'
+            });
+        }
+        
+        if (error.message === 'ORDER_ALREADY_COMPLETED') {
+            return res.status(400).json({
+                success: false,
+                error: 'ORDER_ALREADY_COMPLETED',
+                message: 'Order has already been completed'
+            });
+        }
+        
+        // Re-throw unexpected errors for global error handler
+        throw error;
     }
-    
-    // Get order
-    const orders = await persistenceManager.readData('orders.json');
-    const orderIndex = orders.findIndex(order => order.id === orderId);
-    
-    if (orderIndex === -1) {
-        return res.status(404).json({
-            success: false,
-            error: 'ORDER_NOT_FOUND',
-            message: 'Order not found'
-        });
-    }
-    
-    const order = orders[orderIndex];
-    
-    // Ensure user owns this order
-    if (req.user.id !== order.userId) {
-        return res.status(403).json({
-            success: false,
-            error: 'ACCESS_DENIED',
-            message: 'Access denied'
-        });
-    }
-    
-    // Simulate payment processing
-    const last4 = paymentDetails.cardNumber.slice(-4);
-    const transactionId = `tx_${uuidv4().substring(0, 8)}`;
-    
-    // Update order with payment details
-    orders[orderIndex].status = 'completed';
-    orders[orderIndex].completedAt = new Date().toISOString();
-    orders[orderIndex].paymentDetails = {
-        method: 'credit-card',
-        last4: last4,
-        transactionId: transactionId,
-        processedAt: new Date().toISOString()
-    };
-    
-    // Save updated orders
-    await persistenceManager.writeData('orders.json', orders);
-    
-    // Clear user's cart
-    await persistenceManager.updateUserCart(req.user.id, { items: [] });
-    
-    res.json({
-        success: true,
-        data: orders[orderIndex],
-        message: 'Payment processed successfully'
-    });
 }));
 
 module.exports = router;
