@@ -77,6 +77,7 @@ router.get('/orders', AuthMiddleware.requireAuth, AuthMiddleware.requireAdmin, a
 router.post('/products', asyncWrapper(async (req, res) => {
     res.status(501).json({
         success: false,
+        error: 'NOT_IMPLEMENTED',
         message: 'Admin product management will be enhanced in Phase 4'
     });
 }));

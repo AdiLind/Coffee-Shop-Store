@@ -42,6 +42,7 @@ router.put('/update/:userId/:productId', asyncWrapper(async (req, res) => {
     if (!quantity || quantity < 1) {
         return res.status(400).json({
             success: false,
+            error: 'INVALID_QUANTITY',
             message: 'Quantity must be a positive number'
         });
     }
@@ -54,6 +55,7 @@ router.put('/update/:userId/:productId', asyncWrapper(async (req, res) => {
     if (itemIndex === -1) {
         return res.status(404).json({
             success: false,
+            error: 'ITEM_NOT_FOUND',
             message: 'Item not found in cart'
         });
     }
@@ -85,6 +87,7 @@ router.delete('/remove/:userId/:productId', asyncWrapper(async (req, res) => {
     if (cart.items.length === originalLength) {
         return res.status(404).json({
             success: false,
+            error: 'ITEM_NOT_FOUND',
             message: 'Item not found in cart'
         });
     }

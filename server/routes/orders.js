@@ -35,6 +35,7 @@ router.get('/:userId', AuthMiddleware.requireAuth, asyncWrapper(async (req, res)
     if (req.user.id !== userId && req.user.role !== 'admin') {
         return res.status(403).json({
             success: false,
+            error: 'ACCESS_DENIED',
             message: 'Access denied'
         });
     }
@@ -60,6 +61,7 @@ router.post('/create', AuthMiddleware.requireAuth, asyncWrapper(async (req, res)
     if (!customerInfo || !customerInfo.name || !customerInfo.email || !customerInfo.address) {
         return res.status(400).json({
             success: false,
+            error: 'MISSING_CUSTOMER_INFO',
             message: 'Customer information is required (name, email, address)'
         });
     }
@@ -70,6 +72,7 @@ router.post('/create', AuthMiddleware.requireAuth, asyncWrapper(async (req, res)
     if (!cart.items || cart.items.length === 0) {
         return res.status(400).json({
             success: false,
+            error: 'EMPTY_CART',
             message: 'Cart is empty'
         });
     }
@@ -116,6 +119,7 @@ router.post('/', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
     if (req.user.id !== userId && req.user.role !== 'admin') {
         return res.status(403).json({
             success: false,
+            error: 'ACCESS_DENIED',
             message: 'Access denied'
         });
     }
@@ -124,6 +128,7 @@ router.post('/', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
     if (!items || !Array.isArray(items) || items.length === 0) {
         return res.status(400).json({
             success: false,
+            error: 'MISSING_ORDER_ITEMS',
             message: 'Order items are required'
         });
     }
@@ -131,6 +136,7 @@ router.post('/', AuthMiddleware.requireAuth, asyncWrapper(async (req, res) => {
     if (!totalAmount || !shippingAddress) {
         return res.status(400).json({
             success: false,
+            error: 'MISSING_REQUIRED_FIELDS',
             message: 'Total amount and shipping address are required'
         });
     }
@@ -181,6 +187,7 @@ router.get('/details/:orderId', AuthMiddleware.requireAuth, asyncWrapper(async (
     if (!order) {
         return res.status(404).json({
             success: false,
+            error: 'ORDER_NOT_FOUND',
             message: 'Order not found'
         });
     }
@@ -189,6 +196,7 @@ router.get('/details/:orderId', AuthMiddleware.requireAuth, asyncWrapper(async (
     if (req.user.id !== order.userId && req.user.role !== 'admin') {
         return res.status(403).json({
             success: false,
+            error: 'ACCESS_DENIED',
             message: 'Access denied'
         });
     }
@@ -208,6 +216,7 @@ router.post('/payment/:orderId', AuthMiddleware.requireAuth, asyncWrapper(async 
     if (!paymentDetails || !paymentDetails.cardNumber || !paymentDetails.expiryDate || !paymentDetails.cvv) {
         return res.status(400).json({
             success: false,
+            error: 'MISSING_PAYMENT_DETAILS',
             message: 'Payment details are required'
         });
     }
@@ -219,6 +228,7 @@ router.post('/payment/:orderId', AuthMiddleware.requireAuth, asyncWrapper(async 
     if (orderIndex === -1) {
         return res.status(404).json({
             success: false,
+            error: 'ORDER_NOT_FOUND',
             message: 'Order not found'
         });
     }
@@ -229,6 +239,7 @@ router.post('/payment/:orderId', AuthMiddleware.requireAuth, asyncWrapper(async 
     if (req.user.id !== order.userId) {
         return res.status(403).json({
             success: false,
+            error: 'ACCESS_DENIED',
             message: 'Access denied'
         });
     }

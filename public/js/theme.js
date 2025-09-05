@@ -187,73 +187,259 @@ class ThemeManager {
             return;
         }
 
-        // Create theme control panel
+        this.injectThemeStyles();
+        const themeControls = this.buildThemeControlsElement();
+        document.body.appendChild(themeControls);
+    }
+
+    /**
+     * Creates the main theme controls container element with HTML structure
+     * @returns {HTMLElement} Complete theme controls element
+     */
+    buildThemeControlsElement() {
         const themeControls = document.createElement('div');
         themeControls.id = 'theme-controls';
         themeControls.className = 'theme-controls';
-        themeControls.innerHTML = `
-            <button id="theme-toggle-btn" class="theme-toggle-btn" title="Theme Settings">
-                <span class="theme-icon">🎨</span>
-            </button>
-            
-            <div id="theme-panel" class="theme-panel">
-                <h3>Theme Settings</h3>
-                
-                <div class="theme-section">
-                    <label>Color Theme:</label>
-                    <div class="theme-options">
-                        <button class="theme-option" data-theme="light">
-                            <span class="theme-preview light-preview"></span>
-                            Light
-                        </button>
-                        <button class="theme-option" data-theme="dark">
-                            <span class="theme-preview dark-preview"></span>
-                            Dark
-                        </button>
-                        <button class="theme-option" data-theme="coffee">
-                            <span class="theme-preview coffee-preview"></span>
-                            Coffee
-                        </button>
-                        <button class="theme-option" data-theme="sepia">
-                            <span class="theme-preview sepia-preview"></span>
-                            Sepia
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="theme-section">
-                    <label>Font Size:</label>
-                    <div class="font-size-options">
-                        <button class="font-size-option" data-size="small">Small</button>
-                        <button class="font-size-option" data-size="normal">Normal</button>
-                        <button class="font-size-option" data-size="large">Large</button>
-                        <button class="font-size-option" data-size="xlarge">XL</button>
-                    </div>
-                </div>
-                
-                <div class="theme-section">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="auto-switch-checkbox">
-                        Auto-switch with system
-                    </label>
-                </div>
-                
-                <div class="theme-section">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="transitions-checkbox" checked>
-                        Enable transitions
-                    </label>
-                </div>
-                
-                <div class="theme-actions">
-                    <button id="reset-theme-btn" class="btn-secondary">Reset to Default</button>
-                </div>
-            </div>
-        `;
+        
+        const toggleButton = this.createToggleButton();
+        const themePanel = this.createThemePanel();
+        
+        themeControls.appendChild(toggleButton);
+        themeControls.appendChild(themePanel);
+        
+        return themeControls;
+    }
 
-        // Add styles
+    /**
+     * Creates the theme toggle button
+     * @returns {HTMLElement} Toggle button element
+     */
+    createToggleButton() {
+        const button = document.createElement('button');
+        button.id = 'theme-toggle-btn';
+        button.className = 'theme-toggle-btn';
+        button.title = 'Theme Settings';
+        
+        const icon = document.createElement('span');
+        icon.className = 'theme-icon';
+        icon.textContent = '🎨';
+        
+        button.appendChild(icon);
+        return button;
+    }
+
+    /**
+     * Creates the theme panel with all sections
+     * @returns {HTMLElement} Theme panel element
+     */
+    createThemePanel() {
+        const panel = document.createElement('div');
+        panel.id = 'theme-panel';
+        panel.className = 'theme-panel';
+        
+        const title = this.createPanelTitle();
+        const colorSection = this.createColorThemeSection();
+        const fontSection = this.createFontSizeSection();
+        const autoSwitchSection = this.createAutoSwitchSection();
+        const transitionsSection = this.createTransitionsSection();
+        const actionsSection = this.createActionsSection();
+        
+        panel.appendChild(title);
+        panel.appendChild(colorSection);
+        panel.appendChild(fontSection);
+        panel.appendChild(autoSwitchSection);
+        panel.appendChild(transitionsSection);
+        panel.appendChild(actionsSection);
+        
+        return panel;
+    }
+
+    /**
+     * Creates the panel title
+     * @returns {HTMLElement} Title element
+     */
+    createPanelTitle() {
+        const title = document.createElement('h3');
+        title.textContent = 'Theme Settings';
+        return title;
+    }
+
+    /**
+     * Creates the color theme selection section
+     * @returns {HTMLElement} Color theme section
+     */
+    createColorThemeSection() {
+        const section = document.createElement('div');
+        section.className = 'theme-section';
+        
+        const label = document.createElement('label');
+        label.textContent = 'Color Theme:';
+        
+        const optionsContainer = document.createElement('div');
+        optionsContainer.className = 'theme-options';
+        
+        const themeButtons = this.createThemeButtons();
+        themeButtons.forEach(button => optionsContainer.appendChild(button));
+        
+        section.appendChild(label);
+        section.appendChild(optionsContainer);
+        
+        return section;
+    }
+
+    /**
+     * Creates individual theme option buttons
+     * @returns {HTMLElement[]} Array of theme button elements
+     */
+    createThemeButtons() {
+        const themes = [
+            { key: 'light', name: 'Light', previewClass: 'light-preview' },
+            { key: 'dark', name: 'Dark', previewClass: 'dark-preview' },
+            { key: 'coffee', name: 'Coffee', previewClass: 'coffee-preview' },
+            { key: 'sepia', name: 'Sepia', previewClass: 'sepia-preview' }
+        ];
+        
+        return themes.map(theme => {
+            const button = document.createElement('button');
+            button.className = 'theme-option';
+            button.dataset.theme = theme.key;
+            
+            const preview = document.createElement('span');
+            preview.className = `theme-preview ${theme.previewClass}`;
+            
+            button.appendChild(preview);
+            button.appendChild(document.createTextNode(theme.name));
+            
+            return button;
+        });
+    }
+
+    /**
+     * Creates the font size selection section
+     * @returns {HTMLElement} Font size section
+     */
+    createFontSizeSection() {
+        const section = document.createElement('div');
+        section.className = 'theme-section';
+        
+        const label = document.createElement('label');
+        label.textContent = 'Font Size:';
+        
+        const optionsContainer = document.createElement('div');
+        optionsContainer.className = 'font-size-options';
+        
+        const fontButtons = this.createFontSizeButtons();
+        fontButtons.forEach(button => optionsContainer.appendChild(button));
+        
+        section.appendChild(label);
+        section.appendChild(optionsContainer);
+        
+        return section;
+    }
+
+    /**
+     * Creates individual font size option buttons
+     * @returns {HTMLElement[]} Array of font size button elements
+     */
+    createFontSizeButtons() {
+        const sizes = [
+            { key: 'small', name: 'Small' },
+            { key: 'normal', name: 'Normal' },
+            { key: 'large', name: 'Large' },
+            { key: 'xlarge', name: 'XL' }
+        ];
+        
+        return sizes.map(size => {
+            const button = document.createElement('button');
+            button.className = 'font-size-option';
+            button.dataset.size = size.key;
+            button.textContent = size.name;
+            
+            return button;
+        });
+    }
+
+    /**
+     * Creates the auto-switch checkbox section
+     * @returns {HTMLElement} Auto-switch section
+     */
+    createAutoSwitchSection() {
+        return this.createCheckboxSection('auto-switch-checkbox', 'Auto-switch with system');
+    }
+
+    /**
+     * Creates the transitions checkbox section
+     * @returns {HTMLElement} Transitions section
+     */
+    createTransitionsSection() {
+        return this.createCheckboxSection('transitions-checkbox', 'Enable transitions', true);
+    }
+
+    /**
+     * Creates a checkbox section with label
+     * @param {string} id - Checkbox ID
+     * @param {string} labelText - Label text
+     * @param {boolean} defaultChecked - Default checked state
+     * @returns {HTMLElement} Checkbox section element
+     */
+    createCheckboxSection(id, labelText, defaultChecked = false) {
+        const section = document.createElement('div');
+        section.className = 'theme-section';
+        
+        const label = document.createElement('label');
+        label.className = 'checkbox-label';
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = id;
+        if (defaultChecked) {
+            checkbox.checked = true;
+        }
+        
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(labelText));
+        section.appendChild(label);
+        
+        return section;
+    }
+
+    /**
+     * Creates the actions section with reset button
+     * @returns {HTMLElement} Actions section
+     */
+    createActionsSection() {
+        const section = document.createElement('div');
+        section.className = 'theme-actions';
+        
+        const resetButton = document.createElement('button');
+        resetButton.id = 'reset-theme-btn';
+        resetButton.className = 'btn-secondary';
+        resetButton.textContent = 'Reset to Default';
+        
+        section.appendChild(resetButton);
+        return section;
+    }
+
+    /**
+     * Injects theme control styles into the document head
+     */
+    injectThemeStyles() {
+        if (document.getElementById('theme-controls-styles')) {
+            return; // Styles already injected
+        }
+        
         const themeStyles = document.createElement('style');
-        themeStyles.textContent = `
+        themeStyles.id = 'theme-controls-styles';
+        themeStyles.textContent = this.getThemeControlsCSS();
+        document.head.appendChild(themeStyles);
+    }
+
+    /**
+     * Returns the CSS styles for theme controls
+     * @returns {string} CSS styles as string
+     */
+    getThemeControlsCSS() {
+        return `
             .theme-controls {
                 position: fixed;
                 top: 20px;
@@ -433,9 +619,6 @@ class ThemeManager {
                 }
             }
         `;
-
-        document.head.appendChild(themeStyles);
-        document.body.appendChild(themeControls);
     }
 
     setupEventListeners() {

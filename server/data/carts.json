@@ -255,5 +255,29 @@
       }
     ],
     "updatedAt": "2025-09-04T21:23:59.395Z"
+  },
+  {
+    "userId": "2f8e0495-5cf8-4a21-bb07-5d5826960026",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Professional Espresso Machine"
+      }
+    ],
+    "updatedAt": "2025-09-05T08:39:37.994Z"
+  },
+  {
+    "userId": "0eca689b-0edf-4c34-b5cd-6aab8a53ed4a",
+    "items": [
+      {
+        "productId": "prod-1",
+        "quantity": 1,
+        "price": 299.99,
+        "title": "Professional Espresso Machine"
+      }
+    ],
+    "updatedAt": "2025-09-05T08:42:14.801Z"
   }
 ]
